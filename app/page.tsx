@@ -88,10 +88,10 @@ export default function Home() {
     <section className="directions" id="directions"><div className="container">
       <div className="section-heading"><h2>Найдите<br />своё движение</h2><p>Три направления. Один подход —<br />бережное внимание к телу.</p></div>
       <div className="direction-grid">{[
-        ["01", "Реформер", "Работа с сопротивлением на специальном оборудовании. Сила, контроль и точность движения.", "generated-1789461307080.png"],
-        ["02", "Пилатес", "Упражнения на коврике с вниманием к дыханию, устойчивости и координации.", "generated-1789461307602.png"],
-        ["03", "Стрейчинг", "Мягкая работа над гибкостью и подвижностью. Возможность замедлиться и снять повседневное напряжение.", "generated-1789461308072.png"]
-      ].map(([n, title, text, image]) => <article className="direction" key={n}><img src={`/images/${image}`} alt="" /><p className="number">{n}</p><h3>{title}</h3><p>{text}</p></article>)}</div>
+        ["01", "Пилатес", "Упражнения на коврике с вниманием к дыханию, устойчивости и координации.", "generated-1789461307080.png"],
+        ["02", "Стрейчинг", "Мягкая работа над гибкостью и подвижностью. Возможность замедлиться и снять повседневное напряжение.", "generated-1789461307602.png"],
+        ["03", "Реформер", "Работа с сопротивлением на специальном оборудовании. Сила, контроль и точность движения.", "generated-1789461308072.png"]
+      ].map(([n, title, text, image]) => <article className="direction" key={n}><img src={`/images/${image}`} alt={`Занятие: ${title}`} /><p className="number">{n}</p><h3>{title}</h3><p>{text}</p></article>)}</div>
     </div></section>
 
     <section className="opening container" id="opening"><div className="opening__copy"><h2>Скоро встретимся</h2><p className="opening__lead">Готовим пространство<br />для ваших новых привычек.</p><p>Студия на этапе запуска. Дату открытия и подробности сообщим, когда всё будет готово.</p></div>
