@@ -53,9 +53,17 @@ export default function Home() {
     if (errors[field]) setErrors((current) => ({ ...current, [field]: undefined }));
   }
 
+  const logo = (
+    <a className="logo" href="#top" aria-label="KATFIT BALANCE">
+      <img src="/images/katfit-cat.svg" alt="" width={32} height={32} />
+      <span>KATFIT</span>
+      <span>BALANCE</span>
+    </a>
+  );
+
   return <main>
     <header className="header container">
-      <a className="logo" href="#top">СТУДИЯ <span>/ ПИЛАТЕС</span></a>
+      {logo}
       <button className="menu-button" type="button" aria-label="Открыть меню" aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen((open) => !open)}><span /><span /><span /></button>
       <nav id="main-navigation" className={menuOpen ? "nav nav--open" : "nav"} aria-label="Основная навигация"><a href="#about" onClick={() => setMenuOpen(false)}>О студии</a><a href="#directions" onClick={() => setMenuOpen(false)}>Направления</a><a href="#opening" onClick={() => setMenuOpen(false)}>Открытие</a></nav>
       <a className="button button--small" href="#opening">Узнать об открытии</a>
@@ -97,6 +105,6 @@ export default function Home() {
         {status !== "idle" && <p className={`form-status form-status--${status}`} role={status === "error" ? "alert" : "status"}>{message}</p>}
       </form>
     </section>
-    <footer><div className="container footer"><a className="logo" href="#top">СТУДИЯ <span>/ ПИЛАТЕС</span></a><div><h2>Будем ближе. Скоро.</h2><p>Адрес и способы связи появятся здесь ближе к открытию.</p></div><small>Реформер · Пилатес · Стрейчинг<br /><a href="/privacy-policy">Политика обработки персональных данных</a></small></div></footer>
+    <footer><div className="container footer">{logo}<div><h2>Будем ближе. Скоро.</h2><p>Адрес и способы связи появятся здесь ближе к открытию.</p></div><small>Реформер · Пилатес · Стрейчинг<br /><a href="/privacy-policy">Политика обработки персональных данных</a></small></div></footer>
   </main>;
 }

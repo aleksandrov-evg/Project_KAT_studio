@@ -6,13 +6,4191 @@
       "id": "bi8Au",
       "x": 0,
       "y": 0,
-      "name": "Frame",
+      "name": "01 / Desktop · 1440",
       "clip": true,
-      "width": 800,
-      "height": 600,
+      "width": 1440,
       "fill": "#FFFFFF",
-      "layout": "none"
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "wxlwj",
+          "name": "Навигация",
+          "width": "fill_container",
+          "height": 88,
+          "padding": [
+            0,
+            80
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "T50Ysd",
+              "name": "Logo",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "id": "c4ssp",
+                  "type": "ref",
+                  "ref": "ErCJn",
+                  "name": "Logo Mark",
+                  "width": 32,
+                  "height": 32
+                },
+                {
+                  "type": "text",
+                  "id": "VlN9y",
+                  "name": "Logo Katfit",
+                  "fill": "$ink",
+                  "content": "KATFIT",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 18,
+                  "fontWeight": "700",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "text",
+                  "id": "OVZ3j",
+                  "name": "Logo Balance",
+                  "fill": "$cta",
+                  "content": "BALANCE",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 18,
+                  "fontWeight": "700",
+                  "letterSpacing": 1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "lMHI3",
+              "name": "Ссылки меню",
+              "gap": 32,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "pKkTB",
+                  "name": "О студии",
+                  "fill": "$ink",
+                  "content": "О студии",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "aQ6QR",
+                  "name": "Направления",
+                  "fill": "$ink",
+                  "content": "Направления",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "Nvmry",
+                  "name": "Открытие",
+                  "fill": "$ink",
+                  "content": "Открытие",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "IHNd3",
+              "name": "CTA / Узнать об открытии",
+              "height": 48,
+              "fill": "$cta",
+              "cornerRadius": 28,
+              "gap": 16,
+              "padding": [
+                0,
+                24
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "VlAZJ",
+                  "name": "Узнать об открытии",
+                  "fill": "#FFFFFF",
+                  "content": "Узнать об открытии",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "icon",
+                  "id": "PHo8m",
+                  "name": "Стрелка",
+                  "width": 18,
+                  "height": 18,
+                  "icon": "arrow-up-right",
+                  "library": "lucide",
+                  "fill": "#FFFFFF"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "z5UBpP",
+          "name": "Первый экран",
+          "width": "fill_container",
+          "gap": 64,
+          "padding": [
+            40,
+            80,
+            80,
+            80
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "j0qO4",
+              "name": "Обещание студии",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 26,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "FUsF3",
+                  "name": "Статус открытия",
+                  "fill": "#F5D0D6",
+                  "cornerRadius": 6,
+                  "padding": [
+                    7,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "fKek0",
+                      "name": "СКОРО ОТКРЫТИЕ",
+                      "fill": "#B84A5A",
+                      "content": "СКОРО ОТКРЫТИЕ",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "De2fa",
+                  "name": "БОЛЬШЕ ДВИЖЕНИЯ.\nБЛИЖЕ К СЕБЕ.",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "БОЛЬШЕ ДВИЖЕНИЯ.\nБЛИЖЕ К СЕБЕ.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 46,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "text",
+                  "id": "JZ4Ka",
+                  "name": "Камерная студия реформера, пилатеса и стрейчинга. Пространство, где можно замедлиться и почувствовать своё тело.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Камерная студия реформера, пилатеса и стрейчинга. Пространство, где можно замедлиться и почувствовать своё тело.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "HBRtP",
+                  "name": "CTA / Узнать об открытии",
+                  "height": 48,
+                  "fill": "$cta",
+                  "cornerRadius": 28,
+                  "gap": 16,
+                  "padding": [
+                    0,
+                    24
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "lhZh9",
+                      "name": "Узнать об открытии",
+                      "fill": "#FFFFFF",
+                      "content": "Узнать об открытии",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "GMAC2",
+                      "name": "Стрелка",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#FFFFFF"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "TWAbY",
+                  "name": "Оставьте контакт — пригласим, когда всё будет готово.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Оставьте контакт — пригласим, когда всё будет готово.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "SyC8z",
+              "name": "Атмосферный визуал · концепция",
+              "width": 568,
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 16,
+                  "id": "Uny2u",
+                  "name": "Пилатес в мягком дневном свете",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/generated-1789461263769.png",
+                    "mode": "fill"
+                  },
+                  "width": "fill_container",
+                  "height": 568
+                },
+                {
+                  "type": "text",
+                  "id": "RahQv",
+                  "name": "ДВИЖЕНИЕ В СВОЁМ РИТМЕ",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "ДВИЖЕНИЕ В СВОЁМ РИТМЕ",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 11,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "h3GTpZ",
+          "name": "О студии",
+          "width": "fill_container",
+          "fill": "$soft",
+          "layout": "vertical",
+          "gap": 44,
+          "padding": 80,
+          "children": [
+            {
+              "type": "frame",
+              "id": "oBiUA",
+              "name": "Редакционный заголовок",
+              "width": "fill_container",
+              "gap": 64,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "PwEZm",
+                  "name": "МЕСТО, ГДЕ\nВАМ ХОРОШО",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "МЕСТО, ГДЕ\nВАМ ХОРОШО",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 36,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "xkHwZ",
+                  "name": "Подход",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "GpFd6",
+                      "name": "Мы создаём студию с вниманием к простым вещам: свету, пространству и тому, как вы чувствуете себя на занятии.",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Мы создаём студию с вниманием к простым вещам: свету, пространству и тому, как вы чувствуете себя на занятии.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 18,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Gg60P",
+                      "name": "Без гонки за результатом. С интересом к движению.",
+                      "fill": "$cta",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Без гонки за результатом. С интересом к движению.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Caveat",
+                      "fontSize": 28,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "xLMYI",
+              "name": "Принципы",
+              "width": "fill_container",
+              "gap": 40,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "k5sCsB",
+                  "name": "01 / В своём темпе",
+                  "width": "fill_container",
+                  "stroke": "#DDDDDD",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": [
+                    24,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "L2V1Qa",
+                      "name": "01 / В своём темпе",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "01 / В своём темпе",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "tQUtQ",
+                      "name": "Начните с комфортной нагрузки и двигайтесь постепенно.",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Начните с комфортной нагрузки и двигайтесь постепенно.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "zi61d",
+                  "name": "02 / С вниманием к вам",
+                  "width": "fill_container",
+                  "stroke": "#DDDDDD",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": [
+                    24,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ally7",
+                      "name": "02 / С вниманием к вам",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "02 / С вниманием к вам",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "cKbW9",
+                      "name": "Техника, понятные объяснения и поддержка на занятиях.",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Техника, понятные объяснения и поддержка на занятиях.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "KLSKo",
+                  "name": "03 / Для себя",
+                  "width": "fill_container",
+                  "stroke": "#DDDDDD",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": [
+                    24,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "z638J",
+                      "name": "03 / Для себя",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "03 / Для себя",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "jCaci",
+                      "name": "Время, чтобы переключиться с повседневных дел на движение.",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Время, чтобы переключиться с повседневных дел на движение.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "OxRlb",
+          "name": "Направления",
+          "width": "fill_container",
+          "fill": "$pink",
+          "layout": "vertical",
+          "gap": 40,
+          "padding": 80,
+          "children": [
+            {
+              "type": "frame",
+              "id": "aNht4",
+              "name": "Заголовок направлений",
+              "width": "fill_container",
+              "gap": 64,
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "hNIyH",
+                  "name": "НАЙДИТЕ\nСВОЁ ДВИЖЕНИЕ",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "НАЙДИТЕ\nСВОЁ ДВИЖЕНИЕ",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 36,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "text",
+                  "id": "un10v",
+                  "name": "Три направления. Один подход —\nбережное внимание к телу.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Три направления. Один подход —\nбережное внимание к телу.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "S2KYN",
+              "name": "Три направления",
+              "width": "fill_container",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Uf0YI",
+                  "name": "РЕФОРМЕР",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 18,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 16,
+                      "id": "dduNH",
+                      "name": "Визуал / РЕФОРМЕР",
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "images/generated-1789461308072.png",
+                        "mode": "fill"
+                      },
+                      "width": "fill_container",
+                      "height": 300
+                    },
+                    {
+                      "type": "text",
+                      "id": "ns8gG",
+                      "name": "01 / РЕФОРМЕР",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "01 / РЕФОРМЕР",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 20,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "xE3KN",
+                      "name": "Работа с сопротивлением на специальном оборудовании. Сила, контроль и точность движения.",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Работа с сопротивлением на специальном оборудовании. Сила, контроль и точность движения.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "wRG0G",
+                  "name": "ПИЛАТЕС",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 18,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 16,
+                      "id": "OTgNO",
+                      "name": "Визуал / ПИЛАТЕС",
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "images/generated-1789461307080.png",
+                        "mode": "fill"
+                      },
+                      "width": "fill_container",
+                      "height": 300
+                    },
+                    {
+                      "type": "text",
+                      "id": "BPUoZ",
+                      "name": "02 / ПИЛАТЕС",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "02 / ПИЛАТЕС",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 20,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Eys7d",
+                      "name": "Упражнения на коврике с вниманием к дыханию, устойчивости и координации.",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Упражнения на коврике с вниманием к дыханию, устойчивости и координации.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "N7b67",
+                  "name": "СТРЕЙЧИНГ",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 18,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 16,
+                      "id": "dHpJW",
+                      "name": "Визуал / СТРЕЙЧИНГ",
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "images/generated-1789461307602.png",
+                        "mode": "fill"
+                      },
+                      "width": "fill_container",
+                      "height": 300
+                    },
+                    {
+                      "type": "text",
+                      "id": "sZuD7",
+                      "name": "03 / СТРЕЙЧИНГ",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "03 / СТРЕЙЧИНГ",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 20,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "DIGqr",
+                      "name": "Мягкая работа над гибкостью и подвижностью. Возможность замедлиться и снять повседневное напряжение.",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Мягкая работа над гибкостью и подвижностью. Возможность замедлиться и снять повседневное напряжение.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "J4j3ex",
+          "name": "Открытие",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "gap": 64,
+          "padding": 80,
+          "children": [
+            {
+              "type": "frame",
+              "id": "axMVQ",
+              "name": "Приглашение",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "PfWu2",
+                  "name": "СКОРО ВСТРЕТИМСЯ",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "СКОРО ВСТРЕТИМСЯ",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 36,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "text",
+                  "id": "g5Z9jU",
+                  "name": "Готовим пространство для ваших новых привычек.",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Готовим пространство для ваших новых привычек.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 24,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "G9igB3",
+                  "name": "Студия на этапе запуска. Дату открытия и подробности сообщим, когда всё будет готово.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Студия на этапе запуска. Дату открытия и подробности сообщим, когда всё будет готово.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Dr81W",
+              "name": "Форма уведомления",
+              "width": 568,
+              "layout": "vertical",
+              "gap": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "GRS61",
+                  "name": "Узнайте об открытии первыми",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Узнайте об открытии первыми",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 22,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "cRG5g",
+                  "name": "Оставьте имя и удобный контакт для приглашения.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Оставьте имя и удобный контакт для приглашения.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "JZF6z",
+                  "name": "Ваше имя",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Z3S5k",
+                      "name": "Ваше имя",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Ваше имя",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "t4l0y",
+                      "name": "Поле / Ваше имя",
+                      "width": "fill_container",
+                      "height": 52,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 16,
+                      "stroke": "#D5D5D5",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "padding": [
+                        14,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "d1IkL",
+                          "name": "Как к вам обращаться",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Как к вам обращаться",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "rtNrj",
+                  "name": "Телефон или e-mail",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ZUARS",
+                      "name": "Телефон или e-mail",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Телефон или e-mail",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pT3UU",
+                      "name": "Поле / Телефон или e-mail",
+                      "width": "fill_container",
+                      "height": 52,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 16,
+                      "stroke": "#D5D5D5",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "padding": [
+                        14,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "t4CWW",
+                          "name": "+7 или name@example.ru",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "+7 или name@example.ru",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "v4CBGY",
+                  "name": "Согласия пользователя",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "NcFcZ",
+                      "name": "Согласие · обработка данных",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "l3cexG",
+                          "name": "Чекбокс · область 44",
+                          "width": 44,
+                          "height": 44,
+                          "layout": "vertical",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "rectangle",
+                              "cornerRadius": 4,
+                              "id": "m6da8",
+                              "name": "Чекбокс · пустой",
+                              "width": 20,
+                              "height": 20,
+                              "stroke": "#6B6B6B",
+                              "strokeWidth": 1.5
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "QKUF4",
+                          "name": "Текст согласия",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "padding": [
+                            7,
+                            0,
+                            0,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "C3WvXr",
+                              "name": "Даю согласие на обработку моих персональных данных в соответствии с",
+                              "fill": "$muted",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Даю согласие на обработку моих персональных данных в соответствии с",
+                              "lineHeight": 1.4,
+                              "fontFamily": "Montserrat",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "a8Ey0B",
+                              "name": "Политикой обработки персональных данных",
+                              "fill": "$cta",
+                              "content": "Политикой обработки персональных данных",
+                              "fontFamily": "Montserrat",
+                              "fontSize": 11,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "xYVGT",
+                      "name": "Согласие · уведомления",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "c33pT",
+                          "name": "Чекбокс · область 44",
+                          "width": 44,
+                          "height": 44,
+                          "layout": "vertical",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "rectangle",
+                              "cornerRadius": 4,
+                              "id": "rIlPF",
+                              "name": "Чекбокс · пустой",
+                              "width": 20,
+                              "height": 20,
+                              "stroke": "#6B6B6B",
+                              "strokeWidth": 1.5
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "XQnIo",
+                          "name": "Текст согласия",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "padding": [
+                            7,
+                            0,
+                            0,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "b91Nvd",
+                              "name": "Согласен(-на) получать информацию об открытии студии и условиях запуска по указанному контакту.",
+                              "fill": "$muted",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Согласен(-на) получать информацию об открытии студии и условиях запуска по указанному контакту.",
+                              "lineHeight": 1.4,
+                              "fontFamily": "Montserrat",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "ll0Bz",
+                              "name": "Условия согласия на уведомления",
+                              "fill": "$cta",
+                              "content": "Условия согласия на уведомления",
+                              "fontFamily": "Montserrat",
+                              "fontSize": 11,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "L3JX4A",
+                  "name": "CTA / Сообщить мне об открытии",
+                  "width": "fill_container",
+                  "height": 48,
+                  "fill": "$cta",
+                  "cornerRadius": 28,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "x3IgU",
+                      "name": "Сообщить мне об открытии",
+                      "fill": "#FFFFFF",
+                      "content": "Сообщить мне об открытии",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ewLjf",
+          "name": "Контакты и футер",
+          "width": "fill_container",
+          "fill": "#2C2C2C",
+          "layout": "vertical",
+          "gap": 40,
+          "padding": [
+            56,
+            80,
+            40,
+            80
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "k9I7qv",
+              "name": "Контакты",
+              "width": "fill_container",
+              "gap": 64,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "H7y4r",
+                  "name": "СТУДИЯ / ПИЛАТЕС",
+                  "fill": "#FFFFFF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "СТУДИЯ / ПИЛАТЕС",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "kKo2o",
+                  "name": "Будущие контакты",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "BZpCT",
+                      "name": "Будем ближе. Скоро.",
+                      "fill": "#FFFFFF",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Будем ближе. Скоро.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 24,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "w2ySqd",
+                      "name": "Адрес и способы связи появятся здесь ближе к открытию.",
+                      "fill": "#FFFFFFAA",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Адрес и способы связи появятся здесь ближе к открытию.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "QYmTf",
+              "name": "Нижняя строка",
+              "width": "fill_container",
+              "stroke": "#FFFFFF33",
+              "strokeWidth": {
+                "top": 1
+              },
+              "gap": 40,
+              "padding": [
+                24,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "AvJnY",
+                  "name": "Реформер · Пилатес · Стрейчинг",
+                  "fill": "#FFFFFFAA",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Реформер · Пилатес · Стрейчинг",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "A5TkR",
+                  "name": "Политика обработки персональных данных",
+                  "fill": "#FFFFFFAA",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Политика обработки персональных данных",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "gwMNJ",
+      "x": 1560,
+      "y": 0,
+      "name": "02 / Tablet · 768",
+      "clip": true,
+      "width": 768,
+      "fill": "#FFFFFF",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "S6pgfa",
+          "name": "Навигация",
+          "width": "fill_container",
+          "height": 72,
+          "padding": [
+            0,
+            40
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "JOMbA",
+              "name": "Logo",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "id": "HpC4g",
+                  "type": "ref",
+                  "ref": "ErCJn",
+                  "name": "Logo Mark",
+                  "width": 32,
+                  "height": 32
+                },
+                {
+                  "type": "text",
+                  "id": "hU44d",
+                  "name": "Logo Katfit",
+                  "fill": "$ink",
+                  "content": "KATFIT",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 16,
+                  "fontWeight": "700",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "text",
+                  "id": "z0o1a",
+                  "name": "Logo Balance",
+                  "fill": "$cta",
+                  "content": "BALANCE",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 16,
+                  "fontWeight": "700",
+                  "letterSpacing": 1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "V8Grhk",
+              "name": "CTA / Узнать об открытии",
+              "height": 48,
+              "fill": "$cta",
+              "cornerRadius": 28,
+              "gap": 16,
+              "padding": [
+                0,
+                24
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Hk3Ga",
+                  "name": "Узнать об открытии",
+                  "fill": "#FFFFFF",
+                  "content": "Узнать об открытии",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "icon",
+                  "id": "XUCXn",
+                  "name": "Стрелка",
+                  "width": 18,
+                  "height": 18,
+                  "icon": "arrow-up-right",
+                  "library": "lucide",
+                  "fill": "#FFFFFF"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "xIzLU",
+          "name": "Первый экран",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            48,
+            40
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "kGNMl",
+              "name": "Обещание студии",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 26,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "tuIjJ",
+                  "name": "Статус открытия",
+                  "fill": "#F5D0D6",
+                  "cornerRadius": 6,
+                  "padding": [
+                    7,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Nq0WO",
+                      "name": "СКОРО ОТКРЫТИЕ",
+                      "fill": "#B84A5A",
+                      "content": "СКОРО ОТКРЫТИЕ",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "A9tZR",
+                  "name": "БОЛЬШЕ ДВИЖЕНИЯ.\nБЛИЖЕ К СЕБЕ.",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "БОЛЬШЕ ДВИЖЕНИЯ.\nБЛИЖЕ К СЕБЕ.",
+                  "lineHeight": 1.25,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 32,
+                  "fontWeight": "800",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "text",
+                  "id": "cEOEv",
+                  "name": "Камерная студия реформера, пилатеса и стрейчинга. Пространство, где можно замедлиться и почувствовать своё тело.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Камерная студия реформера, пилатеса и стрейчинга. Пространство, где можно замедлиться и почувствовать своё тело.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "u5Wm3",
+                  "name": "CTA / Узнать об открытии",
+                  "height": 48,
+                  "fill": "$cta",
+                  "cornerRadius": 28,
+                  "gap": 16,
+                  "padding": [
+                    0,
+                    24
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "mDkiB",
+                      "name": "Узнать об открытии",
+                      "fill": "#FFFFFF",
+                      "content": "Узнать об открытии",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "aRvdV",
+                      "name": "Стрелка",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#FFFFFF"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "L2nb7t",
+                  "name": "Оставьте контакт — пригласим, когда всё будет готово.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Оставьте контакт — пригласим, когда всё будет готово.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "abEpn",
+              "name": "Атмосферный визуал · концепция",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 16,
+                  "id": "MEt6m",
+                  "name": "Пилатес в мягком дневном свете",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/generated-1789461263769.png",
+                    "mode": "fill"
+                  },
+                  "width": "fill_container",
+                  "height": 460
+                },
+                {
+                  "type": "text",
+                  "id": "p3N2cr",
+                  "name": "ДВИЖЕНИЕ В СВОЁМ РИТМЕ",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "ДВИЖЕНИЕ В СВОЁМ РИТМЕ",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 11,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "zlUaC",
+          "name": "О студии",
+          "width": "fill_container",
+          "fill": "$soft",
+          "layout": "vertical",
+          "gap": 44,
+          "padding": [
+            48,
+            40
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "HjopC",
+              "name": "Редакционный заголовок",
+              "width": "fill_container",
+              "gap": 32,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "T7qV6",
+                  "name": "МЕСТО, ГДЕ\nВАМ ХОРОШО",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "МЕСТО, ГДЕ\nВАМ ХОРОШО",
+                  "lineHeight": 1.25,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 32,
+                  "fontWeight": "800",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "frame",
+                  "id": "xZveP",
+                  "name": "Подход",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "MsfEL",
+                      "name": "Мы создаём студию с вниманием к простым вещам: свету, пространству и тому, как вы чувствуете себя на занятии.",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Мы создаём студию с вниманием к простым вещам: свету, пространству и тому, как вы чувствуете себя на занятии.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 18,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Aq2h3",
+                      "name": "Без гонки за результатом. С интересом к движению.",
+                      "fill": "$cta",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Без гонки за результатом. С интересом к движению.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Caveat",
+                      "fontSize": 28,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "kKX1h",
+              "name": "Принципы",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 20,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "MFQ0C",
+                  "name": "01 / В своём темпе",
+                  "width": "fill_container",
+                  "stroke": "#DDDDDD",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": [
+                    24,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "uynrq",
+                      "name": "01 / В своём темпе",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "01 / В своём темпе",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "kXzuY",
+                      "name": "Начните с комфортной нагрузки и двигайтесь постепенно.",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Начните с комфортной нагрузки и двигайтесь постепенно.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "dy8MJ",
+                  "name": "02 / С вниманием к вам",
+                  "width": "fill_container",
+                  "stroke": "#DDDDDD",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": [
+                    24,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "BOIGl",
+                      "name": "02 / С вниманием к вам",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "02 / С вниманием к вам",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "xc0gp",
+                      "name": "Техника, понятные объяснения и поддержка на занятиях.",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Техника, понятные объяснения и поддержка на занятиях.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "HsHa7",
+                  "name": "03 / Для себя",
+                  "width": "fill_container",
+                  "stroke": "#DDDDDD",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": [
+                    24,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "r0JZRi",
+                      "name": "03 / Для себя",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "03 / Для себя",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "ZrcjX",
+                      "name": "Время, чтобы переключиться с повседневных дел на движение.",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Время, чтобы переключиться с повседневных дел на движение.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "d8umh",
+          "name": "Направления",
+          "width": "fill_container",
+          "fill": "$pink",
+          "layout": "vertical",
+          "gap": 40,
+          "padding": [
+            48,
+            40
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "hlJ3R",
+              "name": "Заголовок направлений",
+              "width": "fill_container",
+              "gap": 32,
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "i6Jbn6",
+                  "name": "НАЙДИТЕ\nСВОЁ ДВИЖЕНИЕ",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "НАЙДИТЕ\nСВОЁ ДВИЖЕНИЕ",
+                  "lineHeight": 1.25,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 32,
+                  "fontWeight": "800",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "text",
+                  "id": "OUIYa",
+                  "name": "Три направления. Один подход —\nбережное внимание к телу.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Три направления. Один подход —\nбережное внимание к телу.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ppRoQ",
+              "name": "Три направления",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 32,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "f9MGq",
+                  "name": "РЕФОРМЕР",
+                  "width": "fill_container",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 16,
+                      "id": "vKCky",
+                      "name": "Визуал / РЕФОРМЕР",
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "images/generated-1789461308072.png",
+                        "mode": "fill"
+                      },
+                      "width": 240,
+                      "height": 220
+                    },
+                    {
+                      "type": "frame",
+                      "id": "qomDR",
+                      "name": "Описание направления",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "QnaAp",
+                          "name": "01 / РЕФОРМЕР",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "01 / РЕФОРМЕР",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 20,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "v91Tr",
+                          "name": "Работа с сопротивлением на специальном оборудовании. Сила, контроль и точность движения.",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Работа с сопротивлением на специальном оборудовании. Сила, контроль и точность движения.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "eonjp",
+                  "name": "ПИЛАТЕС",
+                  "width": "fill_container",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 16,
+                      "id": "X9jerr",
+                      "name": "Визуал / ПИЛАТЕС",
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "images/generated-1789461307080.png",
+                        "mode": "fill"
+                      },
+                      "width": 240,
+                      "height": 220
+                    },
+                    {
+                      "type": "frame",
+                      "id": "FVyb5",
+                      "name": "Описание направления",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "aFAMk",
+                          "name": "02 / ПИЛАТЕС",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "02 / ПИЛАТЕС",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 20,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "J17gnC",
+                          "name": "Упражнения на коврике с вниманием к дыханию, устойчивости и координации.",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Упражнения на коврике с вниманием к дыханию, устойчивости и координации.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "LVHSq",
+                  "name": "СТРЕЙЧИНГ",
+                  "width": "fill_container",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 16,
+                      "id": "UTQqX",
+                      "name": "Визуал / СТРЕЙЧИНГ",
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "images/generated-1789461307602.png",
+                        "mode": "fill"
+                      },
+                      "width": 240,
+                      "height": 220
+                    },
+                    {
+                      "type": "frame",
+                      "id": "NeIT6",
+                      "name": "Описание направления",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "glGc8",
+                          "name": "03 / СТРЕЙЧИНГ",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "03 / СТРЕЙЧИНГ",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 20,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "FPJxw",
+                          "name": "Мягкая работа над гибкостью и подвижностью. Возможность замедлиться и снять повседневное напряжение.",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Мягкая работа над гибкостью и подвижностью. Возможность замедлиться и снять повседневное напряжение.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "kFfov",
+          "name": "Открытие",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            48,
+            40
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "J2skSU",
+              "name": "Приглашение",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "yCgWO",
+                  "name": "СКОРО ВСТРЕТИМСЯ",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "СКОРО ВСТРЕТИМСЯ",
+                  "lineHeight": 1.25,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 32,
+                  "fontWeight": "800",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "text",
+                  "id": "l0tP0h",
+                  "name": "Готовим пространство для ваших новых привычек.",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Готовим пространство для ваших новых привычек.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 24,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "QBHlO",
+                  "name": "Студия на этапе запуска. Дату открытия и подробности сообщим, когда всё будет готово.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Студия на этапе запуска. Дату открытия и подробности сообщим, когда всё будет готово.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "kQzhX",
+              "name": "Форма уведомления",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "pEIkP",
+                  "name": "Узнайте об открытии первыми",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Узнайте об открытии первыми",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 22,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "dh1AR",
+                  "name": "Оставьте имя и удобный контакт для приглашения.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Оставьте имя и удобный контакт для приглашения.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "B2bnrN",
+                  "name": "Ваше имя",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "I4LN1",
+                      "name": "Ваше имя",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Ваше имя",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "z5sAk1",
+                      "name": "Поле / Ваше имя",
+                      "width": "fill_container",
+                      "height": 52,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 16,
+                      "stroke": "#D5D5D5",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "padding": [
+                        14,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "CShnk",
+                          "name": "Как к вам обращаться",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Как к вам обращаться",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "OmPTP",
+                  "name": "Телефон или e-mail",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Z364rI",
+                      "name": "Телефон или e-mail",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Телефон или e-mail",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "lpEyb",
+                      "name": "Поле / Телефон или e-mail",
+                      "width": "fill_container",
+                      "height": 52,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 16,
+                      "stroke": "#D5D5D5",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "padding": [
+                        14,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "O9hSf",
+                          "name": "+7 или name@example.ru",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "+7 или name@example.ru",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "SsItd",
+                  "name": "Согласия пользователя",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "j7q7C",
+                      "name": "Согласие · обработка данных",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "FpIAB",
+                          "name": "Чекбокс · область 44",
+                          "width": 44,
+                          "height": 44,
+                          "layout": "vertical",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "rectangle",
+                              "cornerRadius": 4,
+                              "id": "a9IzA",
+                              "name": "Чекбокс · пустой",
+                              "width": 20,
+                              "height": 20,
+                              "stroke": "#6B6B6B",
+                              "strokeWidth": 1.5
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "iCvg0",
+                          "name": "Текст согласия",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "padding": [
+                            7,
+                            0,
+                            0,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "iESYX",
+                              "name": "Даю согласие на обработку моих персональных данных в соответствии с",
+                              "fill": "$muted",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Даю согласие на обработку моих персональных данных в соответствии с",
+                              "lineHeight": 1.4,
+                              "fontFamily": "Montserrat",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "tRXQ0",
+                              "name": "Политикой обработки персональных данных",
+                              "fill": "$cta",
+                              "content": "Политикой обработки персональных данных",
+                              "fontFamily": "Montserrat",
+                              "fontSize": 11,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "M6DWos",
+                      "name": "Согласие · уведомления",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "B2QaMB",
+                          "name": "Чекбокс · область 44",
+                          "width": 44,
+                          "height": 44,
+                          "layout": "vertical",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "rectangle",
+                              "cornerRadius": 4,
+                              "id": "ED0Ho",
+                              "name": "Чекбокс · пустой",
+                              "width": 20,
+                              "height": 20,
+                              "stroke": "#6B6B6B",
+                              "strokeWidth": 1.5
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "l8r2y7",
+                          "name": "Текст согласия",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "padding": [
+                            7,
+                            0,
+                            0,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "xixmp",
+                              "name": "Согласен(-на) получать информацию об открытии студии и условиях запуска по указанному контакту.",
+                              "fill": "$muted",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Согласен(-на) получать информацию об открытии студии и условиях запуска по указанному контакту.",
+                              "lineHeight": 1.4,
+                              "fontFamily": "Montserrat",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "CXu0n",
+                              "name": "Условия согласия на уведомления",
+                              "fill": "$cta",
+                              "content": "Условия согласия на уведомления",
+                              "fontFamily": "Montserrat",
+                              "fontSize": 11,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "xFqq8",
+                  "name": "CTA / Сообщить мне об открытии",
+                  "width": "fill_container",
+                  "height": 48,
+                  "fill": "$cta",
+                  "cornerRadius": 28,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "q390D",
+                      "name": "Сообщить мне об открытии",
+                      "fill": "#FFFFFF",
+                      "content": "Сообщить мне об открытии",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "lUcGl",
+          "name": "Контакты и футер",
+          "width": "fill_container",
+          "fill": "#2C2C2C",
+          "layout": "vertical",
+          "gap": 40,
+          "padding": [
+            48,
+            40
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "tpm2M",
+              "name": "Контакты",
+              "width": "fill_container",
+              "gap": 64,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "h3b6K",
+                  "name": "СТУДИЯ / ПИЛАТЕС",
+                  "fill": "#FFFFFF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "СТУДИЯ / ПИЛАТЕС",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "B8TR1G",
+                  "name": "Будущие контакты",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Y57M9",
+                      "name": "Будем ближе. Скоро.",
+                      "fill": "#FFFFFF",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Будем ближе. Скоро.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 24,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "i5OtM",
+                      "name": "Адрес и способы связи появятся здесь ближе к открытию.",
+                      "fill": "#FFFFFFAA",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Адрес и способы связи появятся здесь ближе к открытию.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "d5xbNQ",
+              "name": "Нижняя строка",
+              "width": "fill_container",
+              "stroke": "#FFFFFF33",
+              "strokeWidth": {
+                "top": 1
+              },
+              "gap": 40,
+              "padding": [
+                24,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Ub8Q6",
+                  "name": "Реформер · Пилатес · Стрейчинг",
+                  "fill": "#FFFFFFAA",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Реформер · Пилатес · Стрейчинг",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "v6S0qI",
+                  "name": "Политика обработки персональных данных",
+                  "fill": "#FFFFFFAA",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Политика обработки персональных данных",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "YdywG",
+      "x": 2448,
+      "y": 0,
+      "name": "03 / Mobile · 375",
+      "clip": true,
+      "width": 375,
+      "fill": "#FFFFFF",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "hc6i7",
+          "name": "Навигация",
+          "width": "fill_container",
+          "height": 64,
+          "padding": [
+            0,
+            20
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "KoZ3s",
+              "name": "Logo",
+              "gap": 6,
+              "alignItems": "center",
+              "children": [
+                {
+                  "id": "m5mU8",
+                  "type": "ref",
+                  "ref": "ErCJn",
+                  "name": "Logo Mark",
+                  "width": 32,
+                  "height": 32
+                },
+                {
+                  "type": "text",
+                  "id": "A4nqRK",
+                  "name": "Logo Katfit",
+                  "fill": "$ink",
+                  "content": "KATFIT",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "letterSpacing": 0.5
+                },
+                {
+                  "type": "text",
+                  "id": "K724MM",
+                  "name": "Logo Balance",
+                  "fill": "$cta",
+                  "content": "BALANCE",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "letterSpacing": 0.5
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "tQ2LJ",
+              "name": "Меню · область 44",
+              "width": 44,
+              "height": 44,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "hCcMs",
+                  "name": "Открыть меню",
+                  "width": 22,
+                  "height": 22,
+                  "icon": "menu",
+                  "library": "lucide",
+                  "fill": "$ink"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "KXwtM",
+          "name": "Первый экран",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            40,
+            20
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "DHoKE",
+              "name": "Обещание студии",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 26,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "eSHT8",
+                  "name": "Статус открытия",
+                  "fill": "#F5D0D6",
+                  "cornerRadius": 6,
+                  "padding": [
+                    7,
+                    12
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "hlPlQ",
+                      "name": "СКОРО ОТКРЫТИЕ",
+                      "fill": "#B84A5A",
+                      "content": "СКОРО ОТКРЫТИЕ",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "f90AUd",
+                  "name": "БОЛЬШЕ ДВИЖЕНИЯ.\nБЛИЖЕ К СЕБЕ.",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "БОЛЬШЕ ДВИЖЕНИЯ.\nБЛИЖЕ К СЕБЕ.",
+                  "lineHeight": 1.25,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 28,
+                  "fontWeight": "800",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "text",
+                  "id": "vsEKs",
+                  "name": "Камерная студия реформера, пилатеса и стрейчинга. Пространство, где можно замедлиться и почувствовать своё тело.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Камерная студия реформера, пилатеса и стрейчинга. Пространство, где можно замедлиться и почувствовать своё тело.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "jKBo9",
+                  "name": "CTA / Узнать об открытии",
+                  "width": "fill_container",
+                  "height": 48,
+                  "fill": "$cta",
+                  "cornerRadius": 28,
+                  "gap": 16,
+                  "padding": [
+                    0,
+                    24
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "iB8sr",
+                      "name": "Узнать об открытии",
+                      "fill": "#FFFFFF",
+                      "content": "Узнать об открытии",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "gqF2j",
+                      "name": "Стрелка",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#FFFFFF"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "g6wqI",
+                  "name": "Оставьте контакт — пригласим, когда всё будет готово.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Оставьте контакт — пригласим, когда всё будет готово.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "R53Yo",
+              "name": "Атмосферный визуал · концепция",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 16,
+                  "id": "YD1PW",
+                  "name": "Пилатес в мягком дневном свете",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "images/generated-1789461263769.png",
+                    "mode": "fill"
+                  },
+                  "width": "fill_container",
+                  "height": 335
+                },
+                {
+                  "type": "text",
+                  "id": "RZilw",
+                  "name": "ДВИЖЕНИЕ В СВОЁМ РИТМЕ",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "ДВИЖЕНИЕ В СВОЁМ РИТМЕ",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 11,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "WOdWz",
+          "name": "О студии",
+          "width": "fill_container",
+          "fill": "$soft",
+          "layout": "vertical",
+          "gap": 44,
+          "padding": [
+            40,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "KBqoM",
+              "name": "Редакционный заголовок",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "FzF6Z",
+                  "name": "МЕСТО, ГДЕ\nВАМ ХОРОШО",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "МЕСТО, ГДЕ\nВАМ ХОРОШО",
+                  "lineHeight": 1.25,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 24,
+                  "fontWeight": "800",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "frame",
+                  "id": "VE4IN",
+                  "name": "Подход",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "GCwuz",
+                      "name": "Мы создаём студию с вниманием к простым вещам: свету, пространству и тому, как вы чувствуете себя на занятии.",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Мы создаём студию с вниманием к простым вещам: свету, пространству и тому, как вы чувствуете себя на занятии.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 18,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Fah5O",
+                      "name": "Без гонки за результатом. С интересом к движению.",
+                      "fill": "$cta",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Без гонки за результатом. С интересом к движению.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Caveat",
+                      "fontSize": 28,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "U5YLZ",
+              "name": "Принципы",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "zrfZz",
+                  "name": "01 / В своём темпе",
+                  "width": "fill_container",
+                  "stroke": "#DDDDDD",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": [
+                    24,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "SHedu",
+                      "name": "01 / В своём темпе",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "01 / В своём темпе",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "i6rHY1",
+                      "name": "Начните с комфортной нагрузки и двигайтесь постепенно.",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Начните с комфортной нагрузки и двигайтесь постепенно.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ktGBm",
+                  "name": "02 / С вниманием к вам",
+                  "width": "fill_container",
+                  "stroke": "#DDDDDD",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": [
+                    24,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wMROl",
+                      "name": "02 / С вниманием к вам",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "02 / С вниманием к вам",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "HJLqE",
+                      "name": "Техника, понятные объяснения и поддержка на занятиях.",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Техника, понятные объяснения и поддержка на занятиях.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "P9T432",
+                  "name": "03 / Для себя",
+                  "width": "fill_container",
+                  "stroke": "#DDDDDD",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": [
+                    24,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "N3LKaT",
+                      "name": "03 / Для себя",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "03 / Для себя",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "XJeWd",
+                      "name": "Время, чтобы переключиться с повседневных дел на движение.",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Время, чтобы переключиться с повседневных дел на движение.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "b1xHKQ",
+          "name": "Направления",
+          "width": "fill_container",
+          "fill": "$pink",
+          "layout": "vertical",
+          "gap": 40,
+          "padding": [
+            40,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "MrJrz",
+              "name": "Заголовок направлений",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "yZjX8",
+                  "name": "НАЙДИТЕ\nСВОЁ ДВИЖЕНИЕ",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "НАЙДИТЕ\nСВОЁ ДВИЖЕНИЕ",
+                  "lineHeight": 1.25,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 24,
+                  "fontWeight": "800",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "text",
+                  "id": "GaOFT",
+                  "name": "Три направления. Один подход —\nбережное внимание к телу.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Три направления. Один подход —\nбережное внимание к телу.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "mniCW",
+              "name": "Три направления",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 32,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "JqSL3",
+                  "name": "РЕФОРМЕР",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 16,
+                      "id": "qSScW",
+                      "name": "Визуал / РЕФОРМЕР",
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "images/generated-1789461308072.png",
+                        "mode": "fill"
+                      },
+                      "width": "fill_container",
+                      "height": 260
+                    },
+                    {
+                      "type": "frame",
+                      "id": "vxdYP",
+                      "name": "Описание направления",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "q4UXs",
+                          "name": "01 / РЕФОРМЕР",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "01 / РЕФОРМЕР",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 20,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "icn6n",
+                          "name": "Работа с сопротивлением на специальном оборудовании. Сила, контроль и точность движения.",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Работа с сопротивлением на специальном оборудовании. Сила, контроль и точность движения.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "cKT6a",
+                  "name": "ПИЛАТЕС",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 16,
+                      "id": "kEKrJ",
+                      "name": "Визуал / ПИЛАТЕС",
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "images/generated-1789461307080.png",
+                        "mode": "fill"
+                      },
+                      "width": "fill_container",
+                      "height": 260
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Iq6q7",
+                      "name": "Описание направления",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "I4UEQ",
+                          "name": "02 / ПИЛАТЕС",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "02 / ПИЛАТЕС",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 20,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "oF8Vi",
+                          "name": "Упражнения на коврике с вниманием к дыханию, устойчивости и координации.",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Упражнения на коврике с вниманием к дыханию, устойчивости и координации.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "GiTBA",
+                  "name": "СТРЕЙЧИНГ",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 16,
+                      "id": "G4rAV9",
+                      "name": "Визуал / СТРЕЙЧИНГ",
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "images/generated-1789461307602.png",
+                        "mode": "fill"
+                      },
+                      "width": "fill_container",
+                      "height": 260
+                    },
+                    {
+                      "type": "frame",
+                      "id": "c3POPm",
+                      "name": "Описание направления",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "kzrhr",
+                          "name": "03 / СТРЕЙЧИНГ",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "03 / СТРЕЙЧИНГ",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 20,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "TKSdJ",
+                          "name": "Мягкая работа над гибкостью и подвижностью. Возможность замедлиться и снять повседневное напряжение.",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Мягкая работа над гибкостью и подвижностью. Возможность замедлиться и снять повседневное напряжение.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "CSRYS",
+          "name": "Открытие",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            40,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "V88LKy",
+              "name": "Приглашение",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "b2SRHF",
+                  "name": "СКОРО ВСТРЕТИМСЯ",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "СКОРО ВСТРЕТИМСЯ",
+                  "lineHeight": 1.25,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 24,
+                  "fontWeight": "800",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "text",
+                  "id": "QFq1Y",
+                  "name": "Готовим пространство для ваших новых привычек.",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Готовим пространство для ваших новых привычек.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 24,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "LGt3x",
+                  "name": "Студия на этапе запуска. Дату открытия и подробности сообщим, когда всё будет готово.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Студия на этапе запуска. Дату открытия и подробности сообщим, когда всё будет готово.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "DQsNY",
+              "name": "Форма уведомления",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "GF98K",
+                  "name": "Узнайте об открытии первыми",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Узнайте об открытии первыми",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 22,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "MSOys",
+                  "name": "Оставьте имя и удобный контакт для приглашения.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Оставьте имя и удобный контакт для приглашения.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "dAc9A",
+                  "name": "Ваше имя",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "h770U",
+                      "name": "Ваше имя",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Ваше имя",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "WEiNr",
+                      "name": "Поле / Ваше имя",
+                      "width": "fill_container",
+                      "height": 52,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 16,
+                      "stroke": "#D5D5D5",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "padding": [
+                        14,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "vbnnW",
+                          "name": "Как к вам обращаться",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Как к вам обращаться",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "VmKLS",
+                  "name": "Телефон или e-mail",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "GiZkT",
+                      "name": "Телефон или e-mail",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Телефон или e-mail",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "x5h44",
+                      "name": "Поле / Телефон или e-mail",
+                      "width": "fill_container",
+                      "height": 52,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 16,
+                      "stroke": "#D5D5D5",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "padding": [
+                        14,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "sScpu",
+                          "name": "+7 или name@example.ru",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "+7 или name@example.ru",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "z6P9l",
+                  "name": "Согласия пользователя",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Y8SR4o",
+                      "name": "Согласие · обработка данных",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "UKXAH",
+                          "name": "Чекбокс · область 44",
+                          "width": 44,
+                          "height": 44,
+                          "layout": "vertical",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "rectangle",
+                              "cornerRadius": 4,
+                              "id": "tTf8c",
+                              "name": "Чекбокс · пустой",
+                              "width": 20,
+                              "height": 20,
+                              "stroke": "#6B6B6B",
+                              "strokeWidth": 1.5
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "B0R3we",
+                          "name": "Текст согласия",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "padding": [
+                            7,
+                            0,
+                            0,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ccd8a",
+                              "name": "Даю согласие на обработку моих персональных данных в соответствии с",
+                              "fill": "$muted",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Даю согласие на обработку моих персональных данных в соответствии с",
+                              "lineHeight": 1.4,
+                              "fontFamily": "Montserrat",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "ii3nS",
+                              "name": "Политикой обработки персональных данных",
+                              "fill": "$cta",
+                              "content": "Политикой обработки персональных данных",
+                              "fontFamily": "Montserrat",
+                              "fontSize": 11,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "bBwNW",
+                      "name": "Согласие · уведомления",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "RDaVa",
+                          "name": "Чекбокс · область 44",
+                          "width": 44,
+                          "height": 44,
+                          "layout": "vertical",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "rectangle",
+                              "cornerRadius": 4,
+                              "id": "oQh4G",
+                              "name": "Чекбокс · пустой",
+                              "width": 20,
+                              "height": 20,
+                              "stroke": "#6B6B6B",
+                              "strokeWidth": 1.5
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "kJnIF",
+                          "name": "Текст согласия",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 2,
+                          "padding": [
+                            7,
+                            0,
+                            0,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "a3hg7c",
+                              "name": "Согласен(-на) получать информацию об открытии студии и условиях запуска по указанному контакту.",
+                              "fill": "$muted",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Согласен(-на) получать информацию об открытии студии и условиях запуска по указанному контакту.",
+                              "lineHeight": 1.4,
+                              "fontFamily": "Montserrat",
+                              "fontSize": 11,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "p0GrDF",
+                              "name": "Условия согласия на уведомления",
+                              "fill": "$cta",
+                              "content": "Условия согласия на уведомления",
+                              "fontFamily": "Montserrat",
+                              "fontSize": 11,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "r0SwV",
+                  "name": "CTA / Сообщить мне об открытии",
+                  "width": "fill_container",
+                  "height": 48,
+                  "fill": "$cta",
+                  "cornerRadius": 28,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "L1pxf7",
+                      "name": "Сообщить мне об открытии",
+                      "fill": "#FFFFFF",
+                      "content": "Сообщить мне об открытии",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "oLyWm",
+          "name": "Контакты и футер",
+          "width": "fill_container",
+          "fill": "#2C2C2C",
+          "layout": "vertical",
+          "gap": 40,
+          "padding": [
+            40,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "uKGUN",
+              "name": "Контакты",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "hgchk",
+                  "name": "СТУДИЯ / ПИЛАТЕС",
+                  "fill": "#FFFFFF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "СТУДИЯ / ПИЛАТЕС",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "vE5e6",
+                  "name": "Будущие контакты",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "gk2VQ",
+                      "name": "Будем ближе. Скоро.",
+                      "fill": "#FFFFFF",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Будем ближе. Скоро.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 24,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "wbxIt",
+                      "name": "Адрес и способы связи появятся здесь ближе к открытию.",
+                      "fill": "#FFFFFFAA",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Адрес и способы связи появятся здесь ближе к открытию.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "XExSn",
+              "name": "Нижняя строка",
+              "width": "fill_container",
+              "stroke": "#FFFFFF33",
+              "strokeWidth": {
+                "top": 1
+              },
+              "layout": "vertical",
+              "gap": 24,
+              "padding": [
+                24,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "X2zs7",
+                  "name": "Реформер · Пилатес · Стрейчинг",
+                  "fill": "#FFFFFFAA",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Реформер · Пилатес · Стрейчинг",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "FCBIa",
+                  "name": "Политика обработки персональных данных",
+                  "fill": "#FFFFFFAA",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Политика обработки персональных данных",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "bpST1",
+      "x": 2943,
+      "y": 0,
+      "name": "04 / UI · Состояния и заметки",
+      "clip": true,
+      "width": 920,
+      "height": 1040,
+      "fill": "#F8F8F8",
+      "layout": "vertical",
+      "gap": 28,
+      "padding": 40,
+      "children": [
+        {
+          "type": "text",
+          "id": "DBJ4L",
+          "name": "ФОРМА / СОСТОЯНИЯ",
+          "fill": "$ink",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "ФОРМА / СОСТОЯНИЯ",
+          "lineHeight": 1.5,
+          "fontFamily": "Montserrat",
+          "fontSize": 24,
+          "fontWeight": "800"
+        },
+        {
+          "type": "frame",
+          "id": "kDH5o",
+          "name": "Состояния отправки",
+          "width": "fill_container",
+          "gap": 24,
+          "children": [
+            {
+              "type": "frame",
+              "id": "Yvxmc",
+              "name": "Спасибо! Вы в списке",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 16,
+              "layout": "vertical",
+              "gap": 14,
+              "padding": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Z5rOFz",
+                  "name": "Спасибо! Вы в списке",
+                  "fill": "#1A1A1A",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Спасибо! Вы в списке",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "eS12B",
+                  "name": "Сообщим об открытии по указанному контакту.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Сообщим об открытии по указанному контакту.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Z6jqT",
+              "name": "Не удалось отправить",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 16,
+              "layout": "vertical",
+              "gap": 14,
+              "padding": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "UWyM4",
+                  "name": "Не удалось отправить",
+                  "fill": "#B85160",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Не удалось отправить",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "y3ETsz",
+                  "name": "Попробуйте ещё раз. Введённые данные сохранены.",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Попробуйте ещё раз. Введённые данные сохранены.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "gctaD",
+          "name": "Форма · состояние ошибок",
+          "width": 840,
+          "fill": "#FFF8F8",
+          "cornerRadius": 16,
+          "stroke": "#E39AA5",
+          "strokeWidth": 1,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "KjWt6",
+              "name": "Подсказка состояния",
+              "fill": "#7A1727",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "После отправки каждое поле с ошибкой выделено и объясняет, что исправить.",
+              "lineHeight": 1.4,
+              "fontFamily": "Montserrat",
+              "fontSize": 12,
+              "fontWeight": "500"
+            },
+            {
+              "type": "frame",
+              "id": "S9wrRE",
+              "name": "Ошибка · Ваше имя",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 5,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "B7wkLj",
+                  "name": "Метка · Ваше имя",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Ваше имя",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "PAbD6",
+                  "name": "Поле ошибки · Ваше имя",
+                  "width": "fill_container",
+                  "height": 48,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 14,
+                  "stroke": "#B00020",
+                  "strokeWidth": 1.5,
+                  "layout": "vertical",
+                  "padding": [
+                    0,
+                    14
+                  ],
+                  "justifyContent": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "yiLB5",
+                      "name": "Значение · Ваше имя",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Фыв",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "c3et8",
+                  "name": "Подсказка · Ваше имя",
+                  "fill": "#B00020",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Укажите имя — не менее 2 букв.",
+                  "lineHeight": 1.35,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 12,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ZUzWy",
+              "name": "Ошибка · Телефон или e-mail",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 5,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "FIti6",
+                  "name": "Метка · Телефон или e-mail",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Телефон или e-mail",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "WgdMs",
+                  "name": "Поле ошибки · Телефон или e-mail",
+                  "width": "fill_container",
+                  "height": 48,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 14,
+                  "stroke": "#B00020",
+                  "strokeWidth": 1.5,
+                  "layout": "vertical",
+                  "padding": [
+                    0,
+                    14
+                  ],
+                  "justifyContent": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "y4FCZ",
+                      "name": "Значение · Телефон или e-mail",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "name@",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "OC6vi",
+                  "name": "Подсказка · Телефон или e-mail",
+                  "fill": "#B00020",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Укажите корректный телефон или e-mail.",
+                  "lineHeight": 1.35,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 12,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ITimS",
+              "name": "Ошибки согласий",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 5,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "C3VeH",
+                  "name": "Ошибка согласия · Подтвердите согласие на обработку персональных данных.",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 4,
+                      "id": "qj9JZ",
+                      "name": "Чекбокс ошибки",
+                      "fill": "#FFF8F8",
+                      "width": 20,
+                      "height": 20,
+                      "stroke": "#B00020",
+                      "strokeWidth": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "StoCx",
+                      "name": "Подсказка согласия",
+                      "fill": "#B00020",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Подтвердите согласие на обработку персональных данных.",
+                      "lineHeight": 1.35,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "NsMcB",
+                  "name": "Ошибка согласия · Подтвердите согласие на уведомления.",
+                  "width": "fill_container",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 4,
+                      "id": "HH4o6",
+                      "name": "Чекбокс ошибки",
+                      "fill": "#FFF8F8",
+                      "width": 20,
+                      "height": 20,
+                      "stroke": "#B00020",
+                      "strokeWidth": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "vfqax",
+                      "name": "Подсказка согласия",
+                      "fill": "#B00020",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Подтвердите согласие на уведомления.",
+                      "lineHeight": 1.35,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "wA0WC",
+          "name": "Визуальный концепт до открытия",
+          "fill": "$ink",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Визуальный концепт до открытия",
+          "lineHeight": 1.5,
+          "fontFamily": "Montserrat",
+          "fontSize": 18,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "p7hnZh",
+          "name": "Название «Студия / Пилатес» — временное. Фотографии — концептуальные, не реальные снимки студии. Адрес, контакты, социальные сети, дата и условия запуска добавляются после согласования.",
+          "fill": "$muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Название «Студия / Пилатес» — временное. Фотографии — концептуальные, не реальные снимки студии. Адрес, контакты, социальные сети, дата и условия запуска добавляются после согласования.",
+          "lineHeight": 1.5,
+          "fontFamily": "Montserrat",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "gitXz",
+          "name": "Заметки разработчику · согласия",
+          "fill": "$muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Для разработки: CTA ведёт к форме; обязательны имя, контакт и два раздельных согласия. Ссылки на политику и условия уведомлений требуют утверждённых URL. Отправку подключить к согласованному хранилищу; добавить защиту от спама и аналитику после выбора сервисов.",
+          "lineHeight": 1.5,
+          "fontFamily": "Montserrat",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "OKdLR",
+          "name": "Состояния: hover CTA #A94957; focus — видимая обводка; loading — «Отправляем…». Меню mobile: О студии / Направления / Открытие. Анимация — сдержанный fade-up, с учётом reduced motion.",
+          "fill": "$muted",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Состояния: hover CTA #A94957; focus — видимая обводка; loading — «Отправляем…». Меню mobile: О студии / Направления / Открытие. Анимация — сдержанный fade-up, с учётом reduced motion.",
+          "lineHeight": 1.5,
+          "fontFamily": "Montserrat",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "BUdrd",
+          "name": "Правило доступности CTA",
+          "width": "fill_container",
+          "fill": "#FDF0F2",
+          "cornerRadius": 12,
+          "layout": "vertical",
+          "gap": 4,
+          "padding": 16,
+          "children": [
+            {
+              "type": "text",
+              "id": "XD9V4",
+              "name": "Отправка доступна после согласий",
+              "fill": "#B84A5A",
+              "content": "ОТПРАВКА ДОСТУПНА ПОСЛЕ СОГЛАСИЙ",
+              "fontFamily": "Montserrat",
+              "fontSize": 11,
+              "fontWeight": "700",
+              "letterSpacing": 1
+            },
+            {
+              "type": "text",
+              "id": "F72STy",
+              "name": "Правило формы",
+              "fill": "$muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Кнопка «Сообщить мне об открытии» становится активной после заполнения обязательных полей и установки двух чекбоксов.",
+              "lineHeight": 1.45,
+              "fontFamily": "Montserrat",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "ErCJn",
+      "x": 0,
+      "y": -112,
+      "name": "component/Logo Mark",
+      "reusable": true,
+      "clip": true,
+      "width": 32,
+      "height": 32,
+      "layout": "none",
+      "children": [
+        {
+          "type": "ellipse",
+          "id": "P2ASDi",
+          "x": 0,
+          "y": 0,
+          "name": "Badge",
+          "fill": "$cta",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "type": "path",
+          "id": "hQBz8",
+          "x": 10.01,
+          "y": 9.52,
+          "name": "Cat",
+          "geometry": "M56.88167 26.6064c0-2.97047 3.10549-9.31646 2.97048-20.11815-0.13502-4.32068-1.48523-6.61604-3.37553-6.48102-3.24051 0.27005-7.83123 4.18565-12.55697 8.64135-2.16034 2.16034-4.18565 3.91561-6.88608 3.7806-2.02531-0.13503-4.05063-0.40507-7.15611-0.40507-3.10548 0-5.26582 0.40507-7.56119 0.54008-2.16033 0-4.18565-1.08017-6.21096-3.10548-4.59072-4.45569-9.45148-9.18143-12.55697-9.45148-1.8903-0.13502-3.10548 1.62025-3.51055 5.26582-0.27004 5.26583 0.94515 11.61182 2.43039 16.74263 0.94514 3.51055 1.08017 4.32068 0.54008 6.61603-1.08017 4.05064-2.97047 11.4768 0.27004 18.09284 3.24051 6.21097 7.96625 8.3713 12.69199 11.07172 4.72574 2.70043 7.0211 5.67088 12.55696 6.48101 6.07595 0.67511 9.45147-1.48524 13.09704-3.9156 5.1308-3.24051 11.88185-5.6709 14.7173-11.4768 3.51055-6.21097 2.29536-13.09705 0.94515-18.49789-0.27003-0.94515-0.40507-2.43038-0.40507-3.78059z m-37.67088 13.23206c-2.70042-0.27004-4.4557-1.62025-5.40085-5.26582 1.48523-0.40506 2.70042-0.54008 4.32068-0.27005-1.62025 1.75528-0.6751 4.4557 0.54009 4.86076 1.21519-0.13502 2.83544-1.48523 2.97046-2.83544 1.08017 0.81013 1.62025 2.56541 1.8903 3.7806-1.62025-0.67511-2.97047-0.13502-4.32068-0.27005z m21.46835 0c-1.35021-0.13502-3.10548-0.40506-4.45569 0.13502 0.40505-1.21519 0.94514-2.5654 2.02532-3.64557 0.13502 1.35021 1.75527 2.70042 2.83544 2.70042 1.2152-0.40506 2.43038-3.2405 0.6751-4.86075 1.48524-0.27004 2.97047-0.13502 4.59072 0.13501-0.6751 3.78059-2.97047 5.13081-5.67089 5.53587l0 0z",
+          "viewBox": [
+            0,
+            0,
+            59.85643,
+            64.40256
+          ],
+          "fill": "#FFFFFF",
+          "width": 11.97,
+          "height": 12.88
+        }
+      ]
     }
   ],
+  "variables": {
+    "cta": {
+      "type": "color",
+      "value": "#B85160"
+    },
+    "ink": {
+      "type": "color",
+      "value": "#1A1A1A"
+    },
+    "muted": {
+      "type": "color",
+      "value": "#6B6B6B"
+    },
+    "pink": {
+      "type": "color",
+      "value": "#FDF0F2"
+    },
+    "soft": {
+      "type": "color",
+      "value": "#F8F8F8"
+    }
+  },
   "fileToken": "258ffe58-f39b-4e17-b6b2-3142ea3a9e20"
 }
