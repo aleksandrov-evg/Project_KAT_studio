@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 
 type Status = "idle" | "success" | "error";
-type FieldName = "name" | "contact" | "personalDataConsent" | "marketingConsent";
+type FieldName = "name" | "contact" | "personalDataConsent";
 type FieldErrors = Partial<Record<FieldName, string>>;
 
 function validateLead(data: FormData): FieldErrors {
@@ -14,7 +14,6 @@ function validateLead(data: FormData): FieldErrors {
   if (!/^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё\s-]{1,}$/.test(name)) errors.name = "Укажите имя — не менее 2 букв.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) && !(phoneDigits.length >= 10 && phoneDigits.length <= 15)) errors.contact = "Укажите корректный телефон или e-mail.";
   if (data.get("personalDataConsent") !== "on") errors.personalDataConsent = "Подтвердите согласие на обработку персональных данных.";
-  if (data.get("marketingConsent") !== "on") errors.marketingConsent = "Подтвердите согласие на уведомления.";
   return errors;
 }
 
@@ -93,7 +92,7 @@ export default function Home() {
         <label className={errors.name ? "field field--error" : "field"}>Ваше имя<input name="name" required autoComplete="name" placeholder="Как к вам обращаться" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} onChange={clearFieldError} />{errors.name && <span className="field-error" id="name-error">{errors.name}</span>}</label>
         <label className={errors.contact ? "field field--error" : "field"}>Телефон или e-mail<input name="contact" required autoComplete="email" placeholder="+7 или name@example.ru" aria-invalid={Boolean(errors.contact)} aria-describedby={errors.contact ? "contact-error" : undefined} onChange={clearFieldError} />{errors.contact && <span className="field-error" id="contact-error">{errors.contact}</span>}</label>
         <label className={errors.personalDataConsent ? "consent consent--error" : "consent"}><input type="checkbox" name="personalDataConsent" required aria-invalid={Boolean(errors.personalDataConsent)} aria-describedby={errors.personalDataConsent ? "personal-data-consent-error" : undefined} onChange={clearFieldError} /><span>Даю согласие на обработку моих персональных данных в соответствии с <a href="/privacy-policy">Политикой обработки персональных данных</a>.{errors.personalDataConsent && <span className="field-error" id="personal-data-consent-error">{errors.personalDataConsent}</span>}</span></label>
-        <label className={errors.marketingConsent ? "consent consent--error" : "consent"}><input type="checkbox" name="marketingConsent" required aria-invalid={Boolean(errors.marketingConsent)} aria-describedby={errors.marketingConsent ? "marketing-consent-error" : undefined} onChange={clearFieldError} /><span>Согласен(-на) получать информацию об открытии студии и условиях запуска по указанному контакту. <a href="/notification-consent">Условия согласия на уведомления</a>.{errors.marketingConsent && <span className="field-error" id="marketing-consent-error">{errors.marketingConsent}</span>}</span></label>
+        <label className="consent"><input type="checkbox" name="marketingConsent" /><span>Я даю согласие ИП Александровой Екатерине Михайловне на получение информационных и рекламных уведомлений об открытии студии, занятиях, специальных условиях и предложениях по указанному контакту. Это необязательно. <a href="/notification-consent">Условия согласия на уведомления</a>.</span></label>
         <button className="button" type="submit">Сообщить мне об открытии</button>
         {status !== "idle" && <p className={`form-status form-status--${status}`} role={status === "error" ? "alert" : "status"}>{message}</p>}
       </form>

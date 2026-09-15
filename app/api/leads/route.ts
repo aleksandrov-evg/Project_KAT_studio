@@ -15,13 +15,13 @@ export async function POST(request: Request) {
   if (!/^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё\s-]{1,}$/.test(name)) errors.name = "Укажите имя — не менее 2 букв.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) && !(phoneDigits.length >= 10 && phoneDigits.length <= 15)) errors.contact = "Укажите корректный телефон или e-mail.";
   if (!personalDataConsent) errors.personalDataConsent = "Подтвердите согласие на обработку персональных данных.";
-  if (!marketingConsent) errors.marketingConsent = "Подтвердите согласие на уведомления.";
   if (Object.keys(errors).length) {
     return NextResponse.json({ message: "Проверьте поля, отмеченные красным.", errors }, { status: 400 });
   }
   createLead({
     name,
     contact,
+    marketingConsent,
     userAgent: request.headers.get("user-agent"),
     ipAddress: request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null,
   });

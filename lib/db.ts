@@ -28,6 +28,7 @@ database.exec(`
 export function createLead(input: {
   name: string;
   contact: string;
+  marketingConsent: boolean;
   userAgent: string | null;
   ipAddress: string | null;
 }) {
@@ -36,12 +37,13 @@ export function createLead(input: {
       name, contact, personal_data_consent, marketing_consent,
       privacy_policy_version, notification_consent_version,
       created_at, user_agent, ip_address
-    ) VALUES (?, ?, 1, 1, ?, ?, ?, ?, ?)
+    ) VALUES (?, ?, 1, ?, ?, ?, ?, ?, ?)
   `).run(
     input.name,
     input.contact,
+    input.marketingConsent ? 1 : 0,
     "draft-1",
-    "draft-1",
+    "2026-09-15",
     new Date().toISOString(),
     input.userAgent,
     input.ipAddress,
