@@ -1,18 +1,23 @@
 import "server-only";
 import { Pool } from "pg";
 
-const connectionString = process.env.DATABASE_URL;
+let database: Pool | undefined;
 
-if (!connectionString) {
-  throw new Error("DATABASE_URL must be set to connect to PostgreSQL.");
+function getDatabase() {
+  const connectionString = process.env.DATABASE_URL;
+
+  if (!connectionString) {
+    throw new Error("DATABASE_URL must be set to connect to PostgreSQL.");
+  }
+
+  database ??= new Pool({ connectionString });
+  return database;
 }
-
-const database = new Pool({ connectionString });
 
 let schemaPromise: Promise<void> | undefined;
 
 function ensureSchema() {
-  schemaPromise ??= database.query(`
+  schemaPromise ??= getDatabase().query(`
     CREATE TABLE IF NOT EXISTS leads (
       id BIGSERIAL PRIMARY KEY,
       name TEXT NOT NULL,
@@ -39,7 +44,7 @@ export async function createLead(input: {
 }) {
   await ensureSchema();
 
-  return database.query(
+  return getDatabase().query(
     `INSERT INTO leads (
       name, contact, personal_data_consent, marketing_consent,
       privacy_policy_version, notification_consent_version,
@@ -59,5 +64,5 @@ export async function createLead(input: {
 
 export async function checkDatabase() {
   await ensureSchema();
-  await database.query("SELECT 1");
+  await getDatabase().query("SELECT 1");
 }
