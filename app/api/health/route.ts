@@ -5,7 +5,7 @@ export const runtime = "nodejs";
 
 export async function GET() {
   try {
-    checkDatabase();
+    await checkDatabase();
     return NextResponse.json({ status: "ok" });
   } catch {
     return NextResponse.json({ status: "error" }, { status: 503 });

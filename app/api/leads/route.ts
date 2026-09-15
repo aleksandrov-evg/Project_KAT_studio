@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   if (Object.keys(errors).length) {
     return NextResponse.json({ message: "Проверьте поля, отмеченные красным.", errors }, { status: 400 });
   }
-  createLead({
+  await createLead({
     name,
     contact,
     marketingConsent,
