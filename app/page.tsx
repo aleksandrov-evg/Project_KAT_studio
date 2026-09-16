@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Image from "next/image";
 import { reachGoal } from "../lib/metrika";
 
 type Status = "idle" | "success" | "error";
@@ -23,6 +24,7 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mapsOpen, setMapsOpen] = useState(false);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -96,6 +98,21 @@ export default function Home() {
       ].map(([n, title, text, image]) => <article className="direction" key={n}><img src={`/images/${image}`} alt={`Занятие: ${title}`} /><p className="number">{n}</p><h3>{title}</h3><p>{text}</p></article>)}</div>
     </div></section>
 
+    <section className="location" id="location"><div className="container location__inner">
+      <div className="location__copy">
+        <h2>Мы рядом</h2>
+        <p className="location__lead">В центре Королёва — удобно заглянуть на тренировку по пути домой или в выходной.</p>
+        <div className="location__address">
+          <span className="location__pin" aria-hidden="true">⌖</span>
+          <address><strong>ТЦ «Гелиос» · Проспект Космонавтов, 20а</strong><span>338 офис · 3 этаж</span><span>Королёв, Московская область</span></address>
+        </div>
+        <button className="button" type="button" onClick={() => setMapsOpen(true)}>Построить маршрут <span aria-hidden="true">↗</span></button>
+      </div>
+      <button className="location__map" type="button" onClick={() => setMapsOpen(true)} aria-label="Выбрать приложение для построения маршрута к студии">
+        <span className="location__map-image"><Image src="/images/studio-map.webp" alt="Карта расположения студии на проспекте Космонавтов, 20а в Королёве" fill sizes="(max-width: 800px) 100vw, 620px" /></span>
+      </button>
+    </div></section>
+
     <section className="opening container" id="opening"><div className="opening__copy"><h2>Скоро встретимся</h2><p className="opening__lead">Готовим пространство<br />для ваших новых привычек.</p><p>Студия на этапе запуска. Дату открытия и подробности сообщим, когда всё будет готово.</p></div>
       <form className="lead-form" onSubmit={submit} noValidate>
         <h2>Узнайте об открытии первыми</h2><p>Оставьте имя и удобный контакт для приглашения.</p>
@@ -108,5 +125,16 @@ export default function Home() {
       </form>
     </section>
     <footer><div className="container footer">{logo}<div><h2>Будем ближе. Скоро.</h2><p>Адрес и способы связи появятся здесь ближе к открытию.</p></div><small>Реформер · Пилатес · Стрейчинг<br /><a href="/privacy-policy">Политика обработки персональных данных</a></small></div></footer>
+    {mapsOpen && <div className="maps-dialog" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setMapsOpen(false); }}>
+      <div className="maps-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="maps-dialog-title">
+        <div className="maps-dialog__header"><h2 id="maps-dialog-title">Открыть маршрут</h2><button type="button" onClick={() => setMapsOpen(false)} aria-label="Закрыть выбор карт">×</button></div>
+        <p>Выберите удобное приложение. На телефоне маршрут откроется в установленной версии сервиса.</p>
+        <div className="maps-dialog__links">
+          <a href="https://yandex.ru/maps/?text=%D0%A2%D0%A6%20%D0%93%D0%B5%D0%BB%D0%B8%D0%BE%D1%81%2C%20%D0%9F%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9A%D0%BE%D1%81%D0%BC%D0%BE%D0%BD%D0%B0%D0%B2%D1%82%D0%BE%D0%B2%2C%2020%D0%B0%2C%20%D0%9A%D0%BE%D1%80%D0%BE%D0%BB%D1%91%D0%B2">Яндекс Карты <span>↗</span></a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=%D0%A2%D0%A6%20%D0%93%D0%B5%D0%BB%D0%B8%D0%BE%D1%81%2C%20%D0%9F%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9A%D0%BE%D1%81%D0%BC%D0%BE%D0%BD%D0%B0%D0%B2%D1%82%D0%BE%D0%B2%2C%2020%D0%B0%2C%20%D0%9A%D0%BE%D1%80%D0%BE%D0%BB%D1%91%D0%B2">Google Maps <span>↗</span></a>
+          <a href="https://maps.apple.com/?q=%D0%A2%D0%A6%20%D0%93%D0%B5%D0%BB%D0%B8%D0%BE%D1%81%2C%20%D0%9F%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9A%D0%BE%D1%81%D0%BC%D0%BE%D0%BD%D0%B0%D0%B2%D1%82%D0%BE%D0%B2%2C%2020%D0%B0%2C%20%D0%9A%D0%BE%D1%80%D0%BE%D0%BB%D1%91%D0%B2">Apple Maps <span>↗</span></a>
+        </div>
+      </div>
+    </div>}
   </main>;
 }
