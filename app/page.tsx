@@ -117,7 +117,7 @@ export default function Home() {
         <p className="caption">Оставьте контакт — пригласим, когда всё будет готово.</p>
       </div>
       <div className="hero__media">
-        <Image src="/images/generated-1789461263769.png" alt="Занятие на реформере в светлой студии" width={568} height={568} priority sizes="(max-width: 768px) 100vw, 568px" />
+        <Image src="/images/generated-1789461263769.png" alt="Занятие на реформере в светлой студии" width={568} height={568} priority sizes="(max-width: 1024px) 100vw, 568px" />
         <p>ДВИЖЕНИЕ В СВОЁМ РИТМЕ</p>
       </div>
     </section>
@@ -135,7 +135,7 @@ export default function Home() {
         ["03", "Реформер", "Работа с сопротивлением на специальном оборудовании. Сила, контроль и точность движения.", "generated-1789461308072.png"]
       ].map(([n, title, text, image]) => (
         <article className="direction" key={n}>
-          <Image src={`/images/${image}`} alt={`Занятие: ${title}`} width={400} height={300} sizes="(max-width: 768px) 100vw, 33vw" />
+          <Image src={`/images/${image}`} alt={`Занятие: ${title}`} width={400} height={300} sizes="(max-width: 1024px) 100vw, 33vw" />
           <p className="number">{n}</p>
           <h3>{title}</h3>
           <p>{text}</p>
@@ -154,7 +154,7 @@ export default function Home() {
         <button className="button" type="button" onClick={() => setMapsOpen(true)}>Построить маршрут <span aria-hidden="true">↗</span></button>
       </div>
       <button className="location__map" type="button" onClick={() => setMapsOpen(true)} aria-label="Выбрать приложение для построения маршрута к студии">
-        <span className="location__map-image"><Image src="/images/studio-map.webp" alt="Карта расположения студии на проспекте Космонавтов, 20а в Королёве" fill sizes="(max-width: 768px) 100vw, 620px" /></span>
+        <span className="location__map-image"><Image src="/images/studio-map.webp" alt="Карта расположения студии на проспекте Космонавтов, 20а в Королёве" fill sizes="(max-width: 1024px) 100vw, 620px" /></span>
       </button>
     </div></section>
 
