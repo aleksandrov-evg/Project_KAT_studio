@@ -58,6 +58,13 @@ export default function Home() {
     setStatus("idle");
     const form = event.currentTarget;
     const data = new FormData(form);
+    const query = new URLSearchParams(window.location.search);
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach((key) => {
+      const value = query.get(key);
+      if (value) data.set(key, value);
+    });
+    data.set("landingPath", window.location.pathname);
+    if (document.referrer) data.set("referrer", document.referrer);
     const clientErrors = validateLead(data);
     if (Object.keys(clientErrors).length) {
       setErrors(clientErrors);

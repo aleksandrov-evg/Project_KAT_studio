@@ -3,6 +3,10 @@ import { createLead } from "../../../lib/db";
 
 export const runtime = "nodejs";
 
+function trackingValue(data: FormData, field: string) {
+  return String(data.get(field) ?? "").trim().slice(0, 500) || null;
+}
+
 export async function POST(request: Request) {
   const data = await request.formData();
   const name = String(data.get("name") ?? "").trim();
@@ -11,6 +15,15 @@ export async function POST(request: Request) {
   const marketingConsent = data.get("marketingConsent") === "on";
   const interests = data.getAll("interests").map(String);
   const allowedInterests = new Set(["reformer", "pilates", "stretching", "personal", "undecided"]);
+  const tracking = {
+    utmSource: trackingValue(data, "utm_source"),
+    utmMedium: trackingValue(data, "utm_medium"),
+    utmCampaign: trackingValue(data, "utm_campaign"),
+    utmContent: trackingValue(data, "utm_content"),
+    utmTerm: trackingValue(data, "utm_term"),
+    landingPath: trackingValue(data, "landingPath"),
+    referrer: trackingValue(data, "referrer"),
+  };
   const phoneDigits = contact.replace(/\D/g, "");
   const errors: Record<string, string> = {};
 
@@ -25,6 +38,7 @@ export async function POST(request: Request) {
     name,
     contact,
     interests,
+    ...tracking,
     marketingConsent,
     userAgent: request.headers.get("user-agent"),
     ipAddress: request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null,
