@@ -30,7 +30,9 @@ function ensureSchema() {
       user_agent TEXT,
       ip_address TEXT
     )
-  `).then(() => undefined);
+  `).then(() => getDatabase().query(
+    "ALTER TABLE leads ADD COLUMN IF NOT EXISTS interests TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[]",
+  ).then(() => undefined));
 
   return schemaPromise;
 }
@@ -38,6 +40,7 @@ function ensureSchema() {
 export async function createLead(input: {
   name: string;
   contact: string;
+  interests: string[];
   marketingConsent: boolean;
   userAgent: string | null;
   ipAddress: string | null;
@@ -46,13 +49,14 @@ export async function createLead(input: {
 
   return getDatabase().query(
     `INSERT INTO leads (
-      name, contact, personal_data_consent, marketing_consent,
+      name, contact, interests, personal_data_consent, marketing_consent,
       privacy_policy_version, notification_consent_version,
       created_at, user_agent, ip_address
-    ) VALUES ($1, $2, TRUE, $3, $4, $5, NOW(), $6, $7)`,
+    ) VALUES ($1, $2, $3, TRUE, $4, $5, $6, NOW(), $7, $8)`,
     [
       input.name,
       input.contact,
+      input.interests,
       input.marketingConsent,
       "draft-1",
       "2026-09-15",

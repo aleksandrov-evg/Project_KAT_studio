@@ -731,6 +731,205 @@
         },
         {
           "type": "frame",
+          "id": "zdwmm",
+          "name": "Локация",
+          "width": "fill_container",
+          "height": 699,
+          "fill": "#FFFFFF",
+          "padding": 80,
+          "children": [
+            {
+              "type": "frame",
+              "id": "TBqbD",
+              "name": "Где мы",
+              "width": "fill_container",
+              "height": "fill_container",
+              "gap": 64,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "HTUTh",
+                  "name": "Адрес и маршрут",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 22,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "aQFpn",
+                      "name": "Заголовок",
+                      "fill": "$ink",
+                      "content": "МЫ РЯДОМ",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 36,
+                      "fontWeight": "800",
+                      "letterSpacing": 1
+                    },
+                    {
+                      "type": "text",
+                      "id": "P5D53J",
+                      "name": "Подзаголовок",
+                      "fill": "$muted",
+                      "textGrowth": "fixed-width",
+                      "width": 500,
+                      "content": "В центре Королёва — удобно заглянуть на тренировку по пути домой или в выходной.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 17,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "s2iYTC",
+                      "name": "Адрес",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "Hnf3E",
+                          "name": "Иконка адреса",
+                          "width": 24,
+                          "height": 24,
+                          "icon": "map-pin",
+                          "library": "lucide",
+                          "fill": "$cta"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "CROks",
+                          "name": "Текст адреса",
+                          "layout": "vertical",
+                          "gap": 6,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "wunfo",
+                              "name": "Основной адрес",
+                              "fill": "$ink",
+                              "content": "ТЦ «Гелиос» · Проспект Космонавтов, 20а",
+                              "fontFamily": "Montserrat",
+                              "fontSize": 20,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "gCW6v",
+                              "name": "Детали адреса",
+                              "fill": "$muted",
+                              "content": "338 офис · 3 этаж\nКоролёв, Московская область",
+                              "lineHeight": 1.5,
+                              "fontFamily": "Montserrat",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "LM4zQ",
+                      "name": "Кнопка Построить маршрут",
+                      "height": 48,
+                      "fill": "$cta",
+                      "cornerRadius": 28,
+                      "gap": 10,
+                      "padding": [
+                        0,
+                        24
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "H5osC9",
+                          "name": "Текст кнопки",
+                          "fill": "#FFFFFF",
+                          "content": "Построить маршрут",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "CIHPR",
+                          "name": "Стрелка",
+                          "width": 18,
+                          "height": 18,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "#FFFFFF"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "BNpkS",
+                  "name": "Карта",
+                  "clip": true,
+                  "width": 620,
+                  "height": "fill_container",
+                  "fill": {
+                    "type": "gradient",
+                    "gradientType": "radial",
+                    "enabled": true,
+                    "rotation": 0,
+                    "size": {
+                      "width": 1.15,
+                      "height": 1.15
+                    },
+                    "colors": [
+                      {
+                        "color": "#FFFFFF",
+                        "position": 0.72
+                      },
+                      {
+                        "color": "#FDF0F2",
+                        "position": 1
+                      }
+                    ]
+                  },
+                  "cornerRadius": 22,
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#B851601A",
+                    "offset": {
+                      "x": 0,
+                      "y": 8
+                    },
+                    "blur": 28
+                  },
+                  "layout": "vertical",
+                  "padding": 10,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "I1AaGb",
+                      "name": "Изображение карты",
+                      "clip": true,
+                      "width": "fill_container",
+                      "height": "fill_container",
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "screenshot-site.png",
+                        "mode": "fill"
+                      },
+                      "cornerRadius": 14
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
           "id": "J4j3ex",
           "name": "Открытие",
           "width": "fill_container",
@@ -1960,6 +2159,199 @@
         },
         {
           "type": "frame",
+          "id": "xUBBF",
+          "name": "Локация",
+          "width": "fill_container",
+          "height": 844,
+          "fill": "#FFFFFF",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            48,
+            40
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Q1wu7I",
+              "name": "Адрес и маршрут",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "I144nz",
+                  "name": "Заголовок",
+                  "fill": "$ink",
+                  "content": "МЫ РЯДОМ",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 32,
+                  "fontWeight": "800",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "text",
+                  "id": "ITkG4",
+                  "name": "Подзаголовок",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "В центре Королёва — удобно заглянуть на тренировку по пути домой или в выходной.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "X70qh",
+                  "name": "Адрес",
+                  "gap": 14,
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "qfntZ",
+                      "name": "Иконка адреса",
+                      "width": 24,
+                      "height": 24,
+                      "icon": "map-pin",
+                      "library": "lucide",
+                      "fill": "$cta"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QqcBq",
+                      "name": "Текст адреса",
+                      "layout": "vertical",
+                      "gap": 5,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "uCEBP",
+                          "name": "Основной адрес",
+                          "fill": "$ink",
+                          "content": "ТЦ «Гелиос» · Проспект Космонавтов, 20а",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 18,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Q2kFfh",
+                          "name": "Детали адреса",
+                          "fill": "$muted",
+                          "content": "338 офис · 3 этаж\nКоролёв, Московская область",
+                          "lineHeight": 1.5,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Urk7g",
+                  "name": "Кнопка Построить маршрут",
+                  "height": 48,
+                  "fill": "$cta",
+                  "cornerRadius": 28,
+                  "gap": 10,
+                  "padding": [
+                    0,
+                    24
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ENwSz",
+                      "name": "Текст кнопки",
+                      "fill": "#FFFFFF",
+                      "content": "Построить маршрут",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "ZllzT",
+                      "name": "Стрелка",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#FFFFFF"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Koh4g",
+              "name": "Карта",
+              "clip": true,
+              "width": "fill_container",
+              "height": 460,
+              "fill": {
+                "type": "gradient",
+                "gradientType": "radial",
+                "enabled": true,
+                "rotation": 0,
+                "size": {
+                  "width": 1.15,
+                  "height": 1.15
+                },
+                "colors": [
+                  {
+                    "color": "#FFFFFF",
+                    "position": 0.72
+                  },
+                  {
+                    "color": "#FDF0F2",
+                    "position": 1
+                  }
+                ]
+              },
+              "cornerRadius": 22,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#B851601A",
+                "offset": {
+                  "x": 0,
+                  "y": 8
+                },
+                "blur": 28
+              },
+              "layout": "vertical",
+              "padding": 10,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ndAye",
+                  "name": "Изображение карты",
+                  "clip": true,
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "screenshot-site.png",
+                    "mode": "fill"
+                  },
+                  "cornerRadius": 14
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
           "id": "kFfov",
           "name": "Открытие",
           "width": "fill_container",
@@ -3175,6 +3567,206 @@
                       ]
                     }
                   ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "aPH5f",
+          "name": "Локация",
+          "width": "fill_container",
+          "height": 754,
+          "fill": "#FFFFFF",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            40,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "dfRK1",
+              "name": "Адрес и маршрут",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 18,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "ReCxb",
+                  "name": "Заголовок",
+                  "fill": "$ink",
+                  "content": "МЫ РЯДОМ",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 24,
+                  "fontWeight": "800",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "text",
+                  "id": "Pxf8x",
+                  "name": "Подзаголовок",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "В центре Королёва — удобно заглянуть на тренировку по пути домой или в выходной.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Montserrat",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "ZtnDo",
+                  "name": "Адрес",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "gDS78",
+                      "name": "Иконка адреса",
+                      "width": 22,
+                      "height": 22,
+                      "icon": "map-pin",
+                      "library": "lucide",
+                      "fill": "$cta"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "PgZfn",
+                      "name": "Текст адреса",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 4,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Z2P7HH",
+                          "name": "Основной адрес",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "ТЦ «Гелиос» · Проспект Космонавтов, 20а",
+                          "lineHeight": 1.35,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 15,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "AOyvz",
+                          "name": "Детали адреса",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "338 офис · 3 этаж\nКоролёв, Московская область",
+                          "lineHeight": 1.45,
+                          "fontFamily": "Montserrat",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "p3x9nY",
+                  "name": "Кнопка Построить маршрут",
+                  "height": 48,
+                  "fill": "$cta",
+                  "cornerRadius": 28,
+                  "gap": 10,
+                  "padding": [
+                    0,
+                    22
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "HdDlO",
+                      "name": "Текст кнопки",
+                      "fill": "#FFFFFF",
+                      "content": "Построить маршрут",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "jhggV",
+                      "name": "Стрелка",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#FFFFFF"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "WXaHJ",
+              "name": "Карта",
+              "clip": true,
+              "width": "fill_container",
+              "height": 315,
+              "fill": {
+                "type": "gradient",
+                "gradientType": "radial",
+                "enabled": true,
+                "rotation": 0,
+                "size": {
+                  "width": 1.15,
+                  "height": 1.15
+                },
+                "colors": [
+                  {
+                    "color": "#FFFFFF",
+                    "position": 0.72
+                  },
+                  {
+                    "color": "#FDF0F2",
+                    "position": 1
+                  }
+                ]
+              },
+              "cornerRadius": 18,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#B851601A",
+                "offset": {
+                  "x": 0,
+                  "y": 7
+                },
+                "blur": 22
+              },
+              "layout": "vertical",
+              "padding": 7,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "G2zJyj",
+                  "name": "Изображение карты",
+                  "clip": true,
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "screenshot-site.png",
+                    "mode": "fill"
+                  },
+                  "cornerRadius": 12
                 }
               ]
             }

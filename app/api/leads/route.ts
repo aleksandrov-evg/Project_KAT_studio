@@ -9,18 +9,22 @@ export async function POST(request: Request) {
   const contact = String(data.get("contact") ?? "").trim();
   const personalDataConsent = data.get("personalDataConsent") === "on";
   const marketingConsent = data.get("marketingConsent") === "on";
+  const interests = data.getAll("interests").map(String);
+  const allowedInterests = new Set(["reformer", "pilates", "stretching", "personal", "undecided"]);
   const phoneDigits = contact.replace(/\D/g, "");
   const errors: Record<string, string> = {};
 
   if (!/^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё\s-]{1,}$/.test(name)) errors.name = "Укажите имя — не менее 2 букв.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) && !(phoneDigits.length >= 10 && phoneDigits.length <= 15)) errors.contact = "Укажите корректный телефон или e-mail.";
   if (!personalDataConsent) errors.personalDataConsent = "Подтвердите согласие на обработку персональных данных.";
+  if (interests.some((interest) => !allowedInterests.has(interest))) errors.interests = "Выберите корректный формат.";
   if (Object.keys(errors).length) {
     return NextResponse.json({ message: "Проверьте поля, отмеченные красным.", errors }, { status: 400 });
   }
   await createLead({
     name,
     contact,
+    interests,
     marketingConsent,
     userAgent: request.headers.get("user-agent"),
     ipAddress: request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null,

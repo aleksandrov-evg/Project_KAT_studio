@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { reachGoal } from "../lib/metrika";
 
@@ -25,6 +25,33 @@ export default function Home() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [menuOpen, setMenuOpen] = useState(false);
   const [mapsOpen, setMapsOpen] = useState(false);
+  const mapsCloseRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!mapsOpen && !menuOpen) return;
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+      if (mapsOpen) {
+        setMapsOpen(false);
+        return;
+      }
+      if (menuOpen) setMenuOpen(false);
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [mapsOpen, menuOpen]);
+
+  useEffect(() => {
+    if (!mapsOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    mapsCloseRef.current?.focus();
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mapsOpen]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -57,6 +84,8 @@ export default function Home() {
     if (errors[field]) setErrors((current) => ({ ...current, [field]: undefined }));
   }
 
+  const closeMenu = () => setMenuOpen(false);
+
   const logo = (
     <a className="logo" href="#top" aria-label="KATFIT BALANCE">
       <img src="/images/katfit-cat.svg" alt="" width={32} height={32} />
@@ -66,11 +95,17 @@ export default function Home() {
   );
 
   return <main>
-    <header className="header container">
+    <header className={`header container${menuOpen ? " header--menu-open" : ""}`}>
       {logo}
-      <button className="menu-button" type="button" aria-label="Открыть меню" aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen((open) => !open)}><span /><span /><span /></button>
-      <nav id="main-navigation" className={menuOpen ? "nav nav--open" : "nav"} aria-label="Основная навигация"><a href="#about" onClick={() => setMenuOpen(false)}>О студии</a><a href="#directions" onClick={() => setMenuOpen(false)}>Направления</a><a href="#opening" onClick={() => setMenuOpen(false)}>Открытие</a></nav>
-      <a className="button button--small" href="#opening">Узнать об открытии</a>
+      <button className="menu-button" type="button" aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"} aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen((open) => !open)}><span /><span /><span /></button>
+      <nav id="main-navigation" className={menuOpen ? "nav nav--open" : "nav"} aria-label="Основная навигация">
+        <a href="#about" onClick={closeMenu}>О студии</a>
+        <a href="#directions" onClick={closeMenu}>Направления</a>
+        <a href="#opening" onClick={closeMenu}>Открытие</a>
+        <a href="#location" onClick={closeMenu}>Мы рядом</a>
+        <a className="nav__cta button button--small" href="#opening" onClick={closeMenu}>Узнать об открытии</a>
+      </nav>
+      <a className="button button--small header__cta" href="#opening">Узнать об открытии</a>
     </header>
 
     <section className="hero container" id="top">
@@ -81,7 +116,10 @@ export default function Home() {
         <a className="button" href="#opening">Узнать об открытии <span>↗</span></a>
         <p className="caption">Оставьте контакт — пригласим, когда всё будет готово.</p>
       </div>
-      <div className="hero__media"><img src="/images/generated-1789461263769.png" alt="Занятие на реформере в светлой студии" /><p>ДВИЖЕНИЕ В СВОЁМ РИТМЕ</p></div>
+      <div className="hero__media">
+        <Image src="/images/generated-1789461263769.png" alt="Занятие на реформере в светлой студии" width={568} height={568} priority sizes="(max-width: 768px) 100vw, 568px" />
+        <p>ДВИЖЕНИЕ В СВОЁМ РИТМЕ</p>
+      </div>
     </section>
 
     <section className="about" id="about"><div className="container">
@@ -95,7 +133,14 @@ export default function Home() {
         ["01", "Пилатес", "Упражнения на коврике с вниманием к дыханию, устойчивости и координации.", "generated-1789461307080.png"],
         ["02", "Стрейчинг", "Мягкая работа над гибкостью и подвижностью. Возможность замедлиться и снять повседневное напряжение.", "generated-1789461307602.png"],
         ["03", "Реформер", "Работа с сопротивлением на специальном оборудовании. Сила, контроль и точность движения.", "generated-1789461308072.png"]
-      ].map(([n, title, text, image]) => <article className="direction" key={n}><img src={`/images/${image}`} alt={`Занятие: ${title}`} /><p className="number">{n}</p><h3>{title}</h3><p>{text}</p></article>)}</div>
+      ].map(([n, title, text, image]) => (
+        <article className="direction" key={n}>
+          <Image src={`/images/${image}`} alt={`Занятие: ${title}`} width={400} height={300} sizes="(max-width: 768px) 100vw, 33vw" />
+          <p className="number">{n}</p>
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </article>
+      ))}</div>
     </div></section>
 
     <section className="location" id="location"><div className="container location__inner">
@@ -109,25 +154,27 @@ export default function Home() {
         <button className="button" type="button" onClick={() => setMapsOpen(true)}>Построить маршрут <span aria-hidden="true">↗</span></button>
       </div>
       <button className="location__map" type="button" onClick={() => setMapsOpen(true)} aria-label="Выбрать приложение для построения маршрута к студии">
-        <span className="location__map-image"><Image src="/images/studio-map.webp" alt="Карта расположения студии на проспекте Космонавтов, 20а в Королёве" fill sizes="(max-width: 800px) 100vw, 620px" /></span>
+        <span className="location__map-image"><Image src="/images/studio-map.webp" alt="Карта расположения студии на проспекте Космонавтов, 20а в Королёве" fill sizes="(max-width: 768px) 100vw, 620px" /></span>
       </button>
     </div></section>
 
-    <section className="opening container" id="opening"><div className="opening__copy"><h2>Скоро встретимся</h2><p className="opening__lead">Готовим пространство<br />для ваших новых привычек.</p><p>Студия на этапе запуска. Дату открытия и подробности сообщим, когда всё будет готово.</p></div>
+    <section className="opening" id="opening"><div className="container opening__inner">
+      <div className="opening__copy"><h2>Скоро встретимся</h2><p className="opening__lead">Готовим пространство<br />для ваших новых привычек.</p><p>Студия на этапе запуска. Дату открытия и подробности сообщим, когда всё будет готово.</p></div>
       <form className="lead-form" onSubmit={submit} noValidate>
-        <h2>Узнайте об открытии первыми</h2><p>Оставьте имя и удобный контакт для приглашения.</p>
-        <label className={errors.name ? "field field--error" : "field"}>Ваше имя<input name="name" required autoComplete="name" placeholder="Как к вам обращаться" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} onChange={clearFieldError} />{errors.name && <span className="field-error" id="name-error">{errors.name}</span>}</label>
-        <label className={errors.contact ? "field field--error" : "field"}>Телефон или e-mail<input name="contact" required autoComplete="email" placeholder="+7 или name@example.ru" aria-invalid={Boolean(errors.contact)} aria-describedby={errors.contact ? "contact-error" : undefined} onChange={clearFieldError} />{errors.contact && <span className="field-error" id="contact-error">{errors.contact}</span>}</label>
+        <h2>Узнайте об открытии первыми</h2><p>Оставьте имя и удобный контакт для приглашения. Выберите интересующий формат — это поможет нам подготовить стартовую сетку. Выбор не является записью на занятие.</p>
+        <div className="lead-form__contacts"><label className={errors.name ? "field field--error" : "field"}>Ваше имя<input name="name" required autoComplete="name" placeholder="Как к вам обращаться" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} onChange={clearFieldError} />{errors.name && <span className="field-error" id="name-error">{errors.name}</span>}</label>
+        <label className={errors.contact ? "field field--error" : "field"}>Телефон или e-mail<input name="contact" required autoComplete="email" placeholder="+7 или name@example.ru" aria-invalid={Boolean(errors.contact)} aria-describedby={errors.contact ? "contact-error" : undefined} onChange={clearFieldError} />{errors.contact && <span className="field-error" id="contact-error">{errors.contact}</span>}</label></div>
+        <fieldset className="interest-field"><legend>Что вам интересно?</legend><p>Можно выбрать несколько вариантов.</p><div className="interest-field__options"><label><span>Пилатес на реформере</span><input type="checkbox" name="interests" value="reformer" /></label><label><span>Классический пилатес</span><input type="checkbox" name="interests" value="pilates" /></label><label><span>Стрейчинг</span><input type="checkbox" name="interests" value="stretching" /></label><label><span>Персональные занятия</span><input type="checkbox" name="interests" value="personal" /></label><label><span>Пока не знаю — хочу подобрать формат</span><input type="checkbox" name="interests" value="undecided" /></label></div></fieldset>
         <label className={errors.personalDataConsent ? "consent consent--error" : "consent"}><input type="checkbox" name="personalDataConsent" required aria-invalid={Boolean(errors.personalDataConsent)} aria-describedby={errors.personalDataConsent ? "personal-data-consent-error" : undefined} onChange={clearFieldError} /><span>Даю согласие на обработку моих персональных данных в соответствии с <a href="/privacy-policy">Политикой обработки персональных данных</a>.{errors.personalDataConsent && <span className="field-error" id="personal-data-consent-error">{errors.personalDataConsent}</span>}</span></label>
         <label className="consent"><input type="checkbox" name="marketingConsent" /><span>Я даю согласие ИП Александровой Екатерине Михайловне на получение информационных и рекламных уведомлений об открытии студии, занятиях, специальных условиях и предложениях по указанному контакту. Это необязательно. <a href="/notification-consent">Условия согласия на уведомления</a>.</span></label>
         <button className="button" type="submit">Сообщить мне об открытии</button>
         {status !== "idle" && <p className={`form-status form-status--${status}`} role={status === "error" ? "alert" : "status"}>{message}</p>}
       </form>
-    </section>
-    <footer><div className="container footer">{logo}<div><h2>Будем ближе. Скоро.</h2><p>Адрес и способы связи появятся здесь ближе к открытию.</p></div><small>Реформер · Пилатес · Стрейчинг<br /><a href="/privacy-policy">Политика обработки персональных данных</a></small></div></footer>
+    </div></section>
+    <footer><div className="container footer">{logo}<div><h2>Будем ближе. Скоро.</h2><p>ТЦ «Гелиос» · Проспект Космонавтов, 20а<br />338 офис · 3 этаж · Королёв</p></div><small>Реформер · Пилатес · Стрейчинг<br /><a href="/privacy-policy">Политика обработки персональных данных</a></small></div></footer>
     {mapsOpen && <div className="maps-dialog" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setMapsOpen(false); }}>
       <div className="maps-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="maps-dialog-title">
-        <div className="maps-dialog__header"><h2 id="maps-dialog-title">Открыть маршрут</h2><button type="button" onClick={() => setMapsOpen(false)} aria-label="Закрыть выбор карт">×</button></div>
+        <div className="maps-dialog__header"><h2 id="maps-dialog-title">Открыть маршрут</h2><button ref={mapsCloseRef} type="button" onClick={() => setMapsOpen(false)} aria-label="Закрыть выбор карт">×</button></div>
         <p>Выберите удобное приложение. На телефоне маршрут откроется в установленной версии сервиса.</p>
         <div className="maps-dialog__links">
           <a href="https://yandex.ru/maps/?text=%D0%A2%D0%A6%20%D0%93%D0%B5%D0%BB%D0%B8%D0%BE%D1%81%2C%20%D0%9F%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9A%D0%BE%D1%81%D0%BC%D0%BE%D0%BD%D0%B0%D0%B2%D1%82%D0%BE%D0%B2%2C%2020%D0%B0%2C%20%D0%9A%D0%BE%D1%80%D0%BE%D0%BB%D1%91%D0%B2">Яндекс Карты <span>↗</span></a>
