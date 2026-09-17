@@ -110,9 +110,9 @@ export default function Home() {
         <a href="#directions" onClick={closeMenu}>Направления</a>
         <a href="#opening" onClick={closeMenu}>Открытие</a>
         <a href="#location" onClick={closeMenu}>Мы рядом</a>
-        <a className="nav__cta button button--small" href="#opening" onClick={closeMenu}>Узнать об открытии</a>
+        <a className="nav__cta button button--small" href="#waitlist" onClick={closeMenu}>Узнать об открытии</a>
       </nav>
-      <a className="button button--small header__cta" href="#opening">Узнать об открытии</a>
+      <a className="button button--small header__cta" href="#waitlist">Узнать об открытии</a>
     </header>
 
     <section className="hero container" id="top">
@@ -120,7 +120,7 @@ export default function Home() {
         <p className="eyebrow">СКОРО ОТКРЫТИЕ</p>
         <h1>Больше движения.<br />Ближе к себе.</h1>
         <p className="lead">Камерная студия реформера, пилатеса и стрейчинга. Пространство, где можно замедлиться и почувствовать своё тело.</p>
-        <a className="button" href="#opening">Узнать об открытии <span>↗</span></a>
+        <a className="button" href="#waitlist">Узнать об открытии <span>↗</span></a>
         <p className="caption">Оставьте контакт — пригласим, когда всё будет готово.</p>
       </div>
       <div className="hero__media">
@@ -141,7 +141,7 @@ export default function Home() {
         ["02", "Стрейчинг", "Мягкая работа над гибкостью и подвижностью. Возможность замедлиться и снять повседневное напряжение.", "generated-1789461307602.png"],
         ["03", "Реформер", "Работа с сопротивлением на специальном оборудовании. Сила, контроль и точность движения.", "generated-1789461308072.png"]
       ].map(([n, title, text, image]) => (
-        <article className="direction" key={n}>
+        <article className="direction" id={title === "Реформер" ? "reformer" : undefined} key={n}>
           <Image src={`/images/${image}`} alt={`Занятие: ${title}`} width={400} height={300} sizes="(max-width: 1024px) 100vw, 33vw" />
           <p className="number">{n}</p>
           <h3>{title}</h3>
@@ -167,7 +167,7 @@ export default function Home() {
 
     <section className="opening" id="opening"><div className="container opening__inner">
       <div className="opening__copy"><h2>Скоро встретимся</h2><p className="opening__lead">Готовим пространство<br />для ваших новых привычек.</p><p>Студия на этапе запуска. Дату открытия и подробности сообщим, когда всё будет готово.</p></div>
-      <form className="lead-form" onSubmit={submit} noValidate>
+      <form className="lead-form" id="waitlist" onSubmit={submit} noValidate>
         <h2>Узнайте об открытии первыми</h2><p>Оставьте имя и удобный контакт для приглашения. Выберите интересующий формат — это поможет нам подготовить стартовую сетку. Выбор не является записью на занятие.</p>
         <div className="lead-form__contacts"><label className={errors.name ? "field field--error" : "field"}>Ваше имя<input name="name" required autoComplete="name" placeholder="Как к вам обращаться" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} onChange={clearFieldError} />{errors.name && <span className="field-error" id="name-error">{errors.name}</span>}</label>
         <label className={errors.contact ? "field field--error" : "field"}>Телефон или e-mail<input name="contact" required autoComplete="email" placeholder="+7 или name@example.ru" aria-invalid={Boolean(errors.contact)} aria-describedby={errors.contact ? "contact-error" : undefined} onChange={clearFieldError} />{errors.contact && <span className="field-error" id="contact-error">{errors.contact}</span>}</label></div>
