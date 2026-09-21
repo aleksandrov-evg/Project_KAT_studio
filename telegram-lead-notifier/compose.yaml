@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.tunnel
+      network: host
     restart: unless-stopped
     environment:
       SSH_HOST: ${SSH_HOST}
@@ -29,6 +30,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      network: host
     restart: unless-stopped
     depends_on:
       ssh-tunnel:
