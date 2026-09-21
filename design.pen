@@ -4760,6 +4760,1861 @@
           "height": 12.88
         }
       ]
+    },
+    {
+      "type": "frame",
+      "id": "jrAdg",
+      "x": 3943,
+      "y": 0,
+      "name": "05 / Mobile · Форма A — спокойный список",
+      "clip": true,
+      "width": 375,
+      "height": 800,
+      "fill": "#FFFFFF",
+      "layout": "vertical",
+      "gap": 20,
+      "padding": [
+        32,
+        20
+      ],
+      "children": [
+        {
+          "type": "text",
+          "id": "f1WvDI",
+          "name": "Метка варианта",
+          "fill": "#B85160",
+          "content": "ВАРИАНТ A · СПОКОЙНЫЙ СПИСОК",
+          "fontFamily": "Montserrat",
+          "fontSize": 11,
+          "fontWeight": "700",
+          "letterSpacing": 1.2
+        },
+        {
+          "type": "text",
+          "id": "uGXtW",
+          "name": "Заголовок формы",
+          "fill": "#1A1A1A",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "УЗНАЙТЕ ОБ ОТКРЫТИИ ПЕРВЫМИ",
+          "lineHeight": 1.2,
+          "fontFamily": "Montserrat",
+          "fontSize": 23,
+          "fontWeight": "800",
+          "letterSpacing": 0.8
+        },
+        {
+          "type": "text",
+          "id": "wYzGS",
+          "name": "Пояснение формы",
+          "fill": "#6B6B6B",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Оставьте контакт — пригласим, когда всё будет готово.",
+          "lineHeight": 1.5,
+          "fontFamily": "Montserrat",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "Ywcly",
+          "name": "Ваше имя",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 7,
+          "children": [
+            {
+              "type": "text",
+              "id": "rOfsq",
+              "name": "Подпись Ваше имя",
+              "fill": "#1A1A1A",
+              "content": "Ваше имя",
+              "fontFamily": "Montserrat",
+              "fontSize": 13,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "MpKEO",
+              "name": "Поле Ваше имя",
+              "width": "fill_container",
+              "height": 48,
+              "cornerRadius": 14,
+              "stroke": "#DED9DA",
+              "strokeWidth": 1,
+              "padding": [
+                0,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "iqZjL",
+                  "name": "Плейсхолдер Ваше имя",
+                  "fill": "#949090",
+                  "content": "Как к вам обращаться",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "hitrj",
+          "name": "Телефон или e-mail",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 7,
+          "children": [
+            {
+              "type": "text",
+              "id": "PiXd1",
+              "name": "Подпись Телефон или e-mail",
+              "fill": "#1A1A1A",
+              "content": "Телефон или e-mail",
+              "fontFamily": "Montserrat",
+              "fontSize": 13,
+              "fontWeight": "600"
+            },
+            {
+              "type": "frame",
+              "id": "wM0d3",
+              "name": "Поле Телефон или e-mail",
+              "width": "fill_container",
+              "height": 48,
+              "cornerRadius": 14,
+              "stroke": "#DED9DA",
+              "strokeWidth": 1,
+              "padding": [
+                0,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "HdXiB",
+                  "name": "Плейсхолдер Телефон или e-mail",
+                  "fill": "#949090",
+                  "content": "+7 или name@example.ru",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "CeE4w",
+          "name": "Интересующие форматы",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "children": [
+            {
+              "type": "text",
+              "id": "W7XAL2",
+              "name": "Заголовок выбора",
+              "fill": "#1A1A1A",
+              "content": "ЧТО ВАМ ИНТЕРЕСНО?",
+              "fontFamily": "Montserrat",
+              "fontSize": 13,
+              "fontWeight": "700",
+              "letterSpacing": 0.7
+            },
+            {
+              "type": "text",
+              "id": "KPITk",
+              "name": "Подсказка выбора",
+              "fill": "#6B6B6B",
+              "content": "Можно выбрать несколько вариантов.",
+              "fontFamily": "Montserrat",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "QZJIZ",
+              "name": "Выбор · Пилатес на реформере",
+              "width": "fill_container",
+              "height": 40,
+              "stroke": "#E7E1E2",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "V1i2fz",
+                  "name": "Текст · Пилатес на реформере",
+                  "fill": "#1A1A1A",
+                  "content": "Пилатес на реформере",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 5,
+                  "id": "u4RTsn",
+                  "name": "Чекбокс · Пилатес на реформере",
+                  "fill": "#FFFFFF",
+                  "width": 18,
+                  "height": 18,
+                  "stroke": "#8D8889",
+                  "strokeWidth": 1.5
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "k7UjaP",
+              "name": "Выбор · Классический пилатес",
+              "width": "fill_container",
+              "height": 40,
+              "stroke": "#E7E1E2",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "W3J7h",
+                  "name": "Текст · Классический пилатес",
+                  "fill": "#1A1A1A",
+                  "content": "Классический пилатес",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 5,
+                  "id": "pFz6X",
+                  "name": "Чекбокс · Классический пилатес",
+                  "fill": "#FFFFFF",
+                  "width": 18,
+                  "height": 18,
+                  "stroke": "#8D8889",
+                  "strokeWidth": 1.5
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "j7BxoX",
+              "name": "Выбор · Стрейчинг",
+              "width": "fill_container",
+              "height": 40,
+              "stroke": "#E7E1E2",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Bo9di",
+                  "name": "Текст · Стрейчинг",
+                  "fill": "#1A1A1A",
+                  "content": "Стрейчинг",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 5,
+                  "id": "ubpQF",
+                  "name": "Чекбокс · Стрейчинг",
+                  "fill": "#FFFFFF",
+                  "width": 18,
+                  "height": 18,
+                  "stroke": "#8D8889",
+                  "strokeWidth": 1.5
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "NGllZ",
+              "name": "Выбор · Персональные занятия",
+              "width": "fill_container",
+              "height": 40,
+              "stroke": "#E7E1E2",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Bp0h2",
+                  "name": "Текст · Персональные занятия",
+                  "fill": "#1A1A1A",
+                  "content": "Персональные занятия",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 5,
+                  "id": "qciAm",
+                  "name": "Чекбокс · Персональные занятия",
+                  "fill": "#FFFFFF",
+                  "width": 18,
+                  "height": 18,
+                  "stroke": "#8D8889",
+                  "strokeWidth": 1.5
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "DfGsC",
+              "name": "Выбор · Пока не знаю — хочу подобрать формат",
+              "width": "fill_container",
+              "height": 40,
+              "stroke": "#E7E1E2",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "bzN9P",
+                  "name": "Текст · Пока не знаю — хочу подобрать формат",
+                  "fill": "#1A1A1A",
+                  "content": "Пока не знаю — хочу подобрать формат",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 5,
+                  "id": "yfKsT",
+                  "name": "Чекбокс · Пока не знаю — хочу подобрать формат",
+                  "fill": "#FFFFFF",
+                  "width": 18,
+                  "height": 18,
+                  "stroke": "#8D8889",
+                  "strokeWidth": 1.5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "huhqO",
+          "name": "Согласие на данные",
+          "width": "fill_container",
+          "gap": 10,
+          "children": [
+            {
+              "type": "rectangle",
+              "cornerRadius": 5,
+              "id": "EQ2bw",
+              "name": "Чекбокс согласия",
+              "fill": "#FFFFFF",
+              "width": 18,
+              "height": 18,
+              "stroke": "#8D8889",
+              "strokeWidth": 1.5
+            },
+            {
+              "type": "text",
+              "id": "fxYkc",
+              "name": "Текст согласия",
+              "fill": "#6B6B6B",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Даю согласие на обработку персональных данных в соответствии с Политикой.",
+              "lineHeight": 1.45,
+              "fontFamily": "Montserrat",
+              "fontSize": 10,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "wfRwE",
+          "name": "CTA · Сообщить мне об открытии",
+          "width": "fill_container",
+          "height": 48,
+          "fill": "#B85160",
+          "cornerRadius": 28,
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "BOdaH",
+              "name": "Текст CTA",
+              "fill": "#FFFFFF",
+              "content": "Сообщить мне об открытии",
+              "fontFamily": "Montserrat",
+              "fontSize": 13,
+              "fontWeight": "700"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Up1xR",
+      "x": 4398,
+      "y": 0,
+      "name": "06 / Mobile · Форма B — компактные выборы",
+      "clip": true,
+      "width": 375,
+      "height": 800,
+      "fill": "#FDF0F2",
+      "layout": "vertical",
+      "gap": 18,
+      "padding": [
+        32,
+        20
+      ],
+      "children": [
+        {
+          "type": "text",
+          "id": "cIeWp",
+          "name": "Метка варианта",
+          "fill": "#B85160",
+          "content": "ВАРИАНТ B · КОМПАКТНЫЕ ВЫБОРЫ",
+          "fontFamily": "Montserrat",
+          "fontSize": 11,
+          "fontWeight": "700",
+          "letterSpacing": 1.2
+        },
+        {
+          "type": "text",
+          "id": "wcT5X",
+          "name": "Заголовок формы",
+          "fill": "#1A1A1A",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "ВАШ ИДЕАЛЬНЫЙ ФОРМАТ",
+          "lineHeight": 1.2,
+          "fontFamily": "Montserrat",
+          "fontSize": 23,
+          "fontWeight": "800",
+          "letterSpacing": 0.8
+        },
+        {
+          "type": "text",
+          "id": "VJfF5",
+          "name": "Пояснение формы",
+          "fill": "#6B6B6B",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Отметьте то, что откликается. Можно выбрать несколько вариантов.",
+          "lineHeight": 1.5,
+          "fontFamily": "Montserrat",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "Z1CWEI",
+          "name": "Контакты",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 10,
+          "children": [
+            {
+              "type": "frame",
+              "id": "nWsTX",
+              "name": "Поле Ваше имя",
+              "width": "fill_container",
+              "height": 48,
+              "fill": "#FFFFFF",
+              "cornerRadius": 14,
+              "padding": [
+                0,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "acuvh",
+                  "name": "Плейсхолдер Ваше имя",
+                  "fill": "#949090",
+                  "content": "Как к вам обращаться",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "uan6l",
+              "name": "Поле Телефон или e-mail",
+              "width": "fill_container",
+              "height": 48,
+              "fill": "#FFFFFF",
+              "cornerRadius": 14,
+              "padding": [
+                0,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "PPvpx",
+                  "name": "Плейсхолдер Телефон или e-mail",
+                  "fill": "#949090",
+                  "content": "+7 или name@example.ru",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "zJHxG",
+          "name": "Интересующие форматы",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 8,
+          "children": [
+            {
+              "type": "text",
+              "id": "fS489",
+              "name": "Подсказка выбора",
+              "fill": "#1A1A1A",
+              "content": "ЧТО ХОТИТЕ ПОПРОБОВАТЬ?",
+              "fontFamily": "Montserrat",
+              "fontSize": 13,
+              "fontWeight": "700",
+              "letterSpacing": 0.7
+            },
+            {
+              "type": "frame",
+              "id": "X1hTfS",
+              "name": "Ряд вариантов 1",
+              "width": "fill_container",
+              "height": 54,
+              "gap": 8,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "cYFgP",
+                  "name": "Выбор · Пилатес на реформере",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "stroke": "#B85160",
+                  "strokeWidth": 1,
+                  "gap": 7,
+                  "padding": [
+                    0,
+                    9
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "PnfBj",
+                      "name": "Выбрано · Пилатес на реформере",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "check",
+                      "library": "lucide",
+                      "weight": 700,
+                      "fill": "#B85160"
+                    },
+                    {
+                      "type": "text",
+                      "id": "jBxwi",
+                      "name": "Текст · Пилатес на реформере",
+                      "fill": "#1A1A1A",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Пилатес на реформере",
+                      "lineHeight": 1.2,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 10,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "QmQgP",
+                  "name": "Выбор · Классический пилатес",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "#F8E7E9",
+                  "cornerRadius": 12,
+                  "stroke": "#E8C8CE",
+                  "strokeWidth": 1,
+                  "gap": 7,
+                  "padding": [
+                    0,
+                    9
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "YTh0s",
+                      "name": "Текст · Классический пилатес",
+                      "fill": "#1A1A1A",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Классический пилатес",
+                      "lineHeight": 1.2,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 10,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "WYfkC",
+              "name": "Ряд вариантов 2",
+              "width": "fill_container",
+              "height": 54,
+              "gap": 8,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "k9rcB",
+                  "name": "Выбор · Стрейчинг",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "#F8E7E9",
+                  "cornerRadius": 12,
+                  "stroke": "#E8C8CE",
+                  "strokeWidth": 1,
+                  "gap": 7,
+                  "padding": [
+                    0,
+                    9
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "R6gw0",
+                      "name": "Текст · Стрейчинг",
+                      "fill": "#1A1A1A",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Стрейчинг",
+                      "lineHeight": 1.2,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 10,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "inkos",
+                  "name": "Выбор · Персональные занятия",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "fill": "#F8E7E9",
+                  "cornerRadius": 12,
+                  "stroke": "#E8C8CE",
+                  "strokeWidth": 1,
+                  "gap": 7,
+                  "padding": [
+                    0,
+                    9
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Y2BIp2",
+                      "name": "Текст · Персональные занятия",
+                      "fill": "#1A1A1A",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Персональные занятия",
+                      "lineHeight": 1.2,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 10,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "g2kc4J",
+              "name": "Выбор · Пока не знаю",
+              "width": "fill_container",
+              "height": 46,
+              "fill": "#FFFFFF",
+              "cornerRadius": 12,
+              "stroke": "#E8C8CE",
+              "strokeWidth": 1,
+              "gap": 8,
+              "padding": [
+                0,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "mvj4Y",
+                  "name": "Иконка подбора формата",
+                  "width": 16,
+                  "height": 16,
+                  "icon": "sparkles",
+                  "library": "lucide",
+                  "weight": 500,
+                  "fill": "#B85160"
+                },
+                {
+                  "type": "text",
+                  "id": "vMVDy",
+                  "name": "Текст · Пока не знаю",
+                  "fill": "#1A1A1A",
+                  "content": "Пока не знаю — помогите подобрать",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 11,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "p69Rcx",
+          "name": "Согласие на данные",
+          "width": "fill_container",
+          "gap": 10,
+          "children": [
+            {
+              "type": "rectangle",
+              "cornerRadius": 5,
+              "id": "K2ja4",
+              "name": "Чекбокс согласия",
+              "fill": "#FFFFFF",
+              "width": 18,
+              "height": 18,
+              "stroke": "#8D8889",
+              "strokeWidth": 1.5
+            },
+            {
+              "type": "text",
+              "id": "GE82f",
+              "name": "Текст согласия",
+              "fill": "#6B6B6B",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Даю согласие на обработку персональных данных в соответствии с Политикой.",
+              "lineHeight": 1.45,
+              "fontFamily": "Montserrat",
+              "fontSize": 10,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "KROYd",
+          "name": "CTA · Сообщить мне об открытии",
+          "width": "fill_container",
+          "height": 48,
+          "fill": "#B85160",
+          "cornerRadius": 28,
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "Lcir8",
+              "name": "Текст CTA",
+              "fill": "#FFFFFF",
+              "content": "Сообщить мне об открытии",
+              "fontFamily": "Montserrat",
+              "fontSize": 13,
+              "fontWeight": "700"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "GbQC9",
+      "x": 4853,
+      "y": 0,
+      "name": "07 / Desktop · Форма A — спокойный список",
+      "clip": true,
+      "width": 1440,
+      "height": 720,
+      "fill": "#FFFFFF",
+      "children": [
+        {
+          "type": "frame",
+          "id": "MwZ4f",
+          "name": "Приглашение к открытию",
+          "width": 640,
+          "height": "fill_container",
+          "fill": "#FDF0F2",
+          "layout": "vertical",
+          "gap": 28,
+          "padding": [
+            112,
+            80
+          ],
+          "justifyContent": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "Mi38X",
+              "name": "Метка открытия",
+              "fill": "#B85160",
+              "content": "СКОРО ОТКРЫТИЕ",
+              "fontFamily": "Montserrat",
+              "fontSize": 12,
+              "fontWeight": "700",
+              "letterSpacing": 1.5
+            },
+            {
+              "type": "text",
+              "id": "DFE8z",
+              "name": "Заголовок приглашения",
+              "fill": "#1A1A1A",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "ДВИЖЕНИЕ, КОТОРОЕ ОСТАЁТСЯ С ВАМИ",
+              "lineHeight": 1.16,
+              "fontFamily": "Montserrat",
+              "fontSize": 39,
+              "fontWeight": "800",
+              "letterSpacing": 1
+            },
+            {
+              "type": "text",
+              "id": "RAlkk",
+              "name": "Описание приглашения",
+              "fill": "#6B6B6B",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Готовим камерную студию, где легко начать заниматься в своём темпе. Оставьте контакт — пригласим первыми.",
+              "lineHeight": 1.55,
+              "fontFamily": "Montserrat",
+              "fontSize": 16,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "MHEIk",
+              "name": "Преимущество ранней записи",
+              "fill": "#FFFFFF",
+              "cornerRadius": 16,
+              "gap": 10,
+              "padding": [
+                14,
+                18
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "U4CTYu",
+                  "name": "Иконка приоритета",
+                  "width": 18,
+                  "height": 18,
+                  "icon": "sparkles",
+                  "library": "lucide",
+                  "weight": 500,
+                  "fill": "#B85160"
+                },
+                {
+                  "type": "text",
+                  "id": "ub9sS",
+                  "name": "Текст преимущества",
+                  "fill": "#1A1A1A",
+                  "content": "Приоритетная информация об открытии",
+                  "fontFamily": "Montserrat",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "e3QAi",
+          "name": "Форма A",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 16,
+          "padding": [
+            64,
+            112
+          ],
+          "justifyContent": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "E3bw3r",
+              "name": "Заголовок формы",
+              "fill": "#1A1A1A",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "УЗНАЙТЕ ОБ ОТКРЫТИИ ПЕРВЫМИ",
+              "lineHeight": 1.2,
+              "fontFamily": "Montserrat",
+              "fontSize": 24,
+              "fontWeight": "800",
+              "letterSpacing": 0.7
+            },
+            {
+              "type": "text",
+              "id": "pNlGi",
+              "name": "Пояснение формы",
+              "fill": "#6B6B6B",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Выберите интересующий формат — это поможет нам подготовить расписание.",
+              "lineHeight": 1.5,
+              "fontFamily": "Montserrat",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "ekTNz",
+              "name": "Контактные поля",
+              "width": "fill_container",
+              "height": 70,
+              "gap": 12,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "IDzfp",
+                  "name": "Ваше имя",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "pvjco",
+                      "name": "Подпись Ваше имя",
+                      "fill": "#1A1A1A",
+                      "content": "Ваше имя",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "cdGv1",
+                      "name": "Поле Ваше имя",
+                      "width": "fill_container",
+                      "height": 48,
+                      "cornerRadius": 14,
+                      "stroke": "#DED9DA",
+                      "strokeWidth": 1,
+                      "padding": [
+                        0,
+                        14
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "hI8iQ",
+                          "name": "Плейсхолдер Ваше имя",
+                          "fill": "#949090",
+                          "content": "Как к вам обращаться",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "g8P96R",
+                  "name": "Телефон или e-mail",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "lbzgN",
+                      "name": "Подпись Телефон или e-mail",
+                      "fill": "#1A1A1A",
+                      "content": "Телефон или e-mail",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "VDFSr",
+                      "name": "Поле Телефон или e-mail",
+                      "width": "fill_container",
+                      "height": 48,
+                      "cornerRadius": 14,
+                      "stroke": "#DED9DA",
+                      "strokeWidth": 1,
+                      "padding": [
+                        0,
+                        14
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "bkauU",
+                          "name": "Плейсхолдер Телефон или e-mail",
+                          "fill": "#949090",
+                          "content": "+7 или name@example.ru",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Z1KJ4g",
+              "name": "Интересующие форматы",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "CaLhL",
+                  "name": "Заголовок выбора",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "uDovZ",
+                      "name": "Заголовок",
+                      "fill": "#1A1A1A",
+                      "content": "ЧТО ВАМ ИНТЕРЕСНО?",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "700",
+                      "letterSpacing": 0.8
+                    },
+                    {
+                      "type": "text",
+                      "id": "xY5cv",
+                      "name": "Подсказка",
+                      "fill": "#6B6B6B",
+                      "content": "Можно выбрать несколько",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ezB4G",
+                  "name": "Выбор · Пилатес на реформере",
+                  "width": "fill_container",
+                  "height": 34,
+                  "stroke": "#E7E1E2",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "dasDf",
+                      "name": "Текст · Пилатес на реформере",
+                      "fill": "#1A1A1A",
+                      "content": "Пилатес на реформере",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 5,
+                      "id": "Z0KJj",
+                      "name": "Чекбокс · Пилатес на реформере",
+                      "fill": "#FFFFFF",
+                      "width": 17,
+                      "height": 17,
+                      "stroke": "#8D8889",
+                      "strokeWidth": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "L2g55D",
+                  "name": "Выбор · Классический пилатес",
+                  "width": "fill_container",
+                  "height": 34,
+                  "stroke": "#E7E1E2",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "mIYv6",
+                      "name": "Текст · Классический пилатес",
+                      "fill": "#1A1A1A",
+                      "content": "Классический пилатес",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 5,
+                      "id": "I82hE",
+                      "name": "Чекбокс · Классический пилатес",
+                      "fill": "#FFFFFF",
+                      "width": 17,
+                      "height": 17,
+                      "stroke": "#8D8889",
+                      "strokeWidth": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "P01jWG",
+                  "name": "Выбор · Стрейчинг",
+                  "width": "fill_container",
+                  "height": 34,
+                  "stroke": "#E7E1E2",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "QWeEc",
+                      "name": "Текст · Стрейчинг",
+                      "fill": "#1A1A1A",
+                      "content": "Стрейчинг",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 5,
+                      "id": "Y1bkq",
+                      "name": "Чекбокс · Стрейчинг",
+                      "fill": "#FFFFFF",
+                      "width": 17,
+                      "height": 17,
+                      "stroke": "#8D8889",
+                      "strokeWidth": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "eHJSS",
+                  "name": "Выбор · Персональные занятия",
+                  "width": "fill_container",
+                  "height": 34,
+                  "stroke": "#E7E1E2",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "WDnfv",
+                      "name": "Текст · Персональные занятия",
+                      "fill": "#1A1A1A",
+                      "content": "Персональные занятия",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 5,
+                      "id": "q3bYyK",
+                      "name": "Чекбокс · Персональные занятия",
+                      "fill": "#FFFFFF",
+                      "width": 17,
+                      "height": 17,
+                      "stroke": "#8D8889",
+                      "strokeWidth": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "UgLHU",
+                  "name": "Выбор · Пока не знаю — хочу подобрать формат",
+                  "width": "fill_container",
+                  "height": 34,
+                  "stroke": "#E7E1E2",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Fc9Jy",
+                      "name": "Текст · Пока не знаю — хочу подобрать формат",
+                      "fill": "#1A1A1A",
+                      "content": "Пока не знаю — хочу подобрать формат",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 5,
+                      "id": "xt7CE",
+                      "name": "Чекбокс · Пока не знаю — хочу подобрать формат",
+                      "fill": "#FFFFFF",
+                      "width": 17,
+                      "height": 17,
+                      "stroke": "#8D8889",
+                      "strokeWidth": 1.5
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "M73qA",
+              "name": "Нижняя часть формы",
+              "width": "fill_container",
+              "gap": 18,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "tHTzM",
+                  "name": "Согласие на данные",
+                  "width": "fill_container",
+                  "gap": 9,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 5,
+                      "id": "P101GR",
+                      "name": "Чекбокс согласия",
+                      "fill": "#FFFFFF",
+                      "width": 17,
+                      "height": 17,
+                      "stroke": "#8D8889",
+                      "strokeWidth": 1.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "YmM6z",
+                      "name": "Текст согласия",
+                      "fill": "#6B6B6B",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Согласие на обработку персональных данных.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 10,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ZAzkA",
+                  "name": "CTA · Сообщить мне об открытии",
+                  "width": 226,
+                  "height": 48,
+                  "fill": "#B85160",
+                  "cornerRadius": 28,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "jYQPn",
+                      "name": "Текст CTA",
+                      "fill": "#FFFFFF",
+                      "content": "Сообщить мне",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "ATIHd",
+      "x": 6373,
+      "y": 0,
+      "name": "08 / Tablet · Форма A — спокойный список",
+      "clip": true,
+      "width": 768,
+      "height": 900,
+      "fill": "#F8F8F8",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "n05bp8",
+          "name": "Приглашение к открытию",
+          "width": "fill_container",
+          "height": 260,
+          "fill": "#FDF0F2",
+          "layout": "vertical",
+          "gap": 18,
+          "padding": [
+            48,
+            40
+          ],
+          "justifyContent": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "X2EQtQ",
+              "name": "Метка открытия",
+              "fill": "#B85160",
+              "content": "СКОРО ОТКРЫТИЕ",
+              "fontFamily": "Montserrat",
+              "fontSize": 11,
+              "fontWeight": "700",
+              "letterSpacing": 1.5
+            },
+            {
+              "type": "text",
+              "id": "JSGiA",
+              "name": "Заголовок приглашения",
+              "fill": "#1A1A1A",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "ДВИЖЕНИЕ В СВОЁМ ТЕМПЕ",
+              "lineHeight": 1.2,
+              "fontFamily": "Montserrat",
+              "fontSize": 30,
+              "fontWeight": "800",
+              "letterSpacing": 1
+            },
+            {
+              "type": "text",
+              "id": "qnaXQ",
+              "name": "Описание приглашения",
+              "fill": "#6B6B6B",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Оставьте контакт, чтобы первыми узнать об открытии студии и старте занятий.",
+              "lineHeight": 1.5,
+              "fontFamily": "Montserrat",
+              "fontSize": 15,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "I2j31",
+          "name": "Форма A",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": "#FFFFFF",
+          "layout": "vertical",
+          "gap": 16,
+          "padding": [
+            36,
+            40
+          ],
+          "justifyContent": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "LjFsx",
+              "name": "Заголовок формы",
+              "fill": "#1A1A1A",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "УЗНАЙТЕ ОБ ОТКРЫТИИ ПЕРВЫМИ",
+              "lineHeight": 1.2,
+              "fontFamily": "Montserrat",
+              "fontSize": 24,
+              "fontWeight": "800",
+              "letterSpacing": 0.7
+            },
+            {
+              "type": "text",
+              "id": "vamcj",
+              "name": "Пояснение формы",
+              "fill": "#6B6B6B",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Выберите интересующий формат — это поможет нам подготовить расписание.",
+              "lineHeight": 1.5,
+              "fontFamily": "Montserrat",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "v6Kuj3",
+              "name": "Контактные поля",
+              "width": "fill_container",
+              "height": 70,
+              "gap": 16,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "wLryu",
+                  "name": "Ваше имя",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "S7aeAN",
+                      "name": "Подпись Ваше имя",
+                      "fill": "#1A1A1A",
+                      "content": "Ваше имя",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "k8QA59",
+                      "name": "Поле Ваше имя",
+                      "width": "fill_container",
+                      "height": 48,
+                      "cornerRadius": 14,
+                      "stroke": "#DED9DA",
+                      "strokeWidth": 1,
+                      "padding": [
+                        0,
+                        14
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "voTSe",
+                          "name": "Плейсхолдер Ваше имя",
+                          "fill": "#949090",
+                          "content": "Как к вам обращаться",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "B584lC",
+                  "name": "Телефон или e-mail",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "b9ErnI",
+                      "name": "Подпись Телефон или e-mail",
+                      "fill": "#1A1A1A",
+                      "content": "Телефон или e-mail",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "RtXUo",
+                      "name": "Поле Телефон или e-mail",
+                      "width": "fill_container",
+                      "height": 48,
+                      "cornerRadius": 14,
+                      "stroke": "#DED9DA",
+                      "strokeWidth": 1,
+                      "padding": [
+                        0,
+                        14
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Kts8Q",
+                          "name": "Плейсхолдер Телефон или e-mail",
+                          "fill": "#949090",
+                          "content": "+7 или name@example.ru",
+                          "fontFamily": "Montserrat",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "iJsVQ",
+              "name": "Интересующие форматы",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "wrLeO",
+                  "name": "Заголовок выбора",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "b61wCC",
+                      "name": "Заголовок",
+                      "fill": "#1A1A1A",
+                      "content": "ЧТО ВАМ ИНТЕРЕСНО?",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                      "fontWeight": "700",
+                      "letterSpacing": 0.8
+                    },
+                    {
+                      "type": "text",
+                      "id": "jfsbY",
+                      "name": "Подсказка",
+                      "fill": "#6B6B6B",
+                      "content": "Можно выбрать несколько вариантов",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Z2tWix",
+                  "name": "Выбор · Пилатес на реформере",
+                  "width": "fill_container",
+                  "height": 37,
+                  "stroke": "#E7E1E2",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ojO1T",
+                      "name": "Текст · Пилатес на реформере",
+                      "fill": "#1A1A1A",
+                      "content": "Пилатес на реформере",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 5,
+                      "id": "NJgAf",
+                      "name": "Чекбокс · Пилатес на реформере",
+                      "fill": "#FFFFFF",
+                      "width": 18,
+                      "height": 18,
+                      "stroke": "#8D8889",
+                      "strokeWidth": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "mgND1",
+                  "name": "Выбор · Классический пилатес",
+                  "width": "fill_container",
+                  "height": 37,
+                  "stroke": "#E7E1E2",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "R41Bpy",
+                      "name": "Текст · Классический пилатес",
+                      "fill": "#1A1A1A",
+                      "content": "Классический пилатес",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 5,
+                      "id": "WQTc8",
+                      "name": "Чекбокс · Классический пилатес",
+                      "fill": "#FFFFFF",
+                      "width": 18,
+                      "height": 18,
+                      "stroke": "#8D8889",
+                      "strokeWidth": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "j4842C",
+                  "name": "Выбор · Стрейчинг",
+                  "width": "fill_container",
+                  "height": 37,
+                  "stroke": "#E7E1E2",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ZsTwK",
+                      "name": "Текст · Стрейчинг",
+                      "fill": "#1A1A1A",
+                      "content": "Стрейчинг",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 5,
+                      "id": "y31Y4a",
+                      "name": "Чекбокс · Стрейчинг",
+                      "fill": "#FFFFFF",
+                      "width": 18,
+                      "height": 18,
+                      "stroke": "#8D8889",
+                      "strokeWidth": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "nCHA3",
+                  "name": "Выбор · Персональные занятия",
+                  "width": "fill_container",
+                  "height": 37,
+                  "stroke": "#E7E1E2",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "L3rpV",
+                      "name": "Текст · Персональные занятия",
+                      "fill": "#1A1A1A",
+                      "content": "Персональные занятия",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 5,
+                      "id": "OYafV",
+                      "name": "Чекбокс · Персональные занятия",
+                      "fill": "#FFFFFF",
+                      "width": 18,
+                      "height": 18,
+                      "stroke": "#8D8889",
+                      "strokeWidth": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "dwJGA",
+                  "name": "Выбор · Пока не знаю — хочу подобрать формат",
+                  "width": "fill_container",
+                  "height": 37,
+                  "stroke": "#E7E1E2",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "l8v5Z",
+                      "name": "Текст · Пока не знаю — хочу подобрать формат",
+                      "fill": "#1A1A1A",
+                      "content": "Пока не знаю — хочу подобрать формат",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 5,
+                      "id": "dTHOA",
+                      "name": "Чекбокс · Пока не знаю — хочу подобрать формат",
+                      "fill": "#FFFFFF",
+                      "width": 18,
+                      "height": 18,
+                      "stroke": "#8D8889",
+                      "strokeWidth": 1.5
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "kdozC",
+              "name": "Нижняя часть формы",
+              "width": "fill_container",
+              "gap": 18,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "KFwQv",
+                  "name": "Согласие на данные",
+                  "width": "fill_container",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 5,
+                      "id": "SAkOK",
+                      "name": "Чекбокс согласия",
+                      "fill": "#FFFFFF",
+                      "width": 18,
+                      "height": 18,
+                      "stroke": "#8D8889",
+                      "strokeWidth": 1.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "PK6Sc",
+                      "name": "Текст согласия",
+                      "fill": "#6B6B6B",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Даю согласие на обработку персональных данных в соответствии с Политикой.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Montserrat",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "JbFUH",
+                  "name": "CTA · Сообщить мне об открытии",
+                  "width": 270,
+                  "height": 48,
+                  "fill": "#B85160",
+                  "cornerRadius": 28,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "hhvSb",
+                      "name": "Текст CTA",
+                      "fill": "#FFFFFF",
+                      "content": "Сообщить мне об открытии",
+                      "fontFamily": "Montserrat",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "variables": {

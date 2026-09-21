@@ -1,0 +1,51 @@
+services:
+  ssh-tunnel:
+    build:
+      context: .
+      dockerfile: Dockerfile.tunnel
+    restart: unless-stopped
+    environment:
+      SSH_HOST: ${SSH_HOST}
+      SSH_PORT: ${SSH_PORT:-22}
+      SSH_USER: ${SSH_USER}
+      SSH_PRIVATE_KEY_BASE64: ${SSH_PRIVATE_KEY_BASE64}
+      SSH_KNOWN_HOSTS_BASE64: ${SSH_KNOWN_HOSTS_BASE64}
+      DB_REMOTE_HOST: ${DB_REMOTE_HOST:-127.0.0.1}
+      DB_REMOTE_PORT: ${DB_REMOTE_PORT:-5432}
+      TUNNEL_PORT: 15432
+    read_only: true
+    tmpfs:
+      - /run/ssh:size=1m,mode=0700,uid=1000,gid=1000
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "nc", "-z", "127.0.0.1", "15432"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  lead-notifier:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      ssh-tunnel:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID}
+      TELEGRAM_THREAD_ID: ${TELEGRAM_THREAD_ID:-}
+      NOTIFIER_KEY: ${NOTIFIER_KEY:-pilates-leads-main}
+      POLL_INTERVAL_MS: ${POLL_INTERVAL_MS:-5000}
+      BATCH_SIZE: ${BATCH_SIZE:-20}
+      SEND_EXISTING: ${SEND_EXISTING:-false}
+      PORT: 3000
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
