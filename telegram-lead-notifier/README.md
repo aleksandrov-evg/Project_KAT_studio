@@ -271,6 +271,9 @@ docker compose --env-file .env down
 
 ## Шаг 6. Разверните в Dokploy
 
+Подробная production-инструкция: [DEPLOY_DOKPLOY.md](DEPLOY_DOKPLOY.md). Ниже —
+краткая версия основных действий.
+
 Сначала отправьте код в Git-репозиторий:
 
 ```bash
