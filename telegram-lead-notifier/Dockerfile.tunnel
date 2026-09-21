@@ -1,6 +1,7 @@
 FROM alpine:3.22
 
-RUN for attempt in 1 2 3 4 5; do \
+RUN sed -i 's|https://dl-cdn.alpinelinux.org/alpine|https://mirror.yandex.ru/mirrors/alpine|' /etc/apk/repositories \
+    && for attempt in 1 2 3 4 5; do \
       apk add --no-cache openssh-client netcat-openbsd && break; \
       if [ "$attempt" = 5 ]; then exit 1; fi; \
       sleep 3; \
