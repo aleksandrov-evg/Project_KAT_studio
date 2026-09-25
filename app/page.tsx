@@ -11,12 +11,25 @@ type FieldErrors = Partial<Record<FieldName, string>>;
 function validateLead(data: FormData): FieldErrors {
   const name = String(data.get("name") ?? "").trim();
   const contact = String(data.get("contact") ?? "").trim();
-  const phoneDigits = contact.replace(/\D/g, "");
   const errors: FieldErrors = {};
   if (!/^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё\s-]{1,}$/.test(name)) errors.name = "Укажите имя — не менее 2 букв.";
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) && !(phoneDigits.length >= 10 && phoneDigits.length <= 15)) errors.contact = "Укажите корректный телефон или e-mail.";
+  if (!/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(contact)) errors.contact = "Введите номер в формате +7 (999) 999-99-99.";
   if (data.get("personalDataConsent") !== "on") errors.personalDataConsent = "Подтвердите согласие на обработку персональных данных.";
   return errors;
+}
+
+function formatPhone(value: string) {
+  let digits = value.replace(/\D/g, "");
+  if (digits.startsWith("8")) digits = `7${digits.slice(1)}`;
+  if (!digits.startsWith("7")) digits = `7${digits}`;
+  digits = digits.slice(0, 11);
+
+  const local = digits.slice(1);
+  if (!local) return "+7";
+  if (local.length <= 3) return `+7 (${local}`;
+  if (local.length <= 6) return `+7 (${local.slice(0, 3)}) ${local.slice(3)}`;
+  if (local.length <= 8) return `+7 (${local.slice(0, 3)}) ${local.slice(3, 6)}-${local.slice(6)}`;
+  return `+7 (${local.slice(0, 3)}) ${local.slice(3, 6)}-${local.slice(6, 8)}-${local.slice(8)}`;
 }
 
 export default function Home() {
@@ -89,6 +102,11 @@ export default function Home() {
   function clearFieldError(event: React.ChangeEvent<HTMLInputElement>) {
     const field = event.currentTarget.name as FieldName;
     if (errors[field]) setErrors((current) => ({ ...current, [field]: undefined }));
+  }
+
+  function handlePhoneChange(event: React.ChangeEvent<HTMLInputElement>) {
+    event.currentTarget.value = formatPhone(event.currentTarget.value);
+    clearFieldError(event);
   }
 
   const closeMenu = () => setMenuOpen(false);
@@ -168,9 +186,9 @@ export default function Home() {
     <section className="opening" id="opening"><div className="container opening__inner">
       <div className="opening__copy"><h2>Скоро встретимся</h2><p className="opening__lead">Готовим пространство<br />для ваших новых привычек.</p><p>Студия на этапе запуска. Дату открытия и подробности сообщим, когда всё будет готово.</p></div>
       <form className="lead-form" id="waitlist" onSubmit={submit} noValidate>
-        <h2>Узнайте об открытии первыми</h2><p>Оставьте имя и удобный контакт для приглашения. Выберите интересующий формат — это поможет нам подготовить стартовую сетку. Выбор не является записью на занятие.</p>
+        <h2>Узнайте об открытии первыми</h2><p>Оставьте имя и номер телефона для приглашения. Выберите интересующий формат — это поможет нам подготовить стартовую сетку. Выбор не является записью на занятие.</p>
         <div className="lead-form__contacts"><label className={errors.name ? "field field--error" : "field"}>Ваше имя<input name="name" required autoComplete="name" placeholder="Как к вам обращаться" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} onChange={clearFieldError} />{errors.name && <span className="field-error" id="name-error">{errors.name}</span>}</label>
-        <label className={errors.contact ? "field field--error" : "field"}>Телефон или e-mail<input name="contact" required autoComplete="email" placeholder="+7 или name@example.ru" aria-invalid={Boolean(errors.contact)} aria-describedby={errors.contact ? "contact-error" : undefined} onChange={clearFieldError} />{errors.contact && <span className="field-error" id="contact-error">{errors.contact}</span>}</label></div>
+        <label className={errors.contact ? "field field--error" : "field"}>Номер телефона<input name="contact" type="tel" inputMode="tel" autoComplete="tel" required placeholder="+7 (999) 999-99-99" aria-invalid={Boolean(errors.contact)} aria-describedby={errors.contact ? "contact-error" : undefined} onChange={handlePhoneChange} />{errors.contact && <span className="field-error" id="contact-error">{errors.contact}</span>}</label></div>
         <fieldset className="interest-field"><legend>Что вам интересно?</legend><p>Можно выбрать несколько вариантов.</p><div className="interest-field__options"><label><span>Пилатес на реформере</span><input type="checkbox" name="interests" value="reformer" /></label><label><span>Классический пилатес</span><input type="checkbox" name="interests" value="pilates" /></label><label><span>Стрейчинг</span><input type="checkbox" name="interests" value="stretching" /></label><label><span>Персональные занятия</span><input type="checkbox" name="interests" value="personal" /></label><label><span>Пока не знаю — хочу подобрать формат</span><input type="checkbox" name="interests" value="undecided" /></label></div></fieldset>
         <label className={errors.personalDataConsent ? "consent consent--error" : "consent"}><input type="checkbox" name="personalDataConsent" required aria-invalid={Boolean(errors.personalDataConsent)} aria-describedby={errors.personalDataConsent ? "personal-data-consent-error" : undefined} onChange={clearFieldError} /><span>Даю согласие на обработку моих персональных данных в соответствии с <a href="/privacy-policy">Политикой обработки персональных данных</a>.{errors.personalDataConsent && <span className="field-error" id="personal-data-consent-error">{errors.personalDataConsent}</span>}</span></label>
         <label className="consent"><input type="checkbox" name="marketingConsent" /><span>Я даю согласие ИП Александровой Екатерине Михайловне на получение информационных и рекламных уведомлений об открытии студии, занятиях, специальных условиях и предложениях по указанному контакту. Это необязательно. <a href="/notification-consent">Условия согласия на уведомления</a>.</span></label>

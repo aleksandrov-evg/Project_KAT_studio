@@ -24,11 +24,10 @@ export async function POST(request: Request) {
     landingPath: trackingValue(data, "landingPath"),
     referrer: trackingValue(data, "referrer"),
   };
-  const phoneDigits = contact.replace(/\D/g, "");
   const errors: Record<string, string> = {};
 
   if (!/^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё\s-]{1,}$/.test(name)) errors.name = "Укажите имя — не менее 2 букв.";
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) && !(phoneDigits.length >= 10 && phoneDigits.length <= 15)) errors.contact = "Укажите корректный телефон или e-mail.";
+  if (!/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(contact)) errors.contact = "Введите номер в формате +7 (999) 999-99-99.";
   if (!personalDataConsent) errors.personalDataConsent = "Подтвердите согласие на обработку персональных данных.";
   if (interests.some((interest) => !allowedInterests.has(interest))) errors.interests = "Выберите корректный формат.";
   if (Object.keys(errors).length) {
@@ -43,5 +42,5 @@ export async function POST(request: Request) {
     userAgent: request.headers.get("user-agent"),
     ipAddress: request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null,
   });
-  return NextResponse.json({ message: "Спасибо! Вы в списке — сообщим об открытии по указанному контакту." });
+  return NextResponse.json({ message: "Спасибо! Вы в списке — сообщим об открытии по телефону." });
 }
