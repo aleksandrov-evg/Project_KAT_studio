@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { reachGoal } from "../lib/metrika";
+import { CookieSettingsButton } from "./cookie-consent";
 
 type Status = "idle" | "success" | "error";
 type FieldName = "name" | "contact" | "personalDataConsent";
@@ -191,12 +192,12 @@ export default function Home() {
         <label className={errors.contact ? "field field--error" : "field"}>Номер телефона<input name="contact" type="tel" inputMode="tel" autoComplete="tel" required placeholder="+7 (999) 999-99-99" aria-invalid={Boolean(errors.contact)} aria-describedby={errors.contact ? "contact-error" : undefined} onChange={handlePhoneChange} />{errors.contact && <span className="field-error" id="contact-error">{errors.contact}</span>}</label></div>
         <fieldset className="interest-field"><legend>Что вам интересно?</legend><p>Можно выбрать несколько вариантов.</p><div className="interest-field__options"><label><span>Пилатес на реформере</span><input type="checkbox" name="interests" value="reformer" /></label><label><span>Классический пилатес</span><input type="checkbox" name="interests" value="pilates" /></label><label><span>Стрейчинг</span><input type="checkbox" name="interests" value="stretching" /></label><label><span>Персональные занятия</span><input type="checkbox" name="interests" value="personal" /></label><label><span>Пока не знаю — хочу подобрать формат</span><input type="checkbox" name="interests" value="undecided" /></label></div></fieldset>
         <label className={errors.personalDataConsent ? "consent consent--error" : "consent"}><input type="checkbox" name="personalDataConsent" required aria-invalid={Boolean(errors.personalDataConsent)} aria-describedby={errors.personalDataConsent ? "personal-data-consent-error" : undefined} onChange={clearFieldError} /><span>Даю согласие на обработку моих персональных данных в соответствии с <a href="/privacy-policy">Политикой обработки персональных данных</a>.{errors.personalDataConsent && <span className="field-error" id="personal-data-consent-error">{errors.personalDataConsent}</span>}</span></label>
-        <label className="consent"><input type="checkbox" name="marketingConsent" /><span>Я даю согласие ИП Александровой Екатерине Михайловне на получение информационных и рекламных уведомлений об открытии студии, занятиях, специальных условиях и предложениях по указанному контакту. Это необязательно. <a href="/notification-consent">Условия согласия на уведомления</a>.</span></label>
+        <label className="consent"><input type="checkbox" name="marketingConsent" /><span>Я даю согласие ИП Александровой Екатерине Михайловне на получение информационных и рекламных уведомлений об открытии студии, занятиях, специальных условиях и предложениях по указанному номеру телефона. Это необязательно. <a href="/notification-consent">Условия согласия на уведомления</a>.</span></label>
         <button className="button" type="submit">Сообщить мне об открытии</button>
         {status !== "idle" && <p className={`form-status form-status--${status}`} role={status === "error" ? "alert" : "status"}>{message}</p>}
       </form>
     </div></section>
-    <footer><div className="container footer">{logo}<div><h2>Будем ближе. Скоро.</h2><p>ТЦ «Гелиос» · Проспект Космонавтов, 20а<br />338 офис · 3 этаж · Королёв</p></div><small>Реформер · Пилатес · Стрейчинг<br /><a href="/privacy-policy">Политика обработки персональных данных</a></small></div></footer>
+    <footer><div className="container footer">{logo}<div><h2>Будем ближе. Скоро.</h2><p>ТЦ «Гелиос» · Проспект Космонавтов, 20а<br />338 офис · 3 этаж · Королёв</p></div><small>Реформер · Пилатес · Стрейчинг<br /><a href="/privacy-policy">Политика обработки персональных данных</a><CookieSettingsButton /></small></div></footer>
     {mapsOpen && <div className="maps-dialog" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setMapsOpen(false); }}>
       <div className="maps-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="maps-dialog-title">
         <div className="maps-dialog__header"><h2 id="maps-dialog-title">Открыть маршрут</h2><button ref={mapsCloseRef} type="button" onClick={() => setMapsOpen(false)} aria-label="Закрыть выбор карт">×</button></div>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Caveat, Montserrat } from "next/font/google";
-import { YandexMetrikaGoals } from "./yandex-metrika";
-import { METRIKA_ID, METRIKA_INIT_SCRIPT } from "../lib/metrika";
+import { CookieConsent } from "./cookie-consent";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -45,17 +44,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru" className={`${montserrat.variable} ${caveat.variable}`}>
-      <head>
-        <script id="yandex-metrika" dangerouslySetInnerHTML={{ __html: METRIKA_INIT_SCRIPT }} />
-      </head>
       <body className={montserrat.className}>
         {children}
-        <YandexMetrikaGoals />
-        <noscript>
-          <div>
-            <img src={`https://mc.yandex.ru/watch/${METRIKA_ID}`} style={{ position: "absolute", left: "-9999px" }} alt="" />
-          </div>
-        </noscript>
+        <CookieConsent />
       </body>
     </html>
   );

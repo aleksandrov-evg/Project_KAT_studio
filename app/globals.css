@@ -29,6 +29,7 @@
   .header .nav .nav__cta{display:inline-flex;justify-content:center;margin-top:12px;width:100%}
   .header--menu-open .header__cta{visibility:hidden;pointer-events:none}
 }
+
 @media(max-width:480px){
   .header .nav{left:-20px;right:-20px;padding-left:20px;padding-right:20px}
 }
@@ -109,3 +110,5 @@
   .maps-dialog__panel{padding:22px;border-radius:16px}
   .maps-dialog__header h2{font-size:20px}
 }
+.button--outline{border:1.5px solid var(--cta);background:#fff;color:var(--cta)}.button--outline:hover{background:var(--pink)}.cookie-consent{position:fixed;z-index:200;right:24px;bottom:24px;display:flex;align-items:flex-end;gap:24px;width:min(620px,calc(100% - 40px));padding:22px 24px;background:#fff;border:1px solid #e7d6d9;border-radius:16px;box-shadow:0 12px 32px #1a1a1a1f}.cookie-consent h2{font-size:17px;text-transform:none;letter-spacing:0}.cookie-consent p{margin:7px 0 0;color:var(--muted);font-size:13px;line-height:1.5}.cookie-consent a{color:var(--cta);font-weight:700}.cookie-consent__actions{display:flex;flex:0 0 auto;gap:8px}.cookie-settings{display:block;margin-top:8px;padding:0;border:0;background:transparent;color:inherit;font:inherit;text-decoration:underline;cursor:pointer}
+@media(max-width:640px){.cookie-consent{right:20px;bottom:20px;display:block;padding:20px}.cookie-consent__actions{margin-top:16px;flex-direction:column}.cookie-consent__actions .button{width:100%}}
