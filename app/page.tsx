@@ -197,7 +197,7 @@ export default function Home() {
         {status !== "idle" && <p className={`form-status form-status--${status}`} role={status === "error" ? "alert" : "status"}>{message}</p>}
       </form>
     </div></section>
-    <footer><div className="container footer">{logo}<div><h2>Будем ближе. Скоро.</h2><p>ТЦ «Гелиос» · Проспект Космонавтов, 20а<br />338 офис · 3 этаж · Королёв</p></div><small>Реформер · Пилатес · Стрейчинг<br /><a href="/privacy-policy">Политика обработки персональных данных</a><CookieSettingsButton /></small></div></footer>
+    <footer><div className="container footer">{logo}<div><h2>Будем ближе. Скоро.</h2><p>ТЦ «Гелиос» · Проспект Космонавтов, 20а<br />338 офис · 3 этаж · Королёв<br /><a href="mailto:info@katfit.ru">info@katfit.ru</a></p></div><small>Реформер · Пилатес · Стрейчинг<br /><a href="/privacy-policy">Политика обработки персональных данных</a><CookieSettingsButton /></small></div></footer>
     {mapsOpen && <div className="maps-dialog" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setMapsOpen(false); }}>
       <div className="maps-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="maps-dialog-title">
         <div className="maps-dialog__header"><h2 id="maps-dialog-title">Открыть маршрут</h2><button ref={mapsCloseRef} type="button" onClick={() => setMapsOpen(false)} aria-label="Закрыть выбор карт">×</button></div>
