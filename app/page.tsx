@@ -94,7 +94,7 @@ export default function Home() {
       const body = await response.json();
       if (response.ok) {
         form.reset(); setErrors({}); setStatus("success"); setMessage(body.message);
-        reachGoal(body.duplicate ? "lead_duplicate" : "lead_submit");
+        if (body.created === true) reachGoal("lead_submit");
       } else {
         setErrors(body.errors ?? {}); setStatus("error"); setMessage(body.message ?? "Не удалось отправить форму. Попробуйте ещё раз.");
       }

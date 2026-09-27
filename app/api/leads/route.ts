@@ -45,9 +45,13 @@ export async function POST(request: Request) {
   if (!lead.created) {
     return NextResponse.json({
       message: "Спасибо, мы помним о вас. Вы уже в списке — обязательно напишем, когда появятся новости об открытии.",
+      created: false,
       duplicate: true,
     });
   }
 
-  return NextResponse.json({ message: "Спасибо! Вы в списке — сообщим об открытии по телефону." });
+  return NextResponse.json({
+    message: "Спасибо! Вы в списке — сообщим об открытии по телефону.",
+    created: true,
+  });
 }
