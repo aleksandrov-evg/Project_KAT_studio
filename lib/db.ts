@@ -86,8 +86,29 @@ export async function createLead(input: {
 }) {
   await ensureSchema();
 
-  return getDatabase().query(
-    `INSERT INTO leads (
+  const normalizedContact = input.contact.replace(/\D/g, "").replace(/^8/, "7");
+  const client = await getDatabase().connect();
+
+  try {
+    await client.query("BEGIN");
+    // The transaction-level lock makes the check-and-insert operation atomic even
+    // when two requests with the same phone number arrive simultaneously.
+    await client.query("SELECT pg_advisory_xact_lock(hashtext($1))", [normalizedContact]);
+    const existingLead = await client.query(
+      `SELECT 1
+       FROM leads
+       WHERE regexp_replace(regexp_replace(contact, '\\D', '', 'g'), '^8', '7') = $1
+       LIMIT 1`,
+      [normalizedContact],
+    );
+
+    if (existingLead.rowCount) {
+      await client.query("COMMIT");
+      return { created: false };
+    }
+
+    await client.query(
+      `INSERT INTO leads (
       name, contact, interests,
       utm_source, utm_medium, utm_campaign, utm_content, utm_term, landing_path, referrer,
       personal_data_consent, marketing_consent,
@@ -112,6 +133,14 @@ export async function createLead(input: {
       input.ipAddress,
     ],
   );
+    await client.query("COMMIT");
+    return { created: true };
+  } catch (error) {
+    await client.query("ROLLBACK").catch(() => undefined);
+    throw error;
+  } finally {
+    client.release();
+  }
 }
 
 export async function checkDatabase() {

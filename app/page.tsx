@@ -35,6 +35,7 @@ function formatPhone(value: string) {
 
 export default function Home() {
   const [status, setStatus] = useState<Status>("idle");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [menuOpen, setMenuOpen] = useState(false);
@@ -69,6 +70,7 @@ export default function Home() {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isSubmitting) return;
     setStatus("idle");
     const form = event.currentTarget;
     const data = new FormData(form);
@@ -86,17 +88,20 @@ export default function Home() {
       setMessage("Проверьте поля, отмеченные красным.");
       return;
     }
+    setIsSubmitting(true);
     try {
       const response = await fetch("/api/leads", { method: "POST", body: data });
       const body = await response.json();
       if (response.ok) {
         form.reset(); setErrors({}); setStatus("success"); setMessage(body.message);
-        reachGoal("lead_submit");
+        reachGoal(body.duplicate ? "lead_duplicate" : "lead_submit");
       } else {
         setErrors(body.errors ?? {}); setStatus("error"); setMessage(body.message ?? "Не удалось отправить форму. Попробуйте ещё раз.");
       }
     } catch {
       setStatus("error"); setMessage("Не удалось отправить форму. Проверьте подключение и попробуйте ещё раз.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -193,7 +198,9 @@ export default function Home() {
         <fieldset className="interest-field"><legend>Что вам интересно?</legend><p>Можно выбрать несколько вариантов.</p><div className="interest-field__options"><label><span>Пилатес на реформере</span><input type="checkbox" name="interests" value="reformer" /></label><label><span>Классический пилатес</span><input type="checkbox" name="interests" value="pilates" /></label><label><span>Стрейчинг</span><input type="checkbox" name="interests" value="stretching" /></label><label><span>Персональные занятия</span><input type="checkbox" name="interests" value="personal" /></label><label><span>Пока не знаю — хочу подобрать формат</span><input type="checkbox" name="interests" value="undecided" /></label></div></fieldset>
         <label className={errors.personalDataConsent ? "consent consent--error" : "consent"}><input type="checkbox" name="personalDataConsent" required aria-invalid={Boolean(errors.personalDataConsent)} aria-describedby={errors.personalDataConsent ? "personal-data-consent-error" : undefined} onChange={clearFieldError} /><span>Даю согласие на обработку моих персональных данных в соответствии с <a href="/privacy-policy">Политикой обработки персональных данных</a>.{errors.personalDataConsent && <span className="field-error" id="personal-data-consent-error">{errors.personalDataConsent}</span>}</span></label>
         <label className="consent"><input type="checkbox" name="marketingConsent" /><span>Я даю согласие ИП Александровой Екатерине Михайловне на получение информационных и рекламных уведомлений об открытии студии, занятиях, специальных условиях и предложениях по указанному номеру телефона. Это необязательно. <a href="/notification-consent">Условия согласия на уведомления</a>.</span></label>
-        <button className="button" type="submit">Сообщить мне об открытии</button>
+        <button className="button" type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>
+          {isSubmitting ? <><span className="button__spinner" aria-hidden="true" />Отправляем…</> : "Сообщить мне об открытии"}
+        </button>
         {status !== "idle" && <p className={`form-status form-status--${status}`} role={status === "error" ? "alert" : "status"}>{message}</p>}
       </form>
     </div></section>

@@ -33,7 +33,7 @@ export async function POST(request: Request) {
   if (Object.keys(errors).length) {
     return NextResponse.json({ message: "Проверьте поля, отмеченные красным.", errors }, { status: 400 });
   }
-  await createLead({
+  const lead = await createLead({
     name,
     contact,
     interests,
@@ -42,5 +42,12 @@ export async function POST(request: Request) {
     userAgent: request.headers.get("user-agent"),
     ipAddress: request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null,
   });
+  if (!lead.created) {
+    return NextResponse.json({
+      message: "Спасибо, мы помним о вас. Вы уже в списке — обязательно напишем, когда появятся новости об открытии.",
+      duplicate: true,
+    });
+  }
+
   return NextResponse.json({ message: "Спасибо! Вы в списке — сообщим об открытии по телефону." });
 }
