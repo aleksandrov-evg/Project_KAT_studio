@@ -31,6 +31,37 @@ function getYm(): Ym | undefined {
   return typeof ym === "function" ? ym : undefined;
 }
 
+export function injectMetrikaScript() {
+  if (typeof document === "undefined") return;
+  if (document.getElementById("yandex-metrika")) return;
+  const script = document.createElement("script");
+  script.id = "yandex-metrika";
+  script.text = METRIKA_INIT_SCRIPT;
+  document.head.appendChild(script);
+}
+
+/** Injects Metrika if needed and waits until `ym` is available (or timeout). */
+export function ensureMetrikaReady(timeoutMs = 5000): Promise<boolean> {
+  if (typeof window === "undefined") return Promise.resolve(false);
+  injectMetrikaScript();
+  if (getYm()) return Promise.resolve(true);
+
+  return new Promise((resolve) => {
+    const started = Date.now();
+    const timer = window.setInterval(() => {
+      if (getYm()) {
+        window.clearInterval(timer);
+        resolve(true);
+        return;
+      }
+      if (Date.now() - started >= timeoutMs) {
+        window.clearInterval(timer);
+        resolve(false);
+      }
+    }, 50);
+  });
+}
+
 export function reachGoal(name: string) {
   getYm()?.(METRIKA_ID, "reachGoal", name);
 }

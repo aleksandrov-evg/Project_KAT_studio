@@ -2,8 +2,8 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { reachGoal } from "../lib/metrika";
-import { CookieSettingsButton } from "./cookie-consent";
+import { ensureMetrikaReady, reachGoal } from "../lib/metrika";
+import { CookieSettingsButton, setCookieConsent } from "./cookie-consent";
 
 type Status = "idle" | "success" | "error";
 type FieldName = "name" | "contact" | "personalDataConsent";
@@ -15,7 +15,7 @@ function validateLead(data: FormData): FieldErrors {
   const errors: FieldErrors = {};
   if (!/^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё\s-]{1,}$/.test(name)) errors.name = "Укажите имя — не менее 2 букв.";
   if (!/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(contact)) errors.contact = "Введите номер в формате +7 (999) 999-99-99.";
-  if (data.get("personalDataConsent") !== "on") errors.personalDataConsent = "Подтвердите согласие на обработку персональных данных.";
+  if (data.get("personalDataConsent") !== "on") errors.personalDataConsent = "Подтвердите согласие на обработку персональных данных и использование аналитических cookie.";
   return errors;
 }
 
@@ -94,7 +94,11 @@ export default function Home() {
       const body = await response.json();
       if (response.ok) {
         form.reset(); setErrors({}); setStatus("success"); setMessage(body.message);
-        if (body.created === true) reachGoal("lead_submit");
+        if (body.created === true) {
+          setCookieConsent("accepted");
+          await ensureMetrikaReady();
+          reachGoal("lead_submit");
+        }
       } else {
         setErrors(body.errors ?? {}); setStatus("error"); setMessage(body.message ?? "Не удалось отправить форму. Попробуйте ещё раз.");
       }
@@ -196,7 +200,7 @@ export default function Home() {
         <div className="lead-form__contacts"><label className={errors.name ? "field field--error" : "field"}>Ваше имя<input name="name" required autoComplete="name" placeholder="Как к вам обращаться" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} onChange={clearFieldError} />{errors.name && <span className="field-error" id="name-error">{errors.name}</span>}</label>
         <label className={errors.contact ? "field field--error" : "field"}>Номер телефона<input name="contact" type="tel" inputMode="tel" autoComplete="tel" required placeholder="+7 (999) 999-99-99" aria-invalid={Boolean(errors.contact)} aria-describedby={errors.contact ? "contact-error" : undefined} onChange={handlePhoneChange} />{errors.contact && <span className="field-error" id="contact-error">{errors.contact}</span>}</label></div>
         <fieldset className="interest-field"><legend>Что вам интересно?</legend><p>Можно выбрать несколько вариантов.</p><div className="interest-field__options"><label><span>Пилатес на реформере</span><input type="checkbox" name="interests" value="reformer" /></label><label><span>Классический пилатес</span><input type="checkbox" name="interests" value="pilates" /></label><label><span>Стрейчинг</span><input type="checkbox" name="interests" value="stretching" /></label><label><span>Персональные занятия</span><input type="checkbox" name="interests" value="personal" /></label><label><span>Пока не знаю — хочу подобрать формат</span><input type="checkbox" name="interests" value="undecided" /></label></div></fieldset>
-        <label className={errors.personalDataConsent ? "consent consent--error" : "consent"}><input type="checkbox" name="personalDataConsent" required aria-invalid={Boolean(errors.personalDataConsent)} aria-describedby={errors.personalDataConsent ? "personal-data-consent-error" : undefined} onChange={clearFieldError} /><span>Даю согласие на обработку моих персональных данных в соответствии с <a href="/privacy-policy">Политикой обработки персональных данных</a>.{errors.personalDataConsent && <span className="field-error" id="personal-data-consent-error">{errors.personalDataConsent}</span>}</span></label>
+        <label className={errors.personalDataConsent ? "consent consent--error" : "consent"}><input type="checkbox" name="personalDataConsent" required aria-invalid={Boolean(errors.personalDataConsent)} aria-describedby={errors.personalDataConsent ? "personal-data-consent-error" : undefined} onChange={clearFieldError} /><span>Даю согласие на обработку моих персональных данных и использование аналитических cookie (Яндекс.Метрика) в соответствии с <a href="/privacy-policy">Политикой обработки персональных данных</a> (в т.ч. <a href="/privacy-policy#cookies">раздел о cookie</a>).{errors.personalDataConsent && <span className="field-error" id="personal-data-consent-error">{errors.personalDataConsent}</span>}</span></label>
         <label className="consent"><input type="checkbox" name="marketingConsent" /><span>Я даю согласие ИП Александровой Екатерине Михайловне на получение информационных и рекламных уведомлений об открытии студии, занятиях, специальных условиях и предложениях по указанному номеру телефона. Это необязательно. <a href="/notification-consent">Условия согласия на уведомления</a>.</span></label>
         <button className="button" type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>
           {isSubmitting ? <><span className="button__spinner" aria-hidden="true" />Отправляем…</> : "Сообщить мне об открытии"}

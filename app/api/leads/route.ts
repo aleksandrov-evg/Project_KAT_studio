@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
   if (!/^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё\s-]{1,}$/.test(name)) errors.name = "Укажите имя — не менее 2 букв.";
   if (!/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(contact)) errors.contact = "Введите номер в формате +7 (999) 999-99-99.";
-  if (!personalDataConsent) errors.personalDataConsent = "Подтвердите согласие на обработку персональных данных.";
+  if (!personalDataConsent) errors.personalDataConsent = "Подтвердите согласие на обработку персональных данных и использование аналитических cookie.";
   if (interests.some((interest) => !allowedInterests.has(interest))) errors.interests = "Выберите корректный формат.";
   if (Object.keys(errors).length) {
     return NextResponse.json({ message: "Проверьте поля, отмеченные красным.", errors }, { status: 400 });
