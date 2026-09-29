@@ -1,17 +1,29 @@
 import { CrmPermanentError, syncLeadToCrm } from "./crm.js";
+import { personDeepLink } from "./crm-actions.js";
 import { readConfig } from "./config.js";
 import {
   connectDatabase,
   countPendingCrmLeads,
+  getCrmIdsForLead,
   getPendingCrmLeads,
   getPendingLeads,
+  getTelegramUpdateOffset,
   markCrmPermanentError,
   markCrmSynced,
   markLeadSent,
+  saveTelegramLeadMessage,
+  setTelegramUpdateOffset,
 } from "./database.js";
-import { startHealthServer } from "./health.js";
+import { startHttpServer } from "./health.js";
+import { processTelegramUpdate } from "./inbound.js";
+import { keyboardForStage } from "./keyboards.js";
 import { formatLeadMessage } from "./message.js";
-import { sendTelegramMessage } from "./telegram.js";
+import {
+  deleteTelegramWebhook,
+  getTelegramUpdates,
+  sendTelegramMessage,
+  setTelegramWebhook,
+} from "./telegram.js";
 
 const config = readConfig();
 const state = {
@@ -23,12 +35,43 @@ const state = {
   lastCrmError: null,
   crmPendingCount: null,
   crmSyncEnabled: config.crmSyncEnabled,
+  telegramMode: config.telegramMode,
+  telegramWebhookSecret: config.telegramWebhookSecret,
+  lastTelegramUpdateAt: null,
 };
-const healthServer = startHealthServer(config.port, state);
 let stopping = false;
 let client;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function onTelegramUpdate(update) {
+  state.lastTelegramUpdateAt = Date.now();
+  try {
+    const result = await processTelegramUpdate(config, client, update);
+    if (result?.handled) {
+      console.log(JSON.stringify({
+        level: "info",
+        message: "Telegram update handled",
+        reason: result.reason,
+        action: result.action ?? null,
+        updateId: update.update_id ?? null,
+      }));
+    }
+  } catch (error) {
+    const permanent = error instanceof CrmPermanentError || error.permanent === true;
+    console.error(JSON.stringify({
+      level: "error",
+      message: error.message,
+      channel: "telegram-inbound",
+      permanent,
+      updateId: update.update_id ?? null,
+    }));
+  }
+}
+
+const healthServer = startHttpServer(config.port, state, {
+  onTelegramUpdate: config.telegramMode === "webhook" ? onTelegramUpdate : undefined,
+});
 
 async function shutdown(signal) {
   if (stopping) return;
@@ -72,6 +115,7 @@ async function syncPendingLeadsToCrm() {
         opportunityId: result.opportunityId,
         duplicate: result.duplicate,
         opportunityCreated: result.opportunityCreated,
+        taskId: result.taskId,
       }));
     } catch (error) {
       const permanent = error instanceof CrmPermanentError || error.permanent === true;
@@ -118,7 +162,20 @@ async function notifyPendingLeadsToTelegram() {
   let telegramUnavailable = false;
   for (const lead of leads) {
     try {
-      await sendTelegramMessage(config, formatLeadMessage(lead));
+      const crmIds = await getCrmIdsForLead(client, lead.id);
+      const deepLink = personDeepLink(config, crmIds?.person_id);
+      const text = formatLeadMessage(lead, { deepLink });
+      const replyMarkup = keyboardForStage(lead.id, "WAITLIST");
+      const sent = await sendTelegramMessage(config, text, { replyMarkup });
+      await saveTelegramLeadMessage(client, {
+        chatId: sent.chat.id,
+        messageId: sent.message_id,
+        leadId: lead.id,
+        personId: crmIds?.person_id ?? null,
+        opportunityId: crmIds?.opportunity_id ?? null,
+        clientStage: "WAITLIST",
+        leadSnapshot: lead,
+      });
     } catch (error) {
       state.ready = false;
       telegramUnavailable = true;
@@ -142,14 +199,55 @@ async function notifyPendingLeadsToTelegram() {
   return { telegramUnavailable, batchFull: leads.length === config.batchSize };
 }
 
+async function pollTelegramUpdatesLoop() {
+  if (config.telegramMode !== "polling") return;
+
+  while (!stopping) {
+    try {
+      const offset = await getTelegramUpdateOffset(client, config.notifierKey);
+      const updates = await getTelegramUpdates(config, offset > 0 ? offset + 1 : 0);
+      if (Array.isArray(updates) && updates.length > 0) {
+        let maxId = offset;
+        for (const update of updates) {
+          if (update.update_id > maxId) maxId = update.update_id;
+          await onTelegramUpdate(update);
+        }
+        await setTelegramUpdateOffset(client, config.notifierKey, maxId);
+      }
+    } catch (error) {
+      console.error(JSON.stringify({
+        level: "error",
+        message: error.message,
+        channel: "telegram-polling",
+      }));
+      await sleep(3000);
+    }
+  }
+}
+
 try {
   client = await connectDatabase(config);
+
+  if (config.telegramMode === "webhook") {
+    await setTelegramWebhook(config, config.telegramWebhookUrl);
+    console.log(JSON.stringify({
+      level: "info",
+      message: "Telegram webhook configured",
+      url: config.telegramWebhookUrl,
+    }));
+  } else {
+    await deleteTelegramWebhook(config).catch(() => undefined);
+  }
+
   state.ready = true;
   console.log(JSON.stringify({
     level: "info",
     message: "Lead notifier started",
     crmSyncEnabled: config.crmSyncEnabled,
+    telegramMode: config.telegramMode,
   }));
+
+  void pollTelegramUpdatesLoop();
 
   while (!stopping) {
     const crmResult = await syncPendingLeadsToCrm();

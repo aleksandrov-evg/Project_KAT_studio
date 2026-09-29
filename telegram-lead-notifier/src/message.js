@@ -19,7 +19,7 @@ function line(label, value) {
   return `<b>${label}:</b> ${escapeHtml(value)}`;
 }
 
-export function formatLeadMessage(lead) {
+export function formatLeadMessage(lead, { deepLink = null, statusLine = null } = {}) {
   const interests = Array.isArray(lead.interests) && lead.interests.length
     ? lead.interests.map((value) => INTEREST_LABELS[value] ?? value).join(", ")
     : "Не указано";
@@ -29,7 +29,7 @@ export function formatLeadMessage(lead) {
     timeZone: "Europe/Moscow",
   }).format(new Date(lead.created_at));
 
-  return [
+  const lines = [
     "🔔 <b>Новая заявка на тренировку</b>",
     "",
     line("Имя", lead.name),
@@ -39,5 +39,28 @@ export function formatLeadMessage(lead) {
     line("Источник", lead.utm_source),
     line("Кампания", lead.utm_campaign),
     line("ID заявки", lead.id),
-  ].filter((value) => value !== null).join("\n");
+  ];
+
+  if (deepLink) {
+    lines.push(`<a href="${escapeHtml(deepLink)}">Открыть в CRM</a>`);
+  }
+
+  if (statusLine) {
+    lines.push("", `✅ ${escapeHtml(statusLine)}`);
+  }
+
+  lines.push(
+    "",
+    "<i>Кнопки — статус в CRM. Ответом на сообщение — заметка / секретарь.</i>",
+  );
+
+  return lines.filter((value) => value !== null).join("\n");
+}
+
+export function formatStatusLine({ actionLabel, actorLabel, clientStage, lostReason }) {
+  const parts = [actionLabel];
+  if (lostReason) parts.push(`(${lostReason})`);
+  if (clientStage) parts.push(`→ ${clientStage}`);
+  if (actorLabel) parts.push(`· ${actorLabel}`);
+  return parts.join(" ");
 }

@@ -137,10 +137,26 @@ export function mapLeadSource({ utmSource, utmMedium, utmCampaign } = {}) {
   return "OTHER";
 }
 
-/** Human-readable interests note (interestedFormats field not in metadata yet). */
+/** Human-readable interests note for logs. */
 export function formatInterestsNote(interests) {
   if (!Array.isArray(interests) || interests.length === 0) return null;
   return interests.map((value) => INTEREST_TO_NOTE[value] ?? value).join(", ");
+}
+
+const INTEREST_TO_FORMAT = {
+  reformer: "INTRO_REFORMER",
+  pilates: "MAT_PILATES",
+  stretching: "STRETCHING",
+  personal: "PERSONAL_EQUIPMENT",
+};
+
+/** Map landing interests[] → CRM interestedFormats MULTI_SELECT values. */
+export function mapInterestedFormats(interests) {
+  if (!Array.isArray(interests)) return [];
+  const formats = interests
+    .map((value) => INTEREST_TO_FORMAT[String(value).trim().toLowerCase()])
+    .filter(Boolean);
+  return [...new Set(formats)];
 }
 
 export function opportunityName(personName) {

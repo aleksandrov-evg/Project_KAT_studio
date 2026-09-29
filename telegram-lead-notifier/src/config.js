@@ -1,3 +1,5 @@
+import { parseManagerWhitelist } from "./managers.js";
+
 function integer(name, fallback, minimum = 1) {
   const raw = process.env[name];
   const value = raw === undefined ? fallback : Number.parseInt(raw, 10);
@@ -19,11 +21,20 @@ function optional(name) {
 
 export function readConfig() {
   const crmSyncEnabled = process.env.CRM_SYNC_ENABLED === "true";
+  const telegramMode = (process.env.TELEGRAM_MODE || "polling").trim().toLowerCase();
+  if (!["polling", "webhook"].includes(telegramMode)) {
+    throw new Error("TELEGRAM_MODE must be polling or webhook.");
+  }
+
   const config = {
     databaseUrl: required("DATABASE_URL"),
     telegramBotToken: required("TELEGRAM_BOT_TOKEN"),
     telegramChatId: required("TELEGRAM_CHAT_ID"),
     telegramThreadId: optional("TELEGRAM_THREAD_ID"),
+    telegramMode,
+    telegramWebhookUrl: optional("TELEGRAM_WEBHOOK_URL"),
+    telegramWebhookSecret: optional("TELEGRAM_WEBHOOK_SECRET"),
+    managerWhitelist: parseManagerWhitelist(process.env.TELEGRAM_MANAGER_WHITELIST),
     notifierKey: process.env.NOTIFIER_KEY?.trim() || "pilates-leads-main",
     pollIntervalMs: integer("POLL_INTERVAL_MS", 5000, 1000),
     batchSize: integer("BATCH_SIZE", 20, 1),
@@ -33,6 +44,7 @@ export function readConfig() {
     crmSendExisting: process.env.CRM_SEND_EXISTING === "true",
     twentyApiUrl: optional("TWENTY_API_URL"),
     twentyApiKey: optional("TWENTY_API_KEY"),
+    twentyAppBaseUrl: optional("TWENTY_APP_BASE_URL"),
     crmNotifierKey: null,
   };
 
@@ -45,6 +57,10 @@ export function readConfig() {
     if (!config.twentyApiKey) {
       throw new Error("TWENTY_API_KEY must be set when CRM_SYNC_ENABLED=true.");
     }
+  }
+
+  if (telegramMode === "webhook" && !config.telegramWebhookUrl) {
+    throw new Error("TELEGRAM_WEBHOOK_URL must be set when TELEGRAM_MODE=webhook.");
   }
 
   return config;

@@ -2,13 +2,19 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   formatInterestsNote,
+  mapInterestedFormats,
   mapLeadSource,
   opportunityName,
   parseContact,
   splitPersonName,
   toIsoDate,
 } from "../src/crm-mapping.js";
-import { CrmPermanentError, syncLeadToCrm } from "../src/crm.js";
+import {
+  buildStudioLeadPayload,
+  CrmPermanentError,
+  CrmTransientError,
+  syncLeadToCrm,
+} from "../src/crm.js";
 
 test("parseContact normalizes Russian phone to E.164", () => {
   assert.deepEqual(parseContact("+7 (900) 123-45-67"), {
@@ -58,15 +64,40 @@ test("mapLeadSource maps yandex utm combinations", () => {
   assert.equal(mapLeadSource({ utmSource: "weird_partner" }), "OTHER");
 });
 
-test("formatInterestsNote and opportunityName", () => {
+test("formatInterestsNote, mapInterestedFormats and opportunityName", () => {
   assert.equal(formatInterestsNote(["reformer", "stretching"]), "реформер, стретчинг");
   assert.equal(formatInterestsNote([]), null);
+  assert.deepEqual(mapInterestedFormats(["reformer", "stretching", "undecided"]), [
+    "INTRO_REFORMER",
+    "STRETCHING",
+  ]);
   assert.equal(opportunityName("Анна"), "Анна — первое занятие");
 });
 
 test("toIsoDate accepts Date and ISO string", () => {
   assert.equal(toIsoDate("2026-09-20T09:00:00.000Z"), "2026-09-20T09:00:00.000Z");
   assert.match(toIsoDate(new Date("2026-01-01T00:00:00.000Z")), /^2026-01-01/);
+});
+
+test("buildStudioLeadPayload maps landing row to WF-01", () => {
+  const payload = buildStudioLeadPayload({
+    id: 42,
+    name: "Анна",
+    contact: "+7 900 123-45-67",
+    interests: ["reformer"],
+    created_at: "2026-09-20T09:00:00.000Z",
+    utm_source: "yandex",
+    utm_medium: "cpc",
+    utm_campaign: "test",
+    personal_data_consent: true,
+    marketing_consent: false,
+    privacy_policy_version: "draft-1",
+  });
+
+  assert.equal(payload.externalId, "42");
+  assert.equal(payload.phone, "+79001234567");
+  assert.deepEqual(payload.interestedFormats, ["INTRO_REFORMER"]);
+  assert.equal(payload.utm.campaign, "test");
 });
 
 function jsonResponse(data, status = 200) {
@@ -78,43 +109,19 @@ function jsonResponse(data, status = 200) {
   };
 }
 
-test("syncLeadToCrm creates Person and Opportunity for new phone lead", async () => {
+test("syncLeadToCrm POSTs to WF-01 and returns ids", async () => {
   const calls = [];
-  const fetchImpl = async (_url, init) => {
-    const body = JSON.parse(init.body);
-    calls.push(body.query);
-    if (body.query.includes("FindByLandingLeadId")) {
-      return jsonResponse({ data: { people: { edges: [] } } });
-    }
-    if (body.query.includes("FindByPhone")) {
-      return jsonResponse({ data: { people: { edges: [] } } });
-    }
-    if (body.query.includes("CreatePerson")) {
-      return jsonResponse({
-        data: {
-          createPerson: {
-            id: "person-1",
-            name: { firstName: "Анна", lastName: "" },
-            landingLeadId: "42",
-            firstLeadAt: "2026-09-20T09:00:00.000Z",
-            leadSource: "YANDEX_SEARCH",
-            lifecycleStatus: "WAITLIST",
-            personalDataConsent: true,
-            marketingConsent: false,
-            firstUtmCampaign: "test",
-          },
-        },
-      });
-    }
-    if (body.query.includes("FindOpenOpportunity")) {
-      return jsonResponse({ data: { opportunities: { edges: [] } } });
-    }
-    if (body.query.includes("CreateOpportunity")) {
-      return jsonResponse({
-        data: { createOpportunity: { id: "opp-1", clientStage: "WAITLIST" } },
-      });
-    }
-    throw new Error(`Unexpected query: ${body.query.slice(0, 80)}`);
+  const fetchImpl = async (url, init) => {
+    calls.push({ url, method: init.method, body: JSON.parse(init.body) });
+    assert.match(url, /\/s\/studio\/leads$/);
+    assert.equal(init.method, "POST");
+    assert.match(init.headers.authorization, /^Bearer /);
+    return jsonResponse({
+      personId: "person-1",
+      opportunityId: "opp-1",
+      taskId: "task-1",
+      duplicate: false,
+    });
   };
 
   const result = await syncLeadToCrm(
@@ -139,69 +146,15 @@ test("syncLeadToCrm creates Person and Opportunity for new phone lead", async ()
 
   assert.equal(result.personId, "person-1");
   assert.equal(result.opportunityId, "opp-1");
+  assert.equal(result.taskId, "task-1");
   assert.equal(result.duplicate, false);
   assert.equal(result.opportunityCreated, true);
   assert.equal(result.leadSource, "YANDEX_SEARCH");
-  assert.ok(calls.some((query) => query.includes("createPerson")));
-  assert.ok(calls.some((query) => query.includes("createOpportunity")));
+  assert.equal(calls[0].body.externalId, "42");
+  assert.deepEqual(calls[0].body.interestedFormats, ["INTRO_REFORMER"]);
 });
 
-test("syncLeadToCrm updates existing Person and reuses open Opportunity", async () => {
-  const fetchImpl = async (_url, init) => {
-    const body = JSON.parse(init.body);
-    if (body.query.includes("FindByLandingLeadId")) {
-      return jsonResponse({ data: { people: { edges: [] } } });
-    }
-    if (body.query.includes("FindByPhone")) {
-      return jsonResponse({
-        data: {
-          people: {
-            edges: [{
-              node: {
-                id: "person-existing",
-                name: { firstName: "Анна", lastName: "Иванова" },
-                landingLeadId: null,
-                firstLeadAt: "2026-09-01T00:00:00.000Z",
-                leadSource: "YANDEX_SEARCH",
-                lifecycleStatus: "WAITLIST",
-                personalDataConsent: true,
-                marketingConsent: false,
-                firstUtmCampaign: "old",
-              },
-            }],
-          },
-        },
-      });
-    }
-    if (body.query.includes("UpdatePerson")) {
-      return jsonResponse({
-        data: {
-          updatePerson: {
-            id: "person-existing",
-            name: { firstName: "Анна", lastName: "Иванова" },
-            landingLeadId: "99",
-            firstLeadAt: "2026-09-01T00:00:00.000Z",
-            leadSource: "YANDEX_SEARCH",
-            lifecycleStatus: "WAITLIST",
-            personalDataConsent: true,
-            marketingConsent: true,
-            firstUtmCampaign: "old",
-          },
-        },
-      });
-    }
-    if (body.query.includes("FindOpenOpportunity")) {
-      return jsonResponse({
-        data: {
-          opportunities: {
-            edges: [{ node: { id: "opp-open", clientStage: "NEW_LEAD" } }],
-          },
-        },
-      });
-    }
-    throw new Error(`Unexpected query: ${body.query.slice(0, 80)}`);
-  };
-
+test("syncLeadToCrm marks duplicate when WF-01 says so", async () => {
   const result = await syncLeadToCrm(
     { twentyApiUrl: "https://crm.example.com", twentyApiKey: "token" },
     {
@@ -214,7 +167,15 @@ test("syncLeadToCrm updates existing Person and reuses open Opportunity", async 
       personal_data_consent: true,
       marketing_consent: true,
     },
-    { fetchImpl },
+    {
+      fetchImpl: async () =>
+        jsonResponse({
+          personId: "person-existing",
+          opportunityId: "opp-open",
+          taskId: "task-2",
+          duplicate: true,
+        }),
+    },
   );
 
   assert.equal(result.personId, "person-existing");
@@ -225,71 +186,59 @@ test("syncLeadToCrm updates existing Person and reuses open Opportunity", async 
 
 test("syncLeadToCrm rejects contact without phone or email", async () => {
   await assert.rejects(
-    () => syncLeadToCrm(
-      { twentyApiUrl: "https://crm.example.com", twentyApiKey: "token" },
-      { id: 1, name: "X", contact: "???", personal_data_consent: true },
-      { fetchImpl: async () => jsonResponse({ data: {} }) },
-    ),
+    () =>
+      syncLeadToCrm(
+        { twentyApiUrl: "https://crm.example.com", twentyApiKey: "token" },
+        { id: 1, name: "X", contact: "???", personal_data_consent: true },
+        { fetchImpl: async () => jsonResponse({}) },
+      ),
     (error) => error instanceof CrmPermanentError,
   );
 });
 
-test("syncLeadToCrm treats multiple Person phone matches as permanent", async () => {
+test("syncLeadToCrm treats 202 reviewRequired as permanent", async () => {
   await assert.rejects(
-    () => syncLeadToCrm(
-      { twentyApiUrl: "https://crm.example.com", twentyApiKey: "token" },
-      {
-        id: 7,
-        name: "Conflict",
-        contact: "+79001112233",
-        personal_data_consent: true,
-      },
-      {
-        fetchImpl: async (_url, init) => {
-          const body = JSON.parse(init.body);
-          if (body.query.includes("FindByLandingLeadId")) {
-            return jsonResponse({ data: { people: { edges: [] } } });
-          }
-          if (body.query.includes("FindByPhone")) {
-            return jsonResponse({
-              data: {
-                people: {
-                  edges: [
-                    {
-                      node: {
-                        id: "p1",
-                        name: { firstName: "A", lastName: "" },
-                        landingLeadId: null,
-                        firstLeadAt: null,
-                        leadSource: "UNKNOWN",
-                        lifecycleStatus: "WAITLIST",
-                        personalDataConsent: true,
-                        marketingConsent: false,
-                        firstUtmCampaign: null,
-                      },
-                    },
-                    {
-                      node: {
-                        id: "p2",
-                        name: { firstName: "B", lastName: "" },
-                        landingLeadId: null,
-                        firstLeadAt: null,
-                        leadSource: "UNKNOWN",
-                        lifecycleStatus: "WAITLIST",
-                        personalDataConsent: true,
-                        marketingConsent: false,
-                        firstUtmCampaign: null,
-                      },
-                    },
-                  ],
-                },
-              },
-            });
-          }
-          throw new Error("unexpected");
+    () =>
+      syncLeadToCrm(
+        { twentyApiUrl: "https://crm.example.com", twentyApiKey: "token" },
+        {
+          id: 7,
+          name: "Conflict",
+          contact: "+79001112233",
+          personal_data_consent: true,
         },
-      },
-    ),
-    (error) => error instanceof CrmPermanentError && /Multiple Person matches/.test(error.message),
+        {
+          fetchImpl: async () =>
+            jsonResponse(
+              {
+                reviewRequired: true,
+                message: "Person conflict: phone matches p1 but email matches p2",
+              },
+              202,
+            ),
+        },
+      ),
+    (error) =>
+      error instanceof CrmPermanentError && /Person conflict/.test(error.message),
+  );
+});
+
+test("syncLeadToCrm treats 5xx as transient", async () => {
+  await assert.rejects(
+    () =>
+      syncLeadToCrm(
+        { twentyApiUrl: "https://crm.example.com", twentyApiKey: "token" },
+        {
+          id: 8,
+          name: "Retry",
+          contact: "+79001112233",
+          personal_data_consent: true,
+        },
+        {
+          fetchImpl: async () =>
+            jsonResponse({ error: "upstream" }, 503),
+        },
+      ),
+    (error) => error instanceof CrmTransientError,
   );
 });

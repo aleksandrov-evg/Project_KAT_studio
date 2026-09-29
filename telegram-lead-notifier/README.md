@@ -1,8 +1,33 @@
-# Telegram-уведомления о новых заявках
+# Telegram ops-бот: алерты, воронка CRM, секретарь
 
-Сервис проверяет таблицу PostgreSQL `leads` и отправляет новые заявки в закрытый
-Telegram-канал. Подключение к базе выполняется через SSH-туннель. Порт PostgreSQL
-не открывается в интернет.
+Сервис проверяет PostgreSQL `leads` и:
+
+1. шлёт новые заявки в **закрытую супергруппу** с inline-кнопками воронки;
+2. при `CRM_SYNC_ENABLED=true` вызывает WF-01 `POST {TWENTY_API_URL}/s/studio/leads`;
+3. принимает **callback** кнопок и **reply** на карточку → `POST /s/studio/lead-actions`
+   (стадии, Notes, Tasks в Twenty);
+4. разбирает свободный текст reply как **секретарь** (шаблоны вроде «недозвон», «дозвонилась», «потерян: цена»).
+
+Telegram outbound и CRM ingest — независимые ветки. Ops inbound требует включённый CRM sync
+и применённый `katfit-studio` с Logic Function `studio-lead-actions`.
+
+Контракт действий: `crm-twenty/packages/twenty-apps/internal/katfit-studio/docs/lead-actions.md`.
+
+Подключение к базе — через SSH-туннель (порт PostgreSQL не в интернет).
+
+## Архитектура
+
+```text
+Landing → leads (PG)
+            ↓
+     lead-notifier
+       ├─ WF-01 /s/studio/leads
+       ├─ sendMessage + keyboard → супергруппа
+       └─ getUpdates / webhook
+            └─ /s/studio/lead-actions → Note + stages
+```
+
+Таблица `telegram_lead_messages` связывает `message_id` с `lead_id` для reply и edit после действия.
 
 ## Где что находится
 
@@ -10,61 +35,92 @@ Telegram-канал. Подключение к базе выполняется �
 |---|---|
 | Рабочий ПК | Подготовка кода и SSH-ключа. Здесь ничего не деплоится. |
 | Сервер Dokploy | Только панель управления. Контейнеры приложения здесь не запускаются. |
-| Сервер приложения | Deployment-сервер, выбранный в Dokploy. Здесь запускаются `ssh-tunnel` и `lead-notifier`. |
-| Удалённый сервер PostgreSQL | Здесь работают PostgreSQL и SSH-сервис для туннеля. |
-
-Соединение после деплоя:
+| Сервер приложения | Deployment-сервер Dokploy: `ssh-tunnel` + `lead-notifier`. |
+| Удалённый сервер PostgreSQL | PostgreSQL и SSH для туннеля. |
 
 ```text
-lead-notifier → ssh-tunnel → SSH с сервера приложения → сервер PostgreSQL → 127.0.0.1:5432
+lead-notifier → ssh-tunnel → SSH → PostgreSQL 127.0.0.1:5432
 ```
-
-Сервер Dokploy только управляет деплоем. Прямой доступ к PostgreSQL ему не нужен.
 
 ## Что понадобится
 
-- Telegram-бот и закрытый канал;
-- адрес удалённого сервера PostgreSQL, SSH-пользователь и SSH-порт;
-- имя базы, пользователь и пароль PostgreSQL;
-- Docker на сервере приложения;
-- доступ с сервера приложения к SSH-порту сервера PostgreSQL и к Telegram API.
-
-Все команды ниже выполняются из директории сервиса:
+- Telegram-бот и **закрытая супергруппа** (не канал — для кнопок и reply);
+- бот — админ группы с правом писать и читать сообщения;
+- SSH/DB как раньше;
+- Twenty с применённым `katfit-studio` (WF-01 + lead-actions);
+- опционально публичный HTTPS для `TELEGRAM_MODE=webhook`.
 
 ```bash
 cd /Users/evgenijaleksandrov/Desktop/repo/repo/Kate/Pilates_studio/telegram-lead-notifier
 ```
 
-## Шаг 1. Создайте Telegram-бота
+## Шаг 1. Бот и супергруппа
 
-Откройте `@BotFather` в Telegram и отправьте:
-
-```text
-/newbot
-```
-
-Укажите имя и username бота. Сохраните полученный токен — он понадобится как
-`TELEGRAM_BOT_TOKEN`.
-
-Создайте закрытый Telegram-канал и добавьте бота администратором с правом
-публикации сообщений.
-
-Опубликуйте любое сообщение в канале, затем получите ID канала командой, заменив
-`BOT_TOKEN` на токен:
+1. `@BotFather` → `/newbot` → сохранить `TELEGRAM_BOT_TOKEN`.
+2. Создайте закрытую супергруппу, добавьте бота администратором.
+3. Напишите любое сообщение в группе, затем:
 
 ```bash
 curl -s "https://api.telegram.org/botBOT_TOKEN/getUpdates"
 ```
 
-Найдите в ответе `channel_post.chat.id`. Обычно ID имеет вид `-1001234567890`.
-Это значение `TELEGRAM_CHAT_ID`.
+Найдите `message.chat.id` (обычно `-100…`) → `TELEGRAM_CHAT_ID`.
 
-Проверьте отправку сообщения:
+Проверка:
 
 ```bash
 curl -X POST "https://api.telegram.org/botBOT_TOKEN/sendMessage" \
   -H 'Content-Type: application/json' \
   -d '{"chat_id":"-1001234567890","text":"Проверка бота"}'
+```
+
+Узнайте свой `telegram user id` (например через `@userinfobot`) для whitelist:
+
+```text
+TELEGRAM_MANAGER_WHITELIST=111111111:Анна,222222222:Борис
+```
+
+Пустой whitelist = любой участник группы может жать кнопки (только для доверенной группы).
+
+## Сценарий для менеджера
+
+1. В супергруппе появляется карточка заявки + кнопки.
+2. После звонка: **Дозвонились** / **Не ответил** / **Перезвонить** / **Предложила intro** / **Потерян**.
+3. **Потерян** → выбрать причину (цена, нет ответа, …).
+4. **Ответом на сообщение** карточки можно писать свободный текст:
+   - «Недозвон, перезвонить вечером» → `no_answer` + Note;
+   - «Дозвонилась, интересует реформер» → `contacted` + Note;
+   - «Записала на intro среду 19:00» → `intro_booked` + Note;
+   - «Потерян: цена» → `lost`;
+   - любой другой текст → Note (`note`).
+5. Ссылка **Открыть в CRM** (если задан `TWENTY_APP_BASE_URL` и лид уже в CRM).
+
+Booking в Class Session из Telegram **не создаётся** — только стадия и текст слота в Note.
+
+## Режим входящих апдейтов
+
+| `TELEGRAM_MODE` | Как работает |
+|---|---|
+| `polling` (default) | `getUpdates` в фоне; публичный URL не нужен |
+| `webhook` | `POST /telegram/webhook` на том же порту, что `/health`; задайте `TELEGRAM_WEBHOOK_URL` и опционально `TELEGRAM_WEBHOOK_SECRET` |
+
+## CRM env
+
+```text
+CRM_SYNC_ENABLED=true
+TWENTY_API_URL=https://crm.example.com
+TWENTY_API_KEY=…
+TWENTY_APP_BASE_URL=https://crm.example.com
+```
+
+Без `CRM_SYNC_ENABLED` алерты уходят, но кнопки/reply в CRM не пишутся.
+
+## Локальные проверки
+
+```bash
+npm test
+# или
+node --test
 ```
 
 ## Шаг 2. Создайте SSH-ключ
@@ -211,6 +267,13 @@ DB_REMOTE_PORT=5432
 
 TELEGRAM_BOT_TOKEN=ТОКЕН_ОТ_BOTFATHER
 TELEGRAM_CHAT_ID=-1001234567890
+TELEGRAM_MODE=polling
+TELEGRAM_MANAGER_WHITELIST=
+
+CRM_SYNC_ENABLED=true
+TWENTY_API_URL=https://crm.example.com
+TWENTY_API_KEY=
+TWENTY_APP_BASE_URL=https://crm.example.com
 
 NOTIFIER_KEY=pilates-leads-main
 POLL_INTERVAL_MS=5000
@@ -337,7 +400,7 @@ Deploy
 {"level":"info","message":"Lead notification sent","leadId":"..."}
 ```
 
-После этого заявка должна появиться в закрытом Telegram-канале.
+После этого заявка должна появиться в закрытой Telegram-супергруппе.
 
 ## Важные настройки
 
@@ -362,12 +425,12 @@ docker compose --env-file .env logs --tail=200 ssh-tunnel lead-notifier
 | `Host key verification failed` | `SSH_KNOWN_HOSTS_BASE64` |
 | `administratively prohibited` | Разрешён ли TCP forwarding на SSH-сервере |
 | `Connection refused` | `DB_REMOTE_HOST` и `DB_REMOTE_PORT` |
-| Telegram `chat not found` | `TELEGRAM_CHAT_ID` и добавлен ли бот в канал |
+| Telegram `chat not found` | `TELEGRAM_CHAT_ID` и добавлен ли бот в супергруппу |
 | Telegram `not enough rights` | Право бота публиковать сообщения |
 
 ## Безопасность
 
-- Используйте только закрытый Telegram-канал: сообщения содержат контакты клиентов.
+- Используйте только закрытую Telegram-супергруппу: сообщения содержат контакты клиентов.
 - Не добавляйте `.env` и `.local-secrets` в Git.
 - Не публикуйте порт `15432`; Compose оставляет его только во внутренней сети.
 - Используйте отдельный SSH-ключ для этого сервиса.
