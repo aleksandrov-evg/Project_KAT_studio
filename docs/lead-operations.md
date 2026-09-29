@@ -4,7 +4,7 @@
 
 | Контур | Роль |
 | --- | --- |
-| **Twenty CRM** | Операционный источник правды для менеджера: views «Новые лиды», «Нарушение SLA», задачи «Связаться», статусы и заметки |
+| **Twenty CRM** | Операционный источник правды для менеджера: views «Новые лиды», «Нарушение SLA», задачи «Написать клиенту», статусы и заметки |
 | **PostgreSQL `leads`** | Технический outbox лендинга: форма пишет сюда; отсюда poller шлёт Telegram и `POST /s/studio/leads` (WF-01) |
 | **Telegram** | Ops-бот в супергруппе: алерт, deep-link, кнопки/reply → CRM ([сценарий](telegram-ops-manager.md)) |
 
@@ -13,7 +13,7 @@ SQL ниже — только аварийная сверка или fallback, �
 Соответствие статусов CRM: [инструкция менеджера](../../crm/crm-twenty/docs/katfit-balance-crm-manager-guide.ru.md)  
 (в workspace: `crm/crm-twenty/docs/katfit-balance-crm-manager-guide.ru.md`).
 
-Автозаведение ставит Opportunity в **`WAITLIST`**. Стадию `NEW_LEAD` менеджер ставит, когда уже можно звонить с предложением intro после открытия записи.
+Автозаведение ставит Opportunity в **`WAITLIST`**. Стадию `NEW_LEAD` менеджер ставит, когда уже можно писать с предложением intro после открытия записи.
 
 ## Статусы в PostgreSQL (технические)
 

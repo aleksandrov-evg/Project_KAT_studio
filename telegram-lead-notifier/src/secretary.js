@@ -48,7 +48,11 @@ export function parseSecretaryIntent(text) {
     return { action: "lost", lostReason, note: raw };
   }
 
-  if (/недозвон|не ответил|не бер[её]т|нет ответа|не дозвони/.test(lower)) {
+  if (
+    /недозвон|не ответил|не бер[её]т|нет ответа|не дозвони|написала?,?\s*но\s*никто|написала?,?\s*нет ответа|никто не ответил|молчит|без ответа/.test(
+      lower,
+    )
+  ) {
     return { action: "no_answer", note: raw };
   }
   if (/no[\s-]?show|не приш|не явил/.test(lower)) {
@@ -66,7 +70,11 @@ export function parseSecretaryIntent(text) {
   if (/предложил.*intro|intro предложен|предложила intro/.test(lower)) {
     return { action: "intro_offered", note: raw };
   }
-  if (/дозвонил|связал|контакт состоял|поговорил|написала? ответ/.test(lower)) {
+  if (
+    /дозвонил|связал|контакт состоял|поговорил|пообщал|переписк|ответил[аи]? в (мессенджер|телеграм|whatsapp|вотсап|почт)|написала? ответ|по почте/.test(
+      lower,
+    )
+  ) {
     return { action: "contacted", note: raw };
   }
 

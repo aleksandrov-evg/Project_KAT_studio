@@ -6,7 +6,7 @@
 2. при `CRM_SYNC_ENABLED=true` вызывает WF-01 `POST {TWENTY_API_URL}/s/studio/leads`;
 3. принимает **callback** кнопок и **reply** на карточку → `POST /s/studio/lead-actions`
    (стадии, Notes, Tasks в Twenty);
-4. разбирает свободный текст reply как **секретарь** (шаблоны вроде «недозвон», «дозвонилась», «потерян: цена»).
+4. разбирает свободный текст reply как **секретарь** (шаблоны вроде «нет ответа», «пообщались», «потерян: цена»).
 
 Telegram outbound и CRM ingest — независимые ветки. Ops inbound требует включённый CRM sync
 и применённый `katfit-studio` с Logic Function `studio-lead-actions`.
@@ -85,11 +85,11 @@ TELEGRAM_MANAGER_WHITELIST=111111111:Анна,222222222:Борис
 ## Сценарий для менеджера
 
 1. В супергруппе появляется карточка заявки + кнопки.
-2. После звонка: **Дозвонились** / **Не ответил** / **Перезвонить** / **Предложила intro** / **Потерян**.
+2. После сообщения клиенту: **Пообщались** / **Нет ответа** / **Написать снова** / **Предложила intro** / **Потерян**.
 3. **Потерян** → выбрать причину (цена, нет ответа, …).
 4. **Ответом на сообщение** карточки можно писать свободный текст:
-   - «Недозвон, перезвонить вечером» → `no_answer` + Note;
-   - «Дозвонилась, интересует реформер» → `contacted` + Note;
+   - «Написала, никто не ответил» → `no_answer` + Note;
+   - «Пообщались в мессенджере, интересует реформер» → `contacted` + Note;
    - «Записала на intro среду 19:00» → `intro_booked` + Note;
    - «Потерян: цена» → `lost`;
    - любой другой текст → Note (`note`).
@@ -114,6 +114,23 @@ TWENTY_APP_BASE_URL=https://crm.example.com
 ```
 
 Без `CRM_SYNC_ENABLED` алерты уходят, но кнопки/reply в CRM не пишутся.
+
+### 403 FORBIDDEN на WF-01 / lead-actions
+
+Ответ вида `Logic function execution failed … FORBIDDEN_EXCEPTION` почти всегда значит, что **Twenty не исполняет Logic Functions**, а не что payload бота неверный.
+
+Проверьте на инстансе CRM:
+
+1. Env `LOGIC_FUNCTION_TYPE` = `LOCAL` или `LAMBDA` (не `DISABLED`).
+2. Settings → Applications → **KATFIT Studio** не в статусе stopped.
+3. Логи `twenty-server` в момент вызова — там будет исходная причина (`Logic function execution is disabled` / application stopped / …).
+4. `TWENTY_API_KEY` — API key или application token того же workspace, куда сделан `twenty apply`.
+
+После починки исполнялки сбросьте залипший лид:
+
+```sql
+DELETE FROM lead_crm_state WHERE lead_id = 33 AND status = 'permanent_error';
+```
 
 ## Локальные проверки
 

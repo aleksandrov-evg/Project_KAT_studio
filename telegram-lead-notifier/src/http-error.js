@@ -9,6 +9,7 @@ export function formatHttpErrorMessage(prefix, response, body) {
 
   const candidates = [
     payload.message,
+    Array.isArray(payload.messages) ? payload.messages.map(String).join("; ") : null,
     typeof payload.error === "string" && !/^error$/i.test(payload.error)
       ? payload.error
       : null,

@@ -67,8 +67,8 @@ test("keyboardLostReasons includes back", () => {
 });
 
 test("parseSecretaryIntent detects funnel phrases", () => {
-  assert.equal(parseSecretaryIntent("Недозвон вечером").action, "no_answer");
-  assert.equal(parseSecretaryIntent("Дозвонилась, ок").action, "contacted");
+  assert.equal(parseSecretaryIntent("Написала, никто не ответил").action, "no_answer");
+  assert.equal(parseSecretaryIntent("Пообщались в мессенджере, ок").action, "contacted");
   assert.equal(parseSecretaryIntent("Потерян: цена").lostReason, "PRICE");
   assert.equal(parseSecretaryIntent("Записала на intro среду").action, "intro_booked");
   assert.equal(parseSecretaryIntent("просто заметка").action, "note");
@@ -87,7 +87,7 @@ test("manager whitelist", () => {
 test("formatStatusLine", () => {
   assert.match(
     formatStatusLine({
-      actionLabel: "Связались",
+      actionLabel: "Пообщались",
       actorLabel: "Анна",
       clientStage: "CONTACTED",
     }),

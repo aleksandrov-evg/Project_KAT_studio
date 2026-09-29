@@ -117,11 +117,11 @@ export function keyboardForStage(leadId, clientStage = "WAITLIST") {
   return {
     inline_keyboard: [
       [
-        btn("Дозвонились", encodeCallback("contacted", id)),
-        btn("Не ответил", encodeCallback("no_answer", id)),
+        btn("Пообщались", encodeCallback("contacted", id)),
+        btn("Нет ответа", encodeCallback("no_answer", id)),
       ],
       [
-        btn("Перезвонить", encodeCallback("no_answer", id)),
+        btn("Написать снова", encodeCallback("no_answer", id)),
         btn("Предложила intro", encodeCallback("intro_offered", id)),
       ],
       [btn("Потерян", `lostmenu:${id}`)],
@@ -144,8 +144,8 @@ export function keyboardLostReasons(leadId) {
 
 export const ACTION_LABELS = {
   note: "Заметка",
-  no_answer: "Не ответил",
-  contacted: "Связались",
+  no_answer: "Нет ответа",
+  contacted: "Пообщались",
   intro_offered: "Предложено intro",
   intro_booked: "Intro записано",
   intro_attended: "Intro посещено",
