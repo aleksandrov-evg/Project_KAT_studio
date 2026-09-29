@@ -21,6 +21,12 @@ function line(label, value) {
   return `<b>${label}:</b> ${escapeHtml(value)}`;
 }
 
+/** `<code>` в Telegram — тап копирует в буфер без выделения. */
+function copyable(value) {
+  if (value === null || value === undefined || value === "") return null;
+  return `<code>${escapeHtml(value)}</code>`;
+}
+
 /**
  * Deep links to open a chat with the lead by phone.
  * WhatsApp / Telegram — публичные схемы по номеру.
@@ -39,12 +45,21 @@ export function buildMessengerLinks(contact) {
   };
 }
 
+/** Контакт в `<code>`: тап → копирование (удобно вставить в MAX / поиск). */
+function formatContactLine(contact) {
+  const raw = String(contact ?? "").trim();
+  if (!raw) return null;
+  const { e164, email } = parseContact(raw);
+  const value = e164 || email || raw;
+  return `<b>Контакт:</b> ${copyable(value)} <i>(тап — скопировать)</i>`;
+}
+
 function formatMessengerLinksLine(links) {
   if (!links) return null;
   const parts = [
     `<a href="${escapeHtml(links.telegram)}">Telegram</a>`,
     `<a href="${escapeHtml(links.whatsapp)}">WhatsApp</a>`,
-    "MAX — поиск по номеру в приложении",
+    "MAX — вставить номер в поиск",
   ];
   return `<b>Написать:</b> ${parts.join(" · ")}`;
 }
@@ -64,7 +79,7 @@ export function formatLeadMessage(lead, { deepLink = null, statusLine = null } =
     "🔔 <b>Новая заявка на тренировку</b>",
     "",
     line("Имя", lead.name),
-    line("Контакт", lead.contact),
+    formatContactLine(lead.contact),
     formatMessengerLinksLine(messengerLinks),
     line("Интерес", interests),
     line("Получена", `${createdAt} МСК`),

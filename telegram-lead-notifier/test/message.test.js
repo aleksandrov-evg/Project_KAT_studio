@@ -45,6 +45,8 @@ test("formatLeadMessage includes useful lead data and deep link", () => {
   assert.match(message, /ID заявки:<\/b> 42/);
   assert.match(message, /Открыть в CRM/);
   assert.match(message, /Связались/);
+  assert.match(message, /<code>\+79000000000<\/code>/);
+  assert.match(message, /тап — скопировать/);
   assert.match(message, /t\.me\/\+79000000000/);
   assert.match(message, /wa\.me\/79000000000/);
   assert.match(message, /Написать:/);
