@@ -212,17 +212,36 @@ export async function saveTelegramLeadMessage(
     opportunityId = null,
     clientStage = "WAITLIST",
     leadSnapshot = null,
+    statusHistory = undefined,
+    pendingChannel = undefined,
   },
 ) {
+  const historyJson = statusHistory === undefined
+    ? undefined
+    : JSON.stringify(Array.isArray(statusHistory) ? statusHistory : []);
+  const channelValue = pendingChannel === undefined ? undefined : pendingChannel;
+
   await client.query(
     `INSERT INTO telegram_lead_messages (
-       chat_id, message_id, lead_id, person_id, opportunity_id, client_stage, lead_snapshot
-     ) VALUES ($1, $2, $3, $4, $5, $6, $7::jsonb)
+       chat_id, message_id, lead_id, person_id, opportunity_id, client_stage,
+       pending_channel, lead_snapshot, status_history
+     ) VALUES (
+       $1, $2, $3, $4, $5, $6,
+       $7, $8::jsonb, COALESCE($9::jsonb, '[]'::jsonb)
+     )
      ON CONFLICT (chat_id, message_id) DO UPDATE SET
        person_id = COALESCE(EXCLUDED.person_id, telegram_lead_messages.person_id),
        opportunity_id = COALESCE(EXCLUDED.opportunity_id, telegram_lead_messages.opportunity_id),
        client_stage = COALESCE(EXCLUDED.client_stage, telegram_lead_messages.client_stage),
+       pending_channel = CASE
+         WHEN $10::boolean THEN EXCLUDED.pending_channel
+         ELSE telegram_lead_messages.pending_channel
+       END,
        lead_snapshot = COALESCE(EXCLUDED.lead_snapshot, telegram_lead_messages.lead_snapshot),
+       status_history = CASE
+         WHEN $11::boolean THEN EXCLUDED.status_history
+         ELSE telegram_lead_messages.status_history
+       END,
        updated_at = NOW()`,
     [
       chatId,
@@ -231,7 +250,11 @@ export async function saveTelegramLeadMessage(
       personId,
       opportunityId,
       clientStage,
+      channelValue === undefined ? null : channelValue,
       leadSnapshot ? JSON.stringify(leadSnapshot) : null,
+      historyJson === undefined ? null : historyJson,
+      channelValue !== undefined,
+      historyJson !== undefined,
     ],
   );
 }

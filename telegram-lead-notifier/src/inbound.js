@@ -1,11 +1,19 @@
 import { syncLeadToCrm } from "./crm.js";
-import { postLeadAction, personDeepLink } from "./crm-actions.js";
+import {
+  fetchLeadStatus,
+  mapCrmNotesToStatusHistory,
+  personDeepLink,
+  postLeadAction,
+  resolveLeadDeepLink,
+} from "./crm-actions.js";
 import {
   clearCrmPermanentError,
+  findLatestTelegramLeadByLeadId,
   findTelegramLeadByMessage,
   getCrmIdsForLead,
   getLeadById,
   markCrmSynced,
+  saveTelegramLeadMessage,
   updateTelegramLeadMessageState,
 } from "./database.js";
 import {
@@ -25,10 +33,12 @@ import {
 } from "./keyboards.js";
 import { resolveManager } from "./managers.js";
 import { formatLeadMessage, formatStatusLine } from "./message.js";
+import { parseResendCommand } from "./resend.js";
 import { parseSecretaryIntent } from "./secretary.js";
 import {
   answerCallbackQuery,
   editTelegramMessage,
+  sendTelegramMessage,
 } from "./telegram.js";
 
 function stageAfterAction(action, previousStage, resultStage) {
@@ -550,11 +560,102 @@ export async function handleReplyMessage(config, dbClient, message) {
   return { handled: true, reason: "reply_ok", action: intent.action };
 }
 
+/**
+ * Resend lead card as a new message (CRM stage/history, local fallback).
+ */
+export async function handleResendCommand(config, dbClient, message) {
+  const text = String(message.text || message.caption || "").trim();
+  const parsed = parseResendCommand(text);
+  if (!parsed) return { handled: false };
+
+  const chatId = message.chat?.id;
+  if (String(chatId) !== String(config.telegramChatId)) {
+    return { handled: true, reason: "wrong_chat" };
+  }
+
+  const manager = resolveManager(config, message.from);
+  if (!manager.allowed) {
+    return { handled: true, reason: "forbidden" };
+  }
+
+  const lead = await getLeadById(dbClient, parsed.leadId);
+  if (!lead) {
+    await sendTelegramMessage(
+      config,
+      `Заявка #${parsed.leadId} не найдена в базе.`,
+    );
+    return { handled: true, reason: "lead_not_found", leadId: parsed.leadId };
+  }
+
+  const localCard = await findLatestTelegramLeadByLeadId(dbClient, lead.id);
+  const crmIds = await getCrmIdsForLead(dbClient, lead.id);
+
+  let personId = crmIds?.person_id || localCard?.person_id || null;
+  let opportunityId = crmIds?.opportunity_id || localCard?.opportunity_id || null;
+  let clientStage = localCard?.client_stage || "WAITLIST";
+  let statusHistory = Array.isArray(localCard?.status_history)
+    ? localCard.status_history
+    : [];
+  let deepLinkPath = null;
+  let source = config.crmSyncEnabled ? "local_fallback" : "local";
+
+  if (config.crmSyncEnabled) {
+    try {
+      const status = await fetchLeadStatus(config, {
+        landingLeadId: String(lead.id),
+      });
+      personId = status.personId || personId;
+      opportunityId = status.opportunityId || opportunityId;
+      clientStage = status.clientStage || clientStage;
+      statusHistory = mapCrmNotesToStatusHistory(status.notes);
+      deepLinkPath = status.deepLinkPath || null;
+      source = "crm";
+    } catch (error) {
+      console.error(JSON.stringify({
+        level: "warn",
+        message: "Lead status fetch failed; falling back to local card state",
+        leadId: lead.id,
+        error: String(error.message || error),
+      }));
+    }
+  }
+
+  const deepLink = resolveLeadDeepLink(config, { deepLinkPath, personId });
+  const replyMarkup = keyboardForStage(lead.id, clientStage, {
+    contact: lead.contact,
+    pendingChannel: null,
+    statusHistory,
+  });
+  const cardText = formatLeadMessage(lead, { deepLink, statusHistory });
+  const sent = await sendTelegramMessage(config, cardText, { replyMarkup });
+  await saveTelegramLeadMessage(dbClient, {
+    chatId: sent.chat.id,
+    messageId: sent.message_id,
+    leadId: lead.id,
+    personId,
+    opportunityId,
+    clientStage,
+    leadSnapshot: lead,
+    statusHistory,
+    pendingChannel: null,
+  });
+
+  return {
+    handled: true,
+    reason: "resend_ok",
+    leadId: lead.id,
+    source,
+    messageId: sent.message_id,
+  };
+}
+
 export async function processTelegramUpdate(config, dbClient, update) {
   if (update.callback_query) {
     return handleCallbackQuery(config, dbClient, update.callback_query);
   }
   if (update.message) {
+    const resend = await handleResendCommand(config, dbClient, update.message);
+    if (resend.handled) return resend;
     return handleReplyMessage(config, dbClient, update.message);
   }
   return { handled: false };

@@ -6,10 +6,12 @@
 2. при `CRM_SYNC_ENABLED=true` вызывает WF-01 `POST {TWENTY_API_URL}/s/studio/leads`;
 3. принимает **callback** кнопок и **reply** на карточку → `POST /s/studio/lead-actions`
    (стадии, Notes, Tasks в Twenty);
-4. разбирает свободный текст reply как **секретарь** (шаблоны вроде «нет ответа», «пообщались», «потерян: цена»).
+4. разбирает свободный текст reply как **секретарь** (шаблоны вроде «нет ответа», «пообщались», «потерян: цена»);
+5. по команде `ID36` / `/resend 36` шлёт **новую** карточку со стадией и историей из CRM
+   (`POST /s/studio/lead-status`), с fallback на локальную `telegram_lead_messages`.
 
 Telegram outbound и CRM ingest — независимые ветки. Ops inbound требует включённый CRM sync
-и применённый `katfit-studio` с Logic Function `studio-lead-actions`.
+и применённый `katfit-studio` с Logic Function `studio-lead-actions` (+ `studio-lead-status` для переотправки).
 
 Контракт действий: `crm-twenty/packages/twenty-apps/internal/katfit-studio/docs/lead-actions.md`.
 
@@ -24,7 +26,8 @@ Landing → leads (PG)
        ├─ WF-01 /s/studio/leads
        ├─ sendMessage + keyboard → супергруппа
        └─ getUpdates / webhook
-            └─ /s/studio/lead-actions → Note + stages
+            ├─ ID36 / /resend → /s/studio/lead-status → новая карточка
+            └─ callback / reply → /s/studio/lead-actions → Note + stages
 ```
 
 Таблица `telegram_lead_messages` связывает `message_id` с `lead_id` для reply и edit после действия.
@@ -93,6 +96,19 @@ TELEGRAM_MANAGER_WHITELIST=111111111:Анна,222222222:Борис
 4. **Ответом на сообщение** — секретарь (те же action в CRM).
 5. Ссылка **Открыть в CRM** (если sync и `TWENTY_APP_BASE_URL`).
 6. **Открыть TG / Открыть WA** — только deep link; MAX — по номеру в приложении.
+7. **Переотправка карточки** — в чате (whitelist + этот `TELEGRAM_CHAT_ID`):
+
+```text
+ID36
+id 36
+Id#36
+/resend 36
+/card 36
+```
+
+Бот шлёт **новое** сообщение (не edit): контакты из `leads`, стадия и история из CRM Notes;
+если CRM выключен или недоступен — из последней локальной записи `telegram_lead_messages`.
+`pending_channel` сбрасывается. Старые карточки по-прежнему принимают reply и кнопки.
 
 Канал связи попадает в Note и в `Person.lastContactChannel`.
 
