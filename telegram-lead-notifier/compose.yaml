@@ -44,6 +44,10 @@ services:
       POLL_INTERVAL_MS: ${POLL_INTERVAL_MS:-5000}
       BATCH_SIZE: ${BATCH_SIZE:-20}
       SEND_EXISTING: ${SEND_EXISTING:-false}
+      CRM_SYNC_ENABLED: ${CRM_SYNC_ENABLED:-false}
+      CRM_SEND_EXISTING: ${CRM_SEND_EXISTING:-false}
+      TWENTY_API_URL: ${TWENTY_API_URL:-}
+      TWENTY_API_KEY: ${TWENTY_API_KEY:-}
       PORT: 3000
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/health"]

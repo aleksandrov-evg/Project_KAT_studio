@@ -13,6 +13,13 @@ export function startHealthServer(port, state) {
       ready: state.ready,
       lastPollAt: state.lastPollAt ? new Date(state.lastPollAt).toISOString() : null,
       lastSentLeadId: state.lastSentLeadId,
+      crmSyncEnabled: Boolean(state.crmSyncEnabled),
+      lastCrmSyncAt: state.lastCrmSyncAt
+        ? new Date(state.lastCrmSyncAt).toISOString()
+        : null,
+      lastCrmLeadId: state.lastCrmLeadId ?? null,
+      lastCrmError: state.lastCrmError ?? null,
+      crmPendingCount: state.crmPendingCount ?? null,
     }));
   }).listen(port, "0.0.0.0");
 }
