@@ -52,10 +52,15 @@ async function ensureTelegramOpsTables(client) {
       opportunity_id TEXT,
       client_stage TEXT,
       lead_snapshot JSONB,
+      status_history JSONB NOT NULL DEFAULT '[]'::jsonb,
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       PRIMARY KEY (chat_id, message_id)
     )
+  `);
+  await client.query(`
+    ALTER TABLE telegram_lead_messages
+    ADD COLUMN IF NOT EXISTS status_history JSONB NOT NULL DEFAULT '[]'::jsonb
   `);
   await client.query(`
     CREATE INDEX IF NOT EXISTS telegram_lead_messages_lead_id_idx
@@ -228,7 +233,8 @@ export async function saveTelegramLeadMessage(
 
 export async function findTelegramLeadByMessage(client, chatId, messageId) {
   const result = await client.query(
-    `SELECT chat_id, message_id, lead_id, person_id, opportunity_id, client_stage, lead_snapshot
+    `SELECT chat_id, message_id, lead_id, person_id, opportunity_id, client_stage,
+            lead_snapshot, status_history
      FROM telegram_lead_messages
      WHERE chat_id = $1 AND message_id = $2`,
     [chatId, messageId],
@@ -238,7 +244,8 @@ export async function findTelegramLeadByMessage(client, chatId, messageId) {
 
 export async function findLatestTelegramLeadByLeadId(client, leadId) {
   const result = await client.query(
-    `SELECT chat_id, message_id, lead_id, person_id, opportunity_id, client_stage, lead_snapshot
+    `SELECT chat_id, message_id, lead_id, person_id, opportunity_id, client_stage,
+            lead_snapshot, status_history
      FROM telegram_lead_messages
      WHERE lead_id = $1
      ORDER BY updated_at DESC
@@ -250,8 +257,29 @@ export async function findLatestTelegramLeadByLeadId(client, leadId) {
 
 export async function updateTelegramLeadMessageState(
   client,
-  { chatId, messageId, personId, opportunityId, clientStage },
+  { chatId, messageId, personId, opportunityId, clientStage, statusEntry = null },
 ) {
+  if (statusEntry) {
+    await client.query(
+      `UPDATE telegram_lead_messages
+       SET person_id = COALESCE($3, person_id),
+           opportunity_id = COALESCE($4, opportunity_id),
+           client_stage = COALESCE($5, client_stage),
+           status_history = COALESCE(status_history, '[]'::jsonb) || $6::jsonb,
+           updated_at = NOW()
+       WHERE chat_id = $1 AND message_id = $2`,
+      [
+        chatId,
+        messageId,
+        personId ?? null,
+        opportunityId ?? null,
+        clientStage ?? null,
+        JSON.stringify([statusEntry]),
+      ],
+    );
+    return;
+  }
+
   await client.query(
     `UPDATE telegram_lead_messages
      SET person_id = COALESCE($3, person_id),

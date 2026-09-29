@@ -12,6 +12,7 @@ import {
   buildMessengerLinks,
   escapeHtml,
   formatLeadMessage,
+  formatStatusHistory,
   formatStatusLine,
 } from "../src/message.js";
 
@@ -38,19 +39,56 @@ test("formatLeadMessage includes useful lead data and deep link", () => {
     utm_campaign: null,
   }, {
     deepLink: "https://crm.example.com/objects/people/abc",
-    statusLine: "Связались → CONTACTED",
+    statusHistory: [
+      {
+        at: "2026-09-20T10:00:00.000Z",
+        actionLabel: "Пообщались",
+        clientStage: "CONTACTED",
+        actorLabel: "Анна",
+      },
+      {
+        at: "2026-09-20T12:30:00.000Z",
+        actionLabel: "Нет ответа",
+        clientStage: "CONTACTED",
+        actorLabel: "Анна",
+      },
+    ],
   });
   assert.match(message, /Анна &lt;3/);
   assert.match(message, /Реформер, Стретчинг/);
   assert.match(message, /ID заявки:<\/b> 42/);
   assert.match(message, /Открыть в CRM/);
-  assert.match(message, /Связались/);
+  assert.match(message, /Пообщались/);
+  assert.match(message, /Нет ответа/);
+  assert.match(message, /МСК —/);
   assert.match(message, /<code>\+79000000000<\/code>/);
   assert.match(message, /тап — скопировать/);
   assert.match(message, /t\.me\/\+79000000000/);
   assert.match(message, /wa\.me\/79000000000/);
   assert.match(message, /Написать:/);
   assert.doesNotMatch(message, /Кампания/);
+});
+
+test("formatStatusHistory keeps all entries with timestamps", () => {
+  const block = formatStatusHistory([
+    {
+      at: "2026-09-20T10:00:00.000Z",
+      actionLabel: "Пообщались",
+      clientStage: "CONTACTED",
+      actorLabel: "Анна",
+    },
+    {
+      at: "2026-09-21T08:15:00.000Z",
+      actionLabel: "Записала intro",
+      clientStage: "INTRO_BOOKED",
+      actorLabel: "Борис",
+    },
+  ]);
+  assert.match(block, /Пообщались/);
+  assert.match(block, /Записала intro/);
+  assert.match(block, /Анна/);
+  assert.match(block, /Борис/);
+  assert.equal(block.split("\n").length, 2);
 });
 
 test("callback encode/parse roundtrip", () => {

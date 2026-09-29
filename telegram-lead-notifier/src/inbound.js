@@ -64,7 +64,7 @@ async function ensureLeadInCrm(config, dbClient, leadId, mapping) {
 }
 
 async function refreshLeadCard(config, dbClient, mapping, {
-  statusLine,
+  statusHistory,
   clientStage,
   personId,
 }) {
@@ -76,7 +76,10 @@ async function refreshLeadCard(config, dbClient, mapping, {
     created_at: new Date().toISOString(),
   };
   const deepLink = personDeepLink(config, personId || mapping.person_id);
-  const text = formatLeadMessage(snapshot, { deepLink, statusLine });
+  const text = formatLeadMessage(snapshot, {
+    deepLink,
+    statusHistory: statusHistory ?? mapping.status_history,
+  });
   const replyMarkup = keyboardForStage(mapping.lead_id, clientStage, {
     contact: snapshot.contact,
   });
@@ -114,19 +117,25 @@ async function applyLeadAction(config, dbClient, mapping, {
     result.clientStage,
   );
 
+  const statusEntry = {
+    at: new Date().toISOString(),
+    actionLabel: ACTION_LABELS[action] || action,
+    actorLabel: actorLabel || null,
+    clientStage,
+    lostReason: lostReason || null,
+  };
+  const previousHistory = Array.isArray(mapping.status_history)
+    ? mapping.status_history
+    : [];
+  const statusHistory = [...previousHistory, statusEntry];
+
   await updateTelegramLeadMessageState(dbClient, {
     chatId: mapping.chat_id,
     messageId: mapping.message_id,
     personId: result.personId,
     opportunityId: result.opportunityId,
     clientStage,
-  });
-
-  const statusLine = formatStatusLine({
-    actionLabel: ACTION_LABELS[action] || action,
-    actorLabel,
-    clientStage,
-    lostReason,
+    statusEntry,
   });
 
   await refreshLeadCard(config, dbClient, {
@@ -134,13 +143,19 @@ async function applyLeadAction(config, dbClient, mapping, {
     person_id: result.personId,
     opportunity_id: result.opportunityId,
     client_stage: clientStage,
+    status_history: statusHistory,
   }, {
-    statusLine,
+    statusHistory,
     clientStage,
     personId: result.personId,
   });
 
-  return { result, clientStage, statusLine };
+  return {
+    result,
+    clientStage,
+    statusHistory,
+    statusLine: formatStatusLine(statusEntry),
+  };
 }
 
 export async function handleCallbackQuery(config, dbClient, callbackQuery) {
@@ -174,6 +189,7 @@ export async function handleCallbackQuery(config, dbClient, callbackQuery) {
       opportunity_id: null,
       client_stage: "WAITLIST",
       lead_snapshot: null,
+      status_history: [],
     };
   }
 
@@ -186,7 +202,10 @@ export async function handleCallbackQuery(config, dbClient, callbackQuery) {
       interests: [],
       created_at: new Date().toISOString(),
     };
-    const text = formatLeadMessage(snapshot, { deepLink });
+    const text = formatLeadMessage(snapshot, {
+      deepLink,
+      statusHistory: mapping.status_history,
+    });
     const contactOpts = { contact: snapshot.contact };
     const replyMarkup = data.kind === "lost_menu"
       ? keyboardLostReasons(mapping.lead_id, contactOpts)

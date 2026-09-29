@@ -28,6 +28,7 @@ Landing → leads (PG)
 ```
 
 Таблица `telegram_lead_messages` связывает `message_id` с `lead_id` для reply и edit после действия.
+Колонка `status_history` (JSONB) хранит append-only лог статусов с меткой времени; при каждом дейвлении карточка в Telegram пересобирается со всей историей.
 
 ## Где что находится
 

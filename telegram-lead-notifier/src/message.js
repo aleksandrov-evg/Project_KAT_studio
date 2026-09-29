@@ -64,15 +64,22 @@ function formatMessengerLinksLine(links) {
   return `<b>Написать:</b> ${parts.join(" · ")}`;
 }
 
-export function formatLeadMessage(lead, { deepLink = null, statusLine = null } = {}) {
+const moscowDateTime = new Intl.DateTimeFormat("ru-RU", {
+  dateStyle: "medium",
+  timeStyle: "short",
+  timeZone: "Europe/Moscow",
+});
+
+export function formatMoscowDateTime(value) {
+  if (!value) return null;
+  return `${moscowDateTime.format(new Date(value))} МСК`;
+}
+
+export function formatLeadMessage(lead, { deepLink = null, statusHistory = null } = {}) {
   const interests = Array.isArray(lead.interests) && lead.interests.length
     ? lead.interests.map((value) => INTEREST_LABELS[value] ?? value).join(", ")
     : "Не указано";
-  const createdAt = new Intl.DateTimeFormat("ru-RU", {
-    dateStyle: "medium",
-    timeStyle: "short",
-    timeZone: "Europe/Moscow",
-  }).format(new Date(lead.created_at));
+  const createdAt = formatMoscowDateTime(lead.created_at);
   const messengerLinks = buildMessengerLinks(lead.contact);
 
   const lines = [
@@ -82,7 +89,7 @@ export function formatLeadMessage(lead, { deepLink = null, statusLine = null } =
     formatContactLine(lead.contact),
     formatMessengerLinksLine(messengerLinks),
     line("Интерес", interests),
-    line("Получена", `${createdAt} МСК`),
+    line("Получена", createdAt),
     line("Источник", lead.utm_source),
     line("Кампания", lead.utm_campaign),
     line("ID заявки", lead.id),
@@ -92,8 +99,9 @@ export function formatLeadMessage(lead, { deepLink = null, statusLine = null } =
     lines.push(`<a href="${escapeHtml(deepLink)}">Открыть в CRM</a>`);
   }
 
-  if (statusLine) {
-    lines.push("", `✅ ${escapeHtml(statusLine)}`);
+  const historyBlock = formatStatusHistory(statusHistory);
+  if (historyBlock) {
+    lines.push("", historyBlock);
   }
 
   lines.push(
@@ -110,4 +118,16 @@ export function formatStatusLine({ actionLabel, actorLabel, clientStage, lostRea
   if (clientStage) parts.push(`→ ${clientStage}`);
   if (actorLabel) parts.push(`· ${actorLabel}`);
   return parts.join(" ");
+}
+
+/** Append-only status log for the Telegram lead card. */
+export function formatStatusHistory(statusHistory) {
+  if (!Array.isArray(statusHistory) || statusHistory.length === 0) return null;
+  return statusHistory
+    .map((entry) => {
+      const when = formatMoscowDateTime(entry.at) || "—";
+      const detail = formatStatusLine(entry);
+      return `✅ ${escapeHtml(`${when} — ${detail}`)}`;
+    })
+    .join("\n");
 }
