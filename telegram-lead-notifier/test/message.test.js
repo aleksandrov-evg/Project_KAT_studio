@@ -2,9 +2,13 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   encodeCallback,
+  encodeChannel,
   keyboardForStage,
   keyboardLostReasons,
+  noteForOutcome,
   parseCallbackData,
+  statusLabelForOutcome,
+  toCrmChannel,
 } from "../src/keyboards.js";
 import { parseSecretaryIntent } from "../src/secretary.js";
 import { parseManagerWhitelist, resolveManager } from "../src/managers.js";
@@ -97,25 +101,107 @@ test("callback encode/parse roundtrip", () => {
     lostReason: null,
     leadId: "42",
     kind: "action",
+    channel: null,
+    outcome: null,
   });
   assert.deepEqual(parseCallbackData(encodeCallback("lost", 7, "PRICE")), {
     action: "lost",
     lostReason: "PRICE",
     leadId: "7",
     kind: "action",
+    channel: null,
+    outcome: null,
   });
   assert.equal(parseCallbackData("lostmenu:9").kind, "lost_menu");
+  assert.deepEqual(parseCallbackData(encodeChannel("telegram", 42)), {
+    action: null,
+    lostReason: null,
+    leadId: "42",
+    kind: "channel",
+    channel: "telegram",
+    outcome: null,
+  });
+  assert.deepEqual(parseCallbackData("out:thinking:9"), {
+    action: null,
+    lostReason: null,
+    leadId: "9",
+    kind: "outcome",
+    channel: null,
+    outcome: "thinking",
+  });
+  assert.equal(parseCallbackData("again:3").kind, "write_again");
+  assert.equal(parseCallbackData("chmenu:3").kind, "channel_menu");
 });
 
-test("keyboardForStage returns buttons for new leads", () => {
+test("keyboardForStage returns channel picker for new leads", () => {
   const kb = keyboardForStage(1, "WAITLIST", { contact: "+79001112233" });
   assert.ok(kb.inline_keyboard.length >= 2);
   const urls = kb.inline_keyboard[0].map((b) => b.url);
   assert.ok(urls.includes("https://t.me/+79001112233"));
   assert.ok(urls.includes("https://wa.me/79001112233"));
   const flat = kb.inline_keyboard.flat().map((b) => b.callback_data).filter(Boolean);
-  assert.ok(flat.includes("contacted:1"));
+  assert.ok(flat.includes("ch:telegram:1"));
+  assert.ok(flat.includes("ch:call:1"));
   assert.ok(flat.includes("lostmenu:1"));
+  assert.ok(!flat.includes("contacted:1"));
+  assert.ok(!flat.some((d) => d.startsWith("again:")));
+});
+
+test("keyboardForStage shows outcomes after channel pick", () => {
+  const kb = keyboardForStage(2, "WAITLIST", { pendingChannel: "whatsapp" });
+  const flat = kb.inline_keyboard.flat().map((b) => b.callback_data).filter(Boolean);
+  assert.ok(flat.includes("out:no_answer:2"));
+  assert.ok(flat.includes("out:replied:2"));
+  assert.ok(flat.includes("out:thinking:2"));
+  assert.ok(flat.includes("chmenu:2"));
+});
+
+test("keyboardForStage shows write-again after no_answer", () => {
+  const kb = keyboardForStage(3, "WAITLIST", {
+    statusHistory: [{ action: "no_answer", actionLabel: "Нет ответа" }],
+  });
+  const flat = kb.inline_keyboard.flat().map((b) => b.callback_data).filter(Boolean);
+  assert.ok(flat.includes("again:3"));
+  assert.ok(flat.includes("ch:max:3"));
+});
+
+test("noteForOutcome and status labels include channel", () => {
+  assert.match(noteForOutcome("no_answer", "telegram"), /Канал: Telegram/);
+  assert.match(noteForOutcome("thinking", "max"), /думает/i);
+  assert.match(statusLabelForOutcome("replied", "whatsapp"), /WhatsApp/);
+});
+
+test("keyboardForStage CONTACTED has three intro buttons and write-again", () => {
+  const kb = keyboardForStage(4, "CONTACTED");
+  const texts = kb.inline_keyboard.flat().map((b) => b.text);
+  assert.ok(texts.includes("Предложила intro"));
+  assert.ok(texts.includes("Согласилась на intro"));
+  assert.ok(texts.includes("Записала intro"));
+  assert.ok(texts.includes("Написать снова"));
+  const flat = kb.inline_keyboard.flat().map((b) => b.callback_data).filter(Boolean);
+  assert.ok(flat.includes("intro_offered:4"));
+  assert.ok(flat.includes("intro_agreed:4"));
+  assert.ok(flat.includes("again:4"));
+});
+
+test("keyboardForStage CONTACTED with pending channel shows outcomes", () => {
+  const kb = keyboardForStage(5, "CONTACTED", { pendingChannel: "telegram" });
+  const flat = kb.inline_keyboard.flat().map((b) => b.callback_data).filter(Boolean);
+  assert.ok(flat.includes("out:thinking:5"));
+  assert.ok(flat.includes("out:no_answer:5"));
+});
+
+test("keyboardForStage CONTACTED pick sentinel shows channels", () => {
+  const kb = keyboardForStage(6, "CONTACTED", { pendingChannel: "pick" });
+  const flat = kb.inline_keyboard.flat().map((b) => b.callback_data).filter(Boolean);
+  assert.ok(flat.includes("ch:call:6"));
+  assert.ok(!flat.includes("intro_offered:6"));
+});
+
+test("toCrmChannel maps bot ids", () => {
+  assert.equal(toCrmChannel("telegram"), "TELEGRAM");
+  assert.equal(toCrmChannel("call"), "CALL");
+  assert.equal(toCrmChannel("unknown"), null);
 });
 
 test("keyboardLostReasons includes back", () => {
@@ -128,8 +214,10 @@ test("keyboardLostReasons includes back", () => {
 test("parseSecretaryIntent detects funnel phrases", () => {
   assert.equal(parseSecretaryIntent("Написала, никто не ответил").action, "no_answer");
   assert.equal(parseSecretaryIntent("Пообщались в мессенджере, ок").action, "contacted");
+  assert.equal(parseSecretaryIntent("Думает, перезвонит завтра").action, "contacted");
   assert.equal(parseSecretaryIntent("Потерян: цена").lostReason, "PRICE");
   assert.equal(parseSecretaryIntent("Записала на intro среду").action, "intro_booked");
+  assert.equal(parseSecretaryIntent("Согласилась на intro").action, "intro_offered");
   assert.equal(parseSecretaryIntent("просто заметка").action, "note");
 });
 

@@ -51,6 +51,7 @@ async function ensureTelegramOpsTables(client) {
       person_id TEXT,
       opportunity_id TEXT,
       client_stage TEXT,
+      pending_channel TEXT,
       lead_snapshot JSONB,
       status_history JSONB NOT NULL DEFAULT '[]'::jsonb,
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -61,6 +62,10 @@ async function ensureTelegramOpsTables(client) {
   await client.query(`
     ALTER TABLE telegram_lead_messages
     ADD COLUMN IF NOT EXISTS status_history JSONB NOT NULL DEFAULT '[]'::jsonb
+  `);
+  await client.query(`
+    ALTER TABLE telegram_lead_messages
+    ADD COLUMN IF NOT EXISTS pending_channel TEXT
   `);
   await client.query(`
     CREATE INDEX IF NOT EXISTS telegram_lead_messages_lead_id_idx
@@ -234,7 +239,7 @@ export async function saveTelegramLeadMessage(
 export async function findTelegramLeadByMessage(client, chatId, messageId) {
   const result = await client.query(
     `SELECT chat_id, message_id, lead_id, person_id, opportunity_id, client_stage,
-            lead_snapshot, status_history
+            pending_channel, lead_snapshot, status_history
      FROM telegram_lead_messages
      WHERE chat_id = $1 AND message_id = $2`,
     [chatId, messageId],
@@ -245,7 +250,7 @@ export async function findTelegramLeadByMessage(client, chatId, messageId) {
 export async function findLatestTelegramLeadByLeadId(client, leadId) {
   const result = await client.query(
     `SELECT chat_id, message_id, lead_id, person_id, opportunity_id, client_stage,
-            lead_snapshot, status_history
+            pending_channel, lead_snapshot, status_history
      FROM telegram_lead_messages
      WHERE lead_id = $1
      ORDER BY updated_at DESC
@@ -257,15 +262,35 @@ export async function findLatestTelegramLeadByLeadId(client, leadId) {
 
 export async function updateTelegramLeadMessageState(
   client,
-  { chatId, messageId, personId, opportunityId, clientStage, statusEntry = null },
+  {
+    chatId,
+    messageId,
+    personId,
+    opportunityId,
+    clientStage,
+    pendingChannel,
+    clearPendingChannel = false,
+    statusEntry = null,
+  },
 ) {
+  const nextChannel = clearPendingChannel
+    ? null
+    : pendingChannel === undefined
+      ? undefined
+      : pendingChannel;
+
   if (statusEntry) {
     await client.query(
       `UPDATE telegram_lead_messages
        SET person_id = COALESCE($3, person_id),
            opportunity_id = COALESCE($4, opportunity_id),
            client_stage = COALESCE($5, client_stage),
-           status_history = COALESCE(status_history, '[]'::jsonb) || $6::jsonb,
+           pending_channel = CASE
+             WHEN $7::boolean THEN NULL
+             WHEN $6::text IS NOT NULL THEN $6
+             ELSE pending_channel
+           END,
+           status_history = COALESCE(status_history, '[]'::jsonb) || $8::jsonb,
            updated_at = NOW()
        WHERE chat_id = $1 AND message_id = $2`,
       [
@@ -274,6 +299,8 @@ export async function updateTelegramLeadMessageState(
         personId ?? null,
         opportunityId ?? null,
         clientStage ?? null,
+        nextChannel === undefined ? null : nextChannel,
+        Boolean(clearPendingChannel),
         JSON.stringify([statusEntry]),
       ],
     );
@@ -285,9 +312,22 @@ export async function updateTelegramLeadMessageState(
      SET person_id = COALESCE($3, person_id),
          opportunity_id = COALESCE($4, opportunity_id),
          client_stage = COALESCE($5, client_stage),
+         pending_channel = CASE
+           WHEN $7::boolean THEN NULL
+           WHEN $6::text IS NOT NULL THEN $6
+           ELSE pending_channel
+         END,
          updated_at = NOW()
      WHERE chat_id = $1 AND message_id = $2`,
-    [chatId, messageId, personId ?? null, opportunityId ?? null, clientStage ?? null],
+    [
+      chatId,
+      messageId,
+      personId ?? null,
+      opportunityId ?? null,
+      clientStage ?? null,
+      nextChannel === undefined ? null : nextChannel,
+      Boolean(clearPendingChannel),
+    ],
   );
 }
 

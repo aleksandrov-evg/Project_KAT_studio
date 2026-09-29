@@ -10,9 +10,18 @@ import {
 } from "./database.js";
 import {
   ACTION_LABELS,
+  CONTACT_CHANNELS,
+  PICK_CHANNEL_SENTINEL,
+  channelLabel,
+  hoursFromNowIso,
   keyboardForStage,
   keyboardLostReasons,
+  noteForChannelAttempt,
+  noteForOutcome,
   parseCallbackData,
+  statusLabelForChannelPick,
+  statusLabelForOutcome,
+  toCrmChannel,
 } from "./keyboards.js";
 import { resolveManager } from "./managers.js";
 import { formatLeadMessage, formatStatusLine } from "./message.js";
@@ -28,6 +37,19 @@ function stageAfterAction(action, previousStage, resultStage) {
     return previousStage || "WAITLIST";
   }
   return previousStage || "WAITLIST";
+}
+
+function keyboardOpts(mapping) {
+  const snapshot = mapping.lead_snapshot || {};
+  return {
+    contact: snapshot.contact,
+    pendingChannel: mapping.pending_channel || null,
+    statusHistory: mapping.status_history || null,
+  };
+}
+
+function isContactedStage(stage) {
+  return stage === "CONTACTED";
 }
 
 async function ensureLeadInCrm(config, dbClient, leadId, mapping) {
@@ -67,6 +89,7 @@ async function refreshLeadCard(config, dbClient, mapping, {
   statusHistory,
   clientStage,
   personId,
+  pendingChannel,
 }) {
   const snapshot = mapping.lead_snapshot || {
     id: mapping.lead_id,
@@ -80,8 +103,14 @@ async function refreshLeadCard(config, dbClient, mapping, {
     deepLink,
     statusHistory: statusHistory ?? mapping.status_history,
   });
-  const replyMarkup = keyboardForStage(mapping.lead_id, clientStage, {
+  const stage = clientStage ?? mapping.client_stage;
+  const channel = pendingChannel !== undefined
+    ? pendingChannel
+    : mapping.pending_channel;
+  const replyMarkup = keyboardForStage(mapping.lead_id, stage, {
     contact: snapshot.contact,
+    pendingChannel: channel || null,
+    statusHistory: statusHistory ?? mapping.status_history,
   });
   await editTelegramMessage(config, {
     chatId: mapping.chat_id,
@@ -97,6 +126,11 @@ async function applyLeadAction(config, dbClient, mapping, {
   lostReason,
   actorLabel,
   clientEventId,
+  actionLabel,
+  channel,
+  nextActionAt = null,
+  clearPendingChannel = false,
+  setPendingChannel,
 }) {
   const synced = await ensureLeadInCrm(config, dbClient, mapping.lead_id, mapping);
   const payload = {
@@ -108,6 +142,8 @@ async function applyLeadAction(config, dbClient, mapping, {
     lostReason: lostReason || null,
     actorLabel: actorLabel || null,
     clientEventId,
+    nextActionAt: nextActionAt || null,
+    channel: toCrmChannel(channel) || null,
   };
 
   const result = await postLeadAction(config, payload);
@@ -119,15 +155,24 @@ async function applyLeadAction(config, dbClient, mapping, {
 
   const statusEntry = {
     at: new Date().toISOString(),
-    actionLabel: ACTION_LABELS[action] || action,
+    action,
+    actionLabel: actionLabel || ACTION_LABELS[action] || action,
     actorLabel: actorLabel || null,
     clientStage,
     lostReason: lostReason || null,
+    channel: channel || null,
+    channelLabel: channelLabel(channel) || null,
   };
   const previousHistory = Array.isArray(mapping.status_history)
     ? mapping.status_history
     : [];
   const statusHistory = [...previousHistory, statusEntry];
+
+  const nextPending = clearPendingChannel
+    ? null
+    : setPendingChannel !== undefined
+      ? setPendingChannel
+      : mapping.pending_channel;
 
   await updateTelegramLeadMessageState(dbClient, {
     chatId: mapping.chat_id,
@@ -135,6 +180,8 @@ async function applyLeadAction(config, dbClient, mapping, {
     personId: result.personId,
     opportunityId: result.opportunityId,
     clientStage,
+    pendingChannel: setPendingChannel,
+    clearPendingChannel,
     statusEntry,
   });
 
@@ -143,11 +190,13 @@ async function applyLeadAction(config, dbClient, mapping, {
     person_id: result.personId,
     opportunity_id: result.opportunityId,
     client_stage: clientStage,
+    pending_channel: nextPending,
     status_history: statusHistory,
   }, {
     statusHistory,
     clientStage,
     personId: result.personId,
+    pendingChannel: nextPending,
   });
 
   return {
@@ -156,6 +205,98 @@ async function applyLeadAction(config, dbClient, mapping, {
     statusHistory,
     statusLine: formatStatusLine(statusEntry),
   };
+}
+
+/**
+ * Channel picked: local UI → outcomes; CRM note «Попытка» (non-blocking on CRM error).
+ */
+async function applyChannelPick(config, dbClient, mapping, { channel, actorLabel }) {
+  const statusEntry = {
+    at: new Date().toISOString(),
+    action: "channel_pick",
+    actionLabel: statusLabelForChannelPick(channel),
+    actorLabel: actorLabel || null,
+    clientStage: mapping.client_stage || "WAITLIST",
+    lostReason: null,
+    channel,
+    channelLabel: channelLabel(channel),
+  };
+  const previousHistory = Array.isArray(mapping.status_history)
+    ? mapping.status_history
+    : [];
+  const statusHistory = [...previousHistory, statusEntry];
+  const clientStage = mapping.client_stage || "WAITLIST";
+
+  await updateTelegramLeadMessageState(dbClient, {
+    chatId: mapping.chat_id,
+    messageId: mapping.message_id,
+    personId: mapping.person_id,
+    opportunityId: mapping.opportunity_id,
+    clientStage,
+    pendingChannel: channel,
+    statusEntry,
+  });
+
+  const nextMapping = {
+    ...mapping,
+    pending_channel: channel,
+    status_history: statusHistory,
+    client_stage: clientStage,
+  };
+
+  await refreshLeadCard(config, dbClient, nextMapping, {
+    statusHistory,
+    clientStage,
+    personId: mapping.person_id,
+    pendingChannel: channel,
+  });
+
+  if (config.crmSyncEnabled) {
+    try {
+      const synced = await ensureLeadInCrm(config, dbClient, mapping.lead_id, nextMapping);
+      await postLeadAction(config, {
+        landingLeadId: String(mapping.lead_id),
+        personId: synced.personId || mapping.person_id || null,
+        opportunityId: synced.opportunityId || mapping.opportunity_id || null,
+        action: "note",
+        note: noteForChannelAttempt(channel),
+        actorLabel: actorLabel || null,
+        clientEventId: `tg:ch:${mapping.chat_id}:${mapping.message_id}:${channel}:${Date.now()}`,
+        channel: toCrmChannel(channel),
+      });
+    } catch (error) {
+      console.error(JSON.stringify({
+        level: "warn",
+        message: "Channel attempt note failed",
+        leadId: mapping.lead_id,
+        channel,
+        error: String(error.message || error),
+      }));
+    }
+  }
+
+  return { statusHistory, channel };
+}
+
+async function setPendingAndRefresh(config, dbClient, mapping, pendingChannel) {
+  await updateTelegramLeadMessageState(dbClient, {
+    chatId: mapping.chat_id,
+    messageId: mapping.message_id,
+    personId: mapping.person_id,
+    opportunityId: mapping.opportunity_id,
+    clientStage: mapping.client_stage,
+    pendingChannel: pendingChannel === null ? undefined : pendingChannel,
+    clearPendingChannel: pendingChannel === null,
+  });
+  await refreshLeadCard(config, dbClient, {
+    ...mapping,
+    pending_channel: pendingChannel,
+  }, {
+    statusHistory: mapping.status_history,
+    clientStage: mapping.client_stage,
+    personId: mapping.person_id,
+    pendingChannel,
+  });
 }
 
 export async function handleCallbackQuery(config, dbClient, callbackQuery) {
@@ -188,6 +329,7 @@ export async function handleCallbackQuery(config, dbClient, callbackQuery) {
       person_id: null,
       opportunity_id: null,
       client_stage: "WAITLIST",
+      pending_channel: null,
       lead_snapshot: null,
       status_history: [],
     };
@@ -206,10 +348,10 @@ export async function handleCallbackQuery(config, dbClient, callbackQuery) {
       deepLink,
       statusHistory: mapping.status_history,
     });
-    const contactOpts = { contact: snapshot.contact };
+    const opts = keyboardOpts(mapping);
     const replyMarkup = data.kind === "lost_menu"
-      ? keyboardLostReasons(mapping.lead_id, contactOpts)
-      : keyboardForStage(mapping.lead_id, mapping.client_stage, contactOpts);
+      ? keyboardLostReasons(mapping.lead_id, opts)
+      : keyboardForStage(mapping.lead_id, mapping.client_stage, opts);
     await editTelegramMessage(config, {
       chatId,
       messageId,
@@ -224,25 +366,131 @@ export async function handleCallbackQuery(config, dbClient, callbackQuery) {
     return { handled: true, reason: data.kind };
   }
 
+  if (data.kind === "channel") {
+    if (!CONTACT_CHANNELS[data.channel]) {
+      await answerCallbackQuery(config, callbackQuery.id, "Неизвестный канал");
+      return { handled: true, reason: "bad_channel" };
+    }
+    await applyChannelPick(config, dbClient, mapping, {
+      channel: data.channel,
+      actorLabel: manager.label,
+    });
+    await answerCallbackQuery(
+      config,
+      callbackQuery.id,
+      statusLabelForChannelPick(data.channel),
+    );
+    return { handled: true, reason: "channel_ok", channel: data.channel };
+  }
+
+  if (data.kind === "channel_menu" || data.kind === "write_again") {
+    const nextPending = isContactedStage(mapping.client_stage)
+      ? PICK_CHANNEL_SENTINEL
+      : null;
+    await setPendingAndRefresh(config, dbClient, mapping, nextPending);
+    await answerCallbackQuery(config, callbackQuery.id, "Выберите канал");
+    return { handled: true, reason: data.kind };
+  }
+
+  if (data.kind === "outcome") {
+    if (!config.crmSyncEnabled) {
+      await answerCallbackQuery(config, callbackQuery.id, "CRM sync выключен");
+      return { handled: true, reason: "crm_disabled" };
+    }
+    const channel = mapping.pending_channel;
+    if (!channel || !CONTACT_CHANNELS[channel]) {
+      await answerCallbackQuery(config, callbackQuery.id, "Сначала выберите канал");
+      return { handled: true, reason: "no_channel" };
+    }
+
+    const outcome = data.outcome;
+    const clientEventId = `tg:cb:${callbackQuery.id}`;
+    const note = noteForOutcome(outcome, channel);
+    const label = statusLabelForOutcome(outcome, channel);
+
+    try {
+      if (outcome === "no_answer") {
+        await applyLeadAction(config, dbClient, mapping, {
+          action: "no_answer",
+          note,
+          lostReason: null,
+          actorLabel: manager.label,
+          clientEventId,
+          actionLabel: label,
+          channel,
+          clearPendingChannel: true,
+        });
+      } else if (outcome === "thinking") {
+        await applyLeadAction(config, dbClient, mapping, {
+          action: "contacted",
+          note,
+          lostReason: null,
+          actorLabel: manager.label,
+          clientEventId,
+          actionLabel: label,
+          channel,
+          nextActionAt: hoursFromNowIso(48),
+          clearPendingChannel: true,
+        });
+      } else {
+        await applyLeadAction(config, dbClient, mapping, {
+          action: "contacted",
+          note,
+          lostReason: null,
+          actorLabel: manager.label,
+          clientEventId,
+          actionLabel: label,
+          channel,
+          clearPendingChannel: true,
+        });
+      }
+      await answerCallbackQuery(config, callbackQuery.id, label);
+      return { handled: true, reason: "outcome_ok", outcome };
+    } catch (error) {
+      await answerCallbackQuery(
+        config,
+        callbackQuery.id,
+        `Ошибка: ${String(error.message).slice(0, 150)}`,
+      );
+      throw error;
+    }
+  }
+
   if (!config.crmSyncEnabled) {
     await answerCallbackQuery(config, callbackQuery.id, "CRM sync выключен");
     return { handled: true, reason: "crm_disabled" };
   }
 
+  if (data.kind !== "action" || !data.action) {
+    await answerCallbackQuery(config, callbackQuery.id, "Некорректная кнопка");
+    return { handled: true, reason: "bad_callback" };
+  }
+
   try {
     const clientEventId = `tg:cb:${callbackQuery.id}`;
+    let action = data.action;
+    let note = null;
+    let actionLabel = ACTION_LABELS[action] || action;
+
+    if (action === "intro_agreed") {
+      action = "intro_offered";
+      note = "Согласилась на intro.";
+      actionLabel = ACTION_LABELS.intro_agreed;
+    } else if (action === "intro_offered") {
+      note = "Предложила intro.";
+      actionLabel = ACTION_LABELS.intro_offered;
+    }
+
     await applyLeadAction(config, dbClient, mapping, {
-      action: data.action,
-      note: null,
+      action,
+      note,
       lostReason: data.lostReason,
       actorLabel: manager.label,
       clientEventId,
+      actionLabel,
+      clearPendingChannel: true,
     });
-    await answerCallbackQuery(
-      config,
-      callbackQuery.id,
-      ACTION_LABELS[data.action] || "OK",
-    );
+    await answerCallbackQuery(config, callbackQuery.id, actionLabel);
     return { handled: true, reason: "action_ok", action: data.action };
   } catch (error) {
     await answerCallbackQuery(
@@ -288,12 +536,15 @@ export async function handleReplyMessage(config, dbClient, message) {
   if (!intent) return { handled: true, reason: "empty" };
 
   const clientEventId = `tg:msg:${message.chat.id}:${message.message_id}`;
+  const thinking = /думает|ушла думать|пока подума/.test(text.toLowerCase());
   await applyLeadAction(config, dbClient, mapping, {
     action: intent.action,
     note: intent.note,
     lostReason: intent.lostReason || null,
     actorLabel: manager.label,
     clientEventId,
+    nextActionAt: thinking && intent.action === "contacted" ? hoursFromNowIso(48) : null,
+    clearPendingChannel: true,
   });
 
   return { handled: true, reason: "reply_ok", action: intent.action };

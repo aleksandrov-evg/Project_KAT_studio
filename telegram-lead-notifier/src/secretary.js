@@ -67,8 +67,11 @@ export function parseSecretaryIntent(text) {
   if (/записал.*intro|intro записан|бронь intro|записана на/.test(lower)) {
     return { action: "intro_booked", note: raw };
   }
-  if (/предложил.*intro|intro предложен|предложила intro/.test(lower)) {
+  if (/согласил.*intro|предложил.*intro|intro предложен|предложила intro/.test(lower)) {
     return { action: "intro_offered", note: raw };
+  }
+  if (/думает|ушла думать|пока подума/.test(lower)) {
+    return { action: "contacted", note: raw };
   }
   if (
     /дозвонил|связал|контакт состоял|поговорил|пообщал|переписк|ответил[аи]? в (мессенджер|телеграм|whatsapp|вотсап|почт)|написала? ответ|по почте/.test(

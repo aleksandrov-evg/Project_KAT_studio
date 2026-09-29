@@ -112,8 +112,17 @@ export function formatLeadMessage(lead, { deepLink = null, statusHistory = null 
   return lines.filter((value) => value !== null).join("\n");
 }
 
-export function formatStatusLine({ actionLabel, actorLabel, clientStage, lostReason }) {
+export function formatStatusLine({
+  actionLabel,
+  actorLabel,
+  clientStage,
+  lostReason,
+  channelLabel: channel,
+}) {
   const parts = [actionLabel];
+  if (channel && !String(actionLabel || "").includes(channel)) {
+    parts.push(`[${channel}]`);
+  }
   if (lostReason) parts.push(`(${lostReason})`);
   if (clientStage) parts.push(`→ ${clientStage}`);
   if (actorLabel) parts.push(`· ${actorLabel}`);
