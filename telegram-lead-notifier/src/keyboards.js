@@ -1,5 +1,7 @@
 /** Inline keyboards and callback_data helpers (Telegram limit 64 bytes). */
 
+import { buildMessengerLinks } from "./message.js";
+
 export const LOST_REASON_LABELS = {
   NO_RESPONSE: "Нет ответа",
   NO_SUITABLE_TIME: "Нет времени",
@@ -59,16 +61,33 @@ function btn(text, callbackData) {
   return { text, callback_data: callbackData };
 }
 
-export function keyboardForStage(leadId, clientStage = "WAITLIST") {
+/** URL-кнопки «открыть чат с клиентом» (Telegram / WhatsApp). MAX — без публичной схемы. */
+export function messengerUrlRow(contact) {
+  const links = buildMessengerLinks(contact);
+  if (!links) return null;
+  return [
+    { text: "Telegram", url: links.telegram },
+    { text: "WhatsApp", url: links.whatsapp },
+  ];
+}
+
+function withMessengerRow(keyboard, contact) {
+  const row = messengerUrlRow(contact);
+  if (!row) return keyboard;
+  return {
+    inline_keyboard: [row, ...(keyboard.inline_keyboard || [])],
+  };
+}
+
+export function keyboardForStage(leadId, clientStage = "WAITLIST", { contact = null } = {}) {
   const id = String(leadId);
   const stage = clientStage || "WAITLIST";
 
+  let keyboard;
   if (stage === "FIRST_PURCHASE" || stage === "LOST") {
-    return { inline_keyboard: [] };
-  }
-
-  if (stage === "INTRO_ATTENDED") {
-    return {
+    keyboard = { inline_keyboard: [] };
+  } else if (stage === "INTRO_ATTENDED") {
+    keyboard = {
       inline_keyboard: [
         [
           btn("Купила пакет", encodeCallback("first_purchase", id)),
@@ -76,10 +95,8 @@ export function keyboardForStage(leadId, clientStage = "WAITLIST") {
         ],
       ],
     };
-  }
-
-  if (stage === "INTRO_BOOKED") {
-    return {
+  } else if (stage === "INTRO_BOOKED") {
+    keyboard = {
       inline_keyboard: [
         [
           btn("Посетила intro", encodeCallback("intro_attended", id)),
@@ -88,10 +105,8 @@ export function keyboardForStage(leadId, clientStage = "WAITLIST") {
         [btn("Потерян", `lostmenu:${id}`)],
       ],
     };
-  }
-
-  if (stage === "INTRO_OFFERED") {
-    return {
+  } else if (stage === "INTRO_OFFERED") {
+    keyboard = {
       inline_keyboard: [
         [
           btn("Записала intro", encodeCallback("intro_booked", id)),
@@ -99,10 +114,8 @@ export function keyboardForStage(leadId, clientStage = "WAITLIST") {
         ],
       ],
     };
-  }
-
-  if (stage === "CONTACTED") {
-    return {
+  } else if (stage === "CONTACTED") {
+    keyboard = {
       inline_keyboard: [
         [
           btn("Предложила intro", encodeCallback("intro_offered", id)),
@@ -111,25 +124,27 @@ export function keyboardForStage(leadId, clientStage = "WAITLIST") {
         [btn("Потерян", `lostmenu:${id}`)],
       ],
     };
+  } else {
+    // WAITLIST / NEW_LEAD / unknown
+    keyboard = {
+      inline_keyboard: [
+        [
+          btn("Пообщались", encodeCallback("contacted", id)),
+          btn("Нет ответа", encodeCallback("no_answer", id)),
+        ],
+        [
+          btn("Написать снова", encodeCallback("no_answer", id)),
+          btn("Предложила intro", encodeCallback("intro_offered", id)),
+        ],
+        [btn("Потерян", `lostmenu:${id}`)],
+      ],
+    };
   }
 
-  // WAITLIST / NEW_LEAD / unknown
-  return {
-    inline_keyboard: [
-      [
-        btn("Пообщались", encodeCallback("contacted", id)),
-        btn("Нет ответа", encodeCallback("no_answer", id)),
-      ],
-      [
-        btn("Написать снова", encodeCallback("no_answer", id)),
-        btn("Предложила intro", encodeCallback("intro_offered", id)),
-      ],
-      [btn("Потерян", `lostmenu:${id}`)],
-    ],
-  };
+  return withMessengerRow(keyboard, contact);
 }
 
-export function keyboardLostReasons(leadId) {
+export function keyboardLostReasons(leadId, { contact = null } = {}) {
   const id = String(leadId);
   const rows = [];
   for (let i = 0; i < LOST_REASONS.length; i += 2) {
@@ -139,7 +154,7 @@ export function keyboardLostReasons(leadId) {
     rows.push(chunk);
   }
   rows.push([btn("← Назад", `back:${id}`)]);
-  return { inline_keyboard: rows };
+  return withMessengerRow({ inline_keyboard: rows }, contact);
 }
 
 export const ACTION_LABELS = {

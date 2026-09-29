@@ -77,7 +77,9 @@ async function refreshLeadCard(config, dbClient, mapping, {
   };
   const deepLink = personDeepLink(config, personId || mapping.person_id);
   const text = formatLeadMessage(snapshot, { deepLink, statusLine });
-  const replyMarkup = keyboardForStage(mapping.lead_id, clientStage);
+  const replyMarkup = keyboardForStage(mapping.lead_id, clientStage, {
+    contact: snapshot.contact,
+  });
   await editTelegramMessage(config, {
     chatId: mapping.chat_id,
     messageId: mapping.message_id,
@@ -177,16 +179,18 @@ export async function handleCallbackQuery(config, dbClient, callbackQuery) {
 
   if (data.kind === "lost_menu" || data.kind === "back") {
     const deepLink = personDeepLink(config, mapping.person_id);
-    const text = formatLeadMessage(mapping.lead_snapshot || {
+    const snapshot = mapping.lead_snapshot || {
       id: mapping.lead_id,
       name: `Заявка #${mapping.lead_id}`,
       contact: "",
       interests: [],
       created_at: new Date().toISOString(),
-    }, { deepLink });
+    };
+    const text = formatLeadMessage(snapshot, { deepLink });
+    const contactOpts = { contact: snapshot.contact };
     const replyMarkup = data.kind === "lost_menu"
-      ? keyboardLostReasons(mapping.lead_id)
-      : keyboardForStage(mapping.lead_id, mapping.client_stage);
+      ? keyboardLostReasons(mapping.lead_id, contactOpts)
+      : keyboardForStage(mapping.lead_id, mapping.client_stage, contactOpts);
     await editTelegramMessage(config, {
       chatId,
       messageId,

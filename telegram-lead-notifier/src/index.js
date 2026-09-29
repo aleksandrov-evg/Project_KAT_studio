@@ -166,7 +166,9 @@ async function notifyPendingLeadsToTelegram() {
       const crmIds = await getCrmIdsForLead(client, lead.id);
       const deepLink = personDeepLink(config, crmIds?.person_id);
       const text = formatLeadMessage(lead, { deepLink });
-      const replyMarkup = keyboardForStage(lead.id, "WAITLIST");
+      const replyMarkup = keyboardForStage(lead.id, "WAITLIST", {
+        contact: lead.contact,
+      });
       const sent = await sendTelegramMessage(config, text, { replyMarkup });
       await saveTelegramLeadMessage(client, {
         chatId: sent.chat.id,

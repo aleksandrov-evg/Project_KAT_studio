@@ -8,10 +8,23 @@ import {
 } from "../src/keyboards.js";
 import { parseSecretaryIntent } from "../src/secretary.js";
 import { parseManagerWhitelist, resolveManager } from "../src/managers.js";
-import { escapeHtml, formatLeadMessage, formatStatusLine } from "../src/message.js";
+import {
+  buildMessengerLinks,
+  escapeHtml,
+  formatLeadMessage,
+  formatStatusLine,
+} from "../src/message.js";
 
 test("escapeHtml protects Telegram HTML", () => {
   assert.equal(escapeHtml('<Kate & "Co">'), "&lt;Kate &amp; &quot;Co&quot;&gt;");
+});
+
+test("buildMessengerLinks builds Telegram and WhatsApp deep links", () => {
+  const links = buildMessengerLinks("+7 900 000-00-00");
+  assert.equal(links.telegram, "https://t.me/+79000000000");
+  assert.equal(links.whatsapp, "https://wa.me/79000000000");
+  assert.equal(links.max, null);
+  assert.equal(buildMessengerLinks("anna@example.com"), null);
 });
 
 test("formatLeadMessage includes useful lead data and deep link", () => {
@@ -32,6 +45,9 @@ test("formatLeadMessage includes useful lead data and deep link", () => {
   assert.match(message, /ID заявки:<\/b> 42/);
   assert.match(message, /Открыть в CRM/);
   assert.match(message, /Связались/);
+  assert.match(message, /t\.me\/\+79000000000/);
+  assert.match(message, /wa\.me\/79000000000/);
+  assert.match(message, /Написать:/);
   assert.doesNotMatch(message, /Кампания/);
 });
 
@@ -52,9 +68,12 @@ test("callback encode/parse roundtrip", () => {
 });
 
 test("keyboardForStage returns buttons for new leads", () => {
-  const kb = keyboardForStage(1, "WAITLIST");
+  const kb = keyboardForStage(1, "WAITLIST", { contact: "+79001112233" });
   assert.ok(kb.inline_keyboard.length >= 2);
-  const flat = kb.inline_keyboard.flat().map((b) => b.callback_data);
+  const urls = kb.inline_keyboard[0].map((b) => b.url);
+  assert.ok(urls.includes("https://t.me/+79001112233"));
+  assert.ok(urls.includes("https://wa.me/79001112233"));
+  const flat = kb.inline_keyboard.flat().map((b) => b.callback_data).filter(Boolean);
   assert.ok(flat.includes("contacted:1"));
   assert.ok(flat.includes("lostmenu:1"));
 });

@@ -1,3 +1,5 @@
+import { parseContact } from "./crm-mapping.js";
+
 const INTEREST_LABELS = {
   reformer: "Реформер",
   pilates: "Пилатес",
@@ -19,6 +21,34 @@ function line(label, value) {
   return `<b>${label}:</b> ${escapeHtml(value)}`;
 }
 
+/**
+ * Deep links to open a chat with the lead by phone.
+ * WhatsApp / Telegram — публичные схемы по номеру.
+ * MAX — публичного deep link «чат по номеру» нет (только поиск в приложении).
+ */
+export function buildMessengerLinks(contact) {
+  const { e164 } = parseContact(contact);
+  if (!e164) return null;
+  const digits = e164.replace(/\D/g, "");
+  return {
+    e164,
+    digits,
+    telegram: `https://t.me/+${digits}`,
+    whatsapp: `https://wa.me/${digits}`,
+    max: null,
+  };
+}
+
+function formatMessengerLinksLine(links) {
+  if (!links) return null;
+  const parts = [
+    `<a href="${escapeHtml(links.telegram)}">Telegram</a>`,
+    `<a href="${escapeHtml(links.whatsapp)}">WhatsApp</a>`,
+    "MAX — поиск по номеру в приложении",
+  ];
+  return `<b>Написать:</b> ${parts.join(" · ")}`;
+}
+
 export function formatLeadMessage(lead, { deepLink = null, statusLine = null } = {}) {
   const interests = Array.isArray(lead.interests) && lead.interests.length
     ? lead.interests.map((value) => INTEREST_LABELS[value] ?? value).join(", ")
@@ -28,12 +58,14 @@ export function formatLeadMessage(lead, { deepLink = null, statusLine = null } =
     timeStyle: "short",
     timeZone: "Europe/Moscow",
   }).format(new Date(lead.created_at));
+  const messengerLinks = buildMessengerLinks(lead.contact);
 
   const lines = [
     "🔔 <b>Новая заявка на тренировку</b>",
     "",
     line("Имя", lead.name),
     line("Контакт", lead.contact),
+    formatMessengerLinksLine(messengerLinks),
     line("Интерес", interests),
     line("Получена", `${createdAt} МСК`),
     line("Источник", lead.utm_source),
