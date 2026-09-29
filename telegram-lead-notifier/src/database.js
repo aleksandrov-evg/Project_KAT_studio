@@ -265,10 +265,28 @@ export async function updateTelegramLeadMessageState(
 
 export async function getCrmIdsForLead(client, leadId) {
   const result = await client.query(
-    `SELECT person_id, opportunity_id FROM lead_crm_state WHERE lead_id = $1 AND status = 'synced'`,
+    `SELECT person_id, opportunity_id, status, error
+     FROM lead_crm_state WHERE lead_id = $1`,
     [leadId],
   );
   return result.rows[0] ?? null;
+}
+
+export async function getLeadById(client, leadId) {
+  const result = await client.query(
+    `SELECT ${LEAD_SELECT_COLUMNS}
+     FROM leads WHERE id = $1`,
+    [leadId],
+  );
+  return result.rows[0] ?? null;
+}
+
+/** Allow WF-01 retry after a permanent_error (e.g. CRM was temporarily broken). */
+export async function clearCrmPermanentError(client, leadId) {
+  await client.query(
+    `DELETE FROM lead_crm_state WHERE lead_id = $1 AND status = 'permanent_error'`,
+    [leadId],
+  );
 }
 
 export async function getTelegramUpdateOffset(client, notifierKey) {

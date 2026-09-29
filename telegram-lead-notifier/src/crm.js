@@ -5,6 +5,7 @@ import {
   parseContact,
   toIsoDate,
 } from "./crm-mapping.js";
+import { formatHttpErrorMessage } from "./http-error.js";
 
 export class CrmPermanentError extends Error {
   constructor(message, { status } = {}) {
@@ -103,19 +104,17 @@ export async function syncLeadToCrm(config, lead, { fetchImpl = fetch } = {}) {
   }
 
   if (response.status >= 400 && response.status < 500) {
-    const message =
-      body.error ??
-      body.message ??
-      `Twenty WF-01 ${response.status}: ${response.statusText}`;
-    throw new CrmPermanentError(message, { status: response.status });
+    throw new CrmPermanentError(
+      formatHttpErrorMessage("Twenty WF-01", response, body),
+      { status: response.status },
+    );
   }
 
   if (!response.ok) {
-    const message =
-      body.error ??
-      body.message ??
-      `Twenty WF-01 ${response.status}: ${response.statusText}`;
-    throw new CrmTransientError(message, { status: response.status });
+    throw new CrmTransientError(
+      formatHttpErrorMessage("Twenty WF-01", response, body),
+      { status: response.status },
+    );
   }
 
   return {

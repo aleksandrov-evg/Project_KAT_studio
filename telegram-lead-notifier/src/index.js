@@ -125,6 +125,7 @@ async function syncPendingLeadsToCrm() {
         message: error.message,
         leadId: lead.id,
         permanent,
+        status: error.status ?? null,
         channel: "crm",
       }));
       if (permanent) {

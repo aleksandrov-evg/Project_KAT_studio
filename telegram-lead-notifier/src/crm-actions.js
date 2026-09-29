@@ -1,4 +1,5 @@
 import { CrmPermanentError, CrmTransientError } from "./crm.js";
+import { formatHttpErrorMessage } from "./http-error.js";
 
 function studioLeadActionsUrl(apiUrl) {
   const base = apiUrl.replace(/\/+$/, "");
@@ -35,13 +36,13 @@ export async function postLeadAction(config, payload, { fetchImpl = fetch } = {}
 
   if (response.status >= 400 && response.status < 500) {
     throw new CrmPermanentError(
-      body.error ?? body.message ?? `LeadAction ${response.status}`,
+      formatHttpErrorMessage("LeadAction", response, body),
       { status: response.status },
     );
   }
   if (!response.ok) {
     throw new CrmTransientError(
-      body.error ?? body.message ?? `LeadAction ${response.status}`,
+      formatHttpErrorMessage("LeadAction", response, body),
       { status: response.status },
     );
   }

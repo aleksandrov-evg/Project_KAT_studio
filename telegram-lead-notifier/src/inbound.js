@@ -1,7 +1,11 @@
+import { syncLeadToCrm } from "./crm.js";
 import { postLeadAction, personDeepLink } from "./crm-actions.js";
 import {
+  clearCrmPermanentError,
   findTelegramLeadByMessage,
   getCrmIdsForLead,
+  getLeadById,
+  markCrmSynced,
   updateTelegramLeadMessageState,
 } from "./database.js";
 import {
@@ -24,6 +28,39 @@ function stageAfterAction(action, previousStage, resultStage) {
     return previousStage || "WAITLIST";
   }
   return previousStage || "WAITLIST";
+}
+
+async function ensureLeadInCrm(config, dbClient, leadId, mapping) {
+  const existing = await getCrmIdsForLead(dbClient, leadId);
+  if (existing?.status === "synced" && existing.person_id) {
+    return {
+      personId: existing.person_id,
+      opportunityId: existing.opportunity_id,
+    };
+  }
+
+  if (existing?.status === "permanent_error") {
+    await clearCrmPermanentError(dbClient, leadId);
+  }
+
+  const lead = mapping.lead_snapshot?.id
+    ? mapping.lead_snapshot
+    : await getLeadById(dbClient, leadId);
+  if (!lead) {
+    throw Object.assign(new Error(`Lead ${leadId} not found in PostgreSQL`), {
+      permanent: true,
+    });
+  }
+
+  const result = await syncLeadToCrm(config, lead);
+  await markCrmSynced(dbClient, leadId, {
+    personId: result.personId,
+    opportunityId: result.opportunityId,
+  });
+  return {
+    personId: result.personId,
+    opportunityId: result.opportunityId,
+  };
 }
 
 async function refreshLeadCard(config, dbClient, mapping, {
@@ -56,11 +93,11 @@ async function applyLeadAction(config, dbClient, mapping, {
   actorLabel,
   clientEventId,
 }) {
-  const crmIds = await getCrmIdsForLead(dbClient, mapping.lead_id);
+  const synced = await ensureLeadInCrm(config, dbClient, mapping.lead_id, mapping);
   const payload = {
     landingLeadId: String(mapping.lead_id),
-    personId: mapping.person_id || crmIds?.person_id || null,
-    opportunityId: mapping.opportunity_id || crmIds?.opportunity_id || null,
+    personId: synced.personId || mapping.person_id || null,
+    opportunityId: synced.opportunityId || mapping.opportunity_id || null,
     action,
     note: note || null,
     lostReason: lostReason || null,
