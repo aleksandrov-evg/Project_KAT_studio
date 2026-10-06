@@ -14,7 +14,7 @@ export async function POST(request: Request) {
   const personalDataConsent = data.get("personalDataConsent") === "on";
   const marketingConsent = data.get("marketingConsent") === "on";
   const interests = data.getAll("interests").map(String);
-  const allowedInterests = new Set(["reformer", "pilates", "stretching", "personal", "undecided"]);
+  const allowedInterests = new Set(["reformer", "pilates", "stretching", "undecided"]);
   const tracking = {
     utmSource: trackingValue(data, "utm_source"),
     utmMedium: trackingValue(data, "utm_medium"),
@@ -44,14 +44,14 @@ export async function POST(request: Request) {
   });
   if (!lead.created) {
     return NextResponse.json({
-      message: "Спасибо, мы помним о вас. Вы уже в списке — обязательно напишем, когда появятся новости об открытии.",
+      message: "Спасибо, ваша заявка уже получена. Скоро свяжемся, чтобы уточнить удобное время.",
       created: false,
       duplicate: true,
     });
   }
 
   return NextResponse.json({
-    message: "Спасибо! Вы в списке — сообщим об открытии по телефону.",
+    message: "Спасибо! Заявка принята — скоро свяжемся по телефону.",
     created: true,
   });
 }
