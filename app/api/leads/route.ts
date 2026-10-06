@@ -14,7 +14,7 @@ export async function POST(request: Request) {
   const personalDataConsent = data.get("personalDataConsent") === "on";
   const marketingConsent = data.get("marketingConsent") === "on";
   const interests = data.getAll("interests").map(String);
-  const allowedInterests = new Set(["reformer", "pilates", "stretching", "personal", "undecided"]);
+  const allowedInterests = new Set(["reformer", "pilates", "stretching", "undecided"]);
   const tracking = {
     utmSource: trackingValue(data, "utm_source"),
     utmMedium: trackingValue(data, "utm_medium"),

@@ -143,17 +143,17 @@ export default function Home() {
       <a className="button button--small header__cta" href="#waitlist">Узнать об открытии</a>
     </header>
 
-    <section className="hero container" id="top">
-      <div className="hero__copy">
-        <p className="eyebrow">СКОРО ОТКРЫТИЕ</p>
-        <h1>Больше движения.<br />Ближе к себе.</h1>
-        <p className="lead">Камерная студия реформера, пилатеса и стрейчинга. Пространство, где можно замедлиться и почувствовать своё тело.</p>
-        <a className="button" href="#waitlist">Узнать об открытии <span>↗</span></a>
-        <p className="caption">Оставьте контакт — пригласим, когда всё будет готово.</p>
-      </div>
-      <div className="hero__media">
-        <Image src="/images/generated-1789461263769.png" alt="Занятие на реформере в светлой студии" width={568} height={568} priority sizes="(max-width: 1024px) 100vw, 568px" />
-        <p>ДВИЖЕНИЕ В СВОЁМ РИТМЕ</p>
+    <section className="hero hero--studio" id="top">
+      <Image className="hero__background" src="/images/studio-hero.jpg" alt="Интерьер студии с реформерами" fill priority sizes="100vw" />
+      <div className="hero__overlay" aria-hidden="true" />
+      <div className="hero__inner container">
+        <div className="hero__copy">
+          <p className="eyebrow">СКОРО ОТКРЫТИЕ</p>
+          <h1>Больше движения.<br />Ближе к себе.</h1>
+          <p className="lead">Камерная студия реформера, пилатеса и стрейчинга. Пространство, где можно замедлиться и почувствовать своё тело.</p>
+          <a className="button" href="#waitlist">Узнать об открытии <span>↗</span></a>
+          <p className="caption">Оставьте контакт — пригласим, когда всё будет готово.</p>
+        </div>
       </div>
     </section>
 
@@ -199,7 +199,7 @@ export default function Home() {
         <h2>Узнайте об открытии первыми</h2><p>Оставьте имя и номер телефона для приглашения. Выберите интересующий формат — это поможет нам подготовить стартовую сетку. Выбор не является записью на занятие.</p>
         <div className="lead-form__contacts"><label className={errors.name ? "field field--error" : "field"}>Ваше имя<input name="name" required autoComplete="name" placeholder="Как к вам обращаться" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} onChange={clearFieldError} />{errors.name && <span className="field-error" id="name-error">{errors.name}</span>}</label>
         <label className={errors.contact ? "field field--error" : "field"}>Номер телефона<input name="contact" type="tel" inputMode="tel" autoComplete="tel" required placeholder="+7 (999) 999-99-99" aria-invalid={Boolean(errors.contact)} aria-describedby={errors.contact ? "contact-error" : undefined} onChange={handlePhoneChange} />{errors.contact && <span className="field-error" id="contact-error">{errors.contact}</span>}</label></div>
-        <fieldset className="interest-field"><legend>Что вам интересно?</legend><p>Можно выбрать несколько вариантов.</p><div className="interest-field__options"><label><span>Пилатес на реформере</span><input type="checkbox" name="interests" value="reformer" /></label><label><span>Классический пилатес</span><input type="checkbox" name="interests" value="pilates" /></label><label><span>Стрейчинг</span><input type="checkbox" name="interests" value="stretching" /></label><label><span>Персональные занятия</span><input type="checkbox" name="interests" value="personal" /></label><label><span>Пока не знаю — хочу подобрать формат</span><input type="checkbox" name="interests" value="undecided" /></label></div></fieldset>
+        <fieldset className="interest-field"><legend>Что вам интересно?</legend><p>Можно выбрать несколько вариантов.</p><div className="interest-field__options"><label><span>Пилатес на реформере</span><input type="checkbox" name="interests" value="reformer" /></label><label><span>Классический пилатес</span><input type="checkbox" name="interests" value="pilates" /></label><label><span>Стрейчинг</span><input type="checkbox" name="interests" value="stretching" /></label><label><span>Пока не знаю — хочу подобрать формат</span><input type="checkbox" name="interests" value="undecided" /></label></div></fieldset>
         <label className={errors.personalDataConsent ? "consent consent--error" : "consent"}><input type="checkbox" name="personalDataConsent" required aria-invalid={Boolean(errors.personalDataConsent)} aria-describedby={errors.personalDataConsent ? "personal-data-consent-error" : undefined} onChange={clearFieldError} /><span>Даю согласие на обработку моих персональных данных и использование аналитических cookie (Яндекс.Метрика) в соответствии с <a href="/privacy-policy">Политикой обработки персональных данных</a> (в т.ч. <a href="/privacy-policy#cookies">раздел о cookie</a>).{errors.personalDataConsent && <span className="field-error" id="personal-data-consent-error">{errors.personalDataConsent}</span>}</span></label>
         <label className="consent"><input type="checkbox" name="marketingConsent" /><span>Я даю согласие ИП Александровой Екатерине Михайловне на получение информационных и рекламных уведомлений об открытии студии, занятиях, специальных условиях и предложениях по указанному номеру телефона. Это необязательно. <a href="/notification-consent">Условия согласия на уведомления</a>.</span></label>
         <button className="button" type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>
