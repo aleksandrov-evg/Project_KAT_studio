@@ -44,14 +44,14 @@ export async function POST(request: Request) {
   });
   if (!lead.created) {
     return NextResponse.json({
-      message: "Спасибо, мы помним о вас. Вы уже в списке — обязательно напишем, когда появятся новости об открытии.",
+      message: "Спасибо, ваша заявка уже получена. Скоро свяжемся, чтобы уточнить удобное время.",
       created: false,
       duplicate: true,
     });
   }
 
   return NextResponse.json({
-    message: "Спасибо! Вы в списке — сообщим об открытии по телефону.",
+    message: "Спасибо! Заявка принята — скоро свяжемся по телефону.",
     created: true,
   });
 }

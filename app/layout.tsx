@@ -17,8 +17,8 @@ const caveat = Caveat({
   display: "swap",
 });
 
-const title = "KATFIT BALANCE — скоро открытие";
-const description = "Камерная студия реформера, пилатеса и стрейчинга. Узнайте об открытии первыми.";
+const title = "KATFIT BALANCE — студия пилатеса в Королёве";
+const description = "Камерная студия реформера, пилатеса и стрейчинга. Оставьте заявку на тренировку.";
 const ogImage = "/images/generated-1789461263769.png";
 
 export const metadata: Metadata = {

@@ -136,11 +136,11 @@ export default function Home() {
       <nav id="main-navigation" className={menuOpen ? "nav nav--open" : "nav"} aria-label="Основная навигация">
         <a href="#about" onClick={closeMenu}>О студии</a>
         <a href="#directions" onClick={closeMenu}>Направления</a>
-        <a href="#opening" onClick={closeMenu}>Открытие</a>
+        <a href="#booking" onClick={closeMenu}>Запись</a>
         <a href="#location" onClick={closeMenu}>Мы рядом</a>
-        <a className="nav__cta button button--small" href="#waitlist" onClick={closeMenu}>Узнать об открытии</a>
+        <a className="nav__cta button button--small" href="#booking" onClick={closeMenu}>Записаться на тренировку</a>
       </nav>
-      <a className="button button--small header__cta" href="#waitlist">Узнать об открытии</a>
+      <a className="button button--small header__cta" href="#booking">Записаться на тренировку</a>
     </header>
 
     <section className="hero hero--studio" id="top">
@@ -148,11 +148,10 @@ export default function Home() {
       <div className="hero__overlay" aria-hidden="true" />
       <div className="hero__inner container">
         <div className="hero__copy">
-          <p className="eyebrow">СКОРО ОТКРЫТИЕ</p>
           <h1>Больше движения.<br />Ближе к себе.</h1>
           <p className="lead">Камерная студия реформера, пилатеса и стрейчинга. Пространство, где можно замедлиться и почувствовать своё тело.</p>
-          <a className="button" href="#waitlist">Узнать об открытии <span>↗</span></a>
-          <p className="caption">Оставьте контакт — пригласим, когда всё будет готово.</p>
+          <a className="button" href="#booking">Записаться на тренировку <span>↗</span></a>
+          <p className="caption">Оставьте заявку — поможем выбрать направление и удобное время.</p>
         </div>
       </div>
     </section>
@@ -193,22 +192,22 @@ export default function Home() {
       </button>
     </div></section>
 
-    <section className="opening" id="opening"><div className="container opening__inner">
-      <div className="opening__copy"><h2>Скоро встретимся</h2><p className="opening__lead">Готовим пространство<br />для ваших новых привычек.</p><p>Студия на этапе запуска. Дату открытия и подробности сообщим, когда всё будет готово.</p></div>
+    <section className="opening" id="booking"><div className="container opening__inner">
+      <div className="opening__copy"><h2>Запись на тренировку</h2><p className="opening__lead">Выберите свой<br />формат движения.</p><p>Оставьте заявку — мы свяжемся, чтобы подобрать направление и удобное время для первого занятия.</p></div>
       <form className="lead-form" id="waitlist" onSubmit={submit} noValidate>
-        <h2>Узнайте об открытии первыми</h2><p>Оставьте имя и номер телефона для приглашения. Выберите интересующий формат — это поможет нам подготовить стартовую сетку. Выбор не является записью на занятие.</p>
+        <h2>Оставьте заявку на тренировку</h2><p>Оставьте имя и номер телефона. Выберите интересующий формат — это поможет предложить подходящее занятие.</p>
         <div className="lead-form__contacts"><label className={errors.name ? "field field--error" : "field"}>Ваше имя<input name="name" required autoComplete="name" placeholder="Как к вам обращаться" aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "name-error" : undefined} onChange={clearFieldError} />{errors.name && <span className="field-error" id="name-error">{errors.name}</span>}</label>
         <label className={errors.contact ? "field field--error" : "field"}>Номер телефона<input name="contact" type="tel" inputMode="tel" autoComplete="tel" required placeholder="+7 (999) 999-99-99" aria-invalid={Boolean(errors.contact)} aria-describedby={errors.contact ? "contact-error" : undefined} onChange={handlePhoneChange} />{errors.contact && <span className="field-error" id="contact-error">{errors.contact}</span>}</label></div>
         <fieldset className="interest-field"><legend>Что вам интересно?</legend><p>Можно выбрать несколько вариантов.</p><div className="interest-field__options"><label><span>Пилатес на реформере</span><input type="checkbox" name="interests" value="reformer" /></label><label><span>Классический пилатес</span><input type="checkbox" name="interests" value="pilates" /></label><label><span>Стрейчинг</span><input type="checkbox" name="interests" value="stretching" /></label><label><span>Пока не знаю — хочу подобрать формат</span><input type="checkbox" name="interests" value="undecided" /></label></div></fieldset>
         <label className={errors.personalDataConsent ? "consent consent--error" : "consent"}><input type="checkbox" name="personalDataConsent" required aria-invalid={Boolean(errors.personalDataConsent)} aria-describedby={errors.personalDataConsent ? "personal-data-consent-error" : undefined} onChange={clearFieldError} /><span>Даю согласие на обработку моих персональных данных и использование аналитических cookie (Яндекс.Метрика) в соответствии с <a href="/privacy-policy">Политикой обработки персональных данных</a> (в т.ч. <a href="/privacy-policy#cookies">раздел о cookie</a>).{errors.personalDataConsent && <span className="field-error" id="personal-data-consent-error">{errors.personalDataConsent}</span>}</span></label>
-        <label className="consent"><input type="checkbox" name="marketingConsent" /><span>Я даю согласие ИП Александровой Екатерине Михайловне на получение информационных и рекламных уведомлений об открытии студии, занятиях, специальных условиях и предложениях по указанному номеру телефона. Это необязательно. <a href="/notification-consent">Условия согласия на уведомления</a>.</span></label>
+        <label className="consent"><input type="checkbox" name="marketingConsent" /><span>Я даю согласие ИП Александровой Екатерине Михайловне на получение информационных и рекламных уведомлений о занятиях, расписании, специальных условиях и предложениях по указанному номеру телефона. Это необязательно. <a href="/notification-consent">Условия согласия на уведомления</a>.</span></label>
         <button className="button" type="submit" disabled={isSubmitting} aria-busy={isSubmitting}>
-          {isSubmitting ? <><span className="button__spinner" aria-hidden="true" />Отправляем…</> : "Сообщить мне об открытии"}
+          {isSubmitting ? <><span className="button__spinner" aria-hidden="true" />Отправляем…</> : "Отправить заявку"}
         </button>
         {status !== "idle" && <p className={`form-status form-status--${status}`} role={status === "error" ? "alert" : "status"}>{message}</p>}
       </form>
     </div></section>
-    <footer><div className="container footer">{logo}<div><h2>Будем ближе. Скоро.</h2><p>ТЦ «Гелиос» · Проспект Космонавтов, 20а<br />338 офис · 3 этаж · Королёв<br /><a href="mailto:info@katfit.ru">info@katfit.ru</a></p></div><small>Реформер · Пилатес · Стрейчинг<br /><a href="/privacy-policy">Политика обработки персональных данных</a><CookieSettingsButton /></small></div></footer>
+    <footer><div className="container footer">{logo}<div><h2>Будем ближе. Уже сегодня.</h2><p>ТЦ «Гелиос» · Проспект Космонавтов, 20а<br />338 офис · 3 этаж · Королёв<br /><a href="mailto:info@katfit.ru">info@katfit.ru</a></p></div><small>Реформер · Пилатес · Стрейчинг<br /><a href="/privacy-policy">Политика обработки персональных данных</a><CookieSettingsButton /></small></div></footer>
     {mapsOpen && <div className="maps-dialog" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setMapsOpen(false); }}>
       <div className="maps-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="maps-dialog-title">
         <div className="maps-dialog__header"><h2 id="maps-dialog-title">Открыть маршрут</h2><button ref={mapsCloseRef} type="button" onClick={() => setMapsOpen(false)} aria-label="Закрыть выбор карт">×</button></div>
