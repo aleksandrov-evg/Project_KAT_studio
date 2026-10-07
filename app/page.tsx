@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ensureMetrikaReady, reachGoal } from "../lib/metrika";
 import { CookieSettingsButton, setCookieConsent } from "./cookie-consent";
+import { TariffsSection } from "./tariffs";
 
 type Status = "idle" | "success" | "error";
 type FieldName = "name" | "contact" | "personalDataConsent";
@@ -136,6 +137,7 @@ export default function Home() {
       <nav id="main-navigation" className={menuOpen ? "nav nav--open" : "nav"} aria-label="Основная навигация">
         <a href="#about" onClick={closeMenu}>О студии</a>
         <a href="#directions" onClick={closeMenu}>Направления</a>
+        <a href="#tariffs" onClick={closeMenu}>Тарифы</a>
         <a href="#booking" onClick={closeMenu}>Запись</a>
         <a href="#location" onClick={closeMenu}>Мы рядом</a>
         <a className="nav__cta button button--small" href="#booking" onClick={closeMenu}>Записаться на тренировку</a>
@@ -176,6 +178,8 @@ export default function Home() {
         </article>
       ))}</div>
     </div></section>
+
+    <TariffsSection />
 
     <section className="location" id="location"><div className="container location__inner">
       <div className="location__copy">
