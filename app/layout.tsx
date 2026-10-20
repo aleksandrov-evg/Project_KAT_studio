@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Caveat, Montserrat } from "next/font/google";
+import { TariffGoal } from "./tariff-goal";
 import { CookieConsent } from "./cookie-consent";
 import "./globals.css";
 
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={montserrat.className}>
         {children}
         <CookieConsent />
+        <TariffGoal />
       </body>
     </html>
   );

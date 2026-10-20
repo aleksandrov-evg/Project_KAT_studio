@@ -69,3 +69,16 @@ export function reachGoal(name: string) {
 export function hit(url: string) {
   getYm()?.(METRIKA_ID, "hit", url);
 }
+
+/** Read an existing browser counter ID without initializing analytics. */
+export function getMetrikaClientId(timeoutMs = 1500): Promise<string | null> {
+  const ym = getYm();
+  if (!ym) return Promise.resolve(null);
+  return new Promise((resolve) => {
+    const timer = window.setTimeout(() => resolve(null), timeoutMs);
+    ym(METRIKA_ID, "getClientID", (value: unknown) => {
+      window.clearTimeout(timer);
+      resolve(typeof value === "string" && /^\d{1,20}$/.test(value) ? value : null);
+    });
+  });
+}

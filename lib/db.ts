@@ -147,3 +147,32 @@ export async function checkDatabase() {
   await ensureSchema();
   await getDatabase().query("SELECT 1");
 }
+
+let measurementSchema: Promise<void> | undefined;
+function ensureMeasurementSchema() {
+  measurementSchema ??= getDatabase().query(`
+    CREATE TABLE IF NOT EXISTS metrika_deliveries (
+      id UUID PRIMARY KEY,
+      status TEXT NOT NULL DEFAULT 'pending',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `).then(() => undefined).catch((error) => {
+    measurementSchema = undefined;
+    throw error;
+  });
+  return measurementSchema;
+}
+
+export async function claimMeasurement(id: string) {
+  await ensureMeasurementSchema();
+  // Tickets expire after 10 minutes; older delivery IDs no longer need deduplication.
+  await getDatabase().query("DELETE FROM metrika_deliveries WHERE created_at < NOW() - INTERVAL '1 day'");
+  const result = await getDatabase().query(
+    "INSERT INTO metrika_deliveries (id) VALUES ($1) ON CONFLICT DO NOTHING RETURNING id", [id],
+  );
+  return result.rowCount === 1;
+}
+
+export async function finishMeasurement(id: string, sent: boolean) {
+  await getDatabase().query("UPDATE metrika_deliveries SET status = $2 WHERE id = $1", [id, sent ? "sent" : "unconfirmed"]);
+}
